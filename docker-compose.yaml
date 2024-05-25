@@ -1,6 +1,8 @@
 version: "3.8"
 services:
   nginx:
+    depends_on:
+      - frontend
     container_name: nginx_c
     build: ./nginx
     restart: always
