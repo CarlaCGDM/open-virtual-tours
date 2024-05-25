@@ -1,0 +1,17 @@
+on:
+  push:
+    branches: [main]
+    
+jobs:
+  deploy:
+    name: Deploy to Ec2 instance
+    runs-on: self-hosted
+    steps:
+      - name: Get permissions
+        run: |
+          sudo chown -R $USER:$USER /ovt-actions-runner/_work/ovt
+      - name: Download files from the current repository
+        uses: actions/checkout@v2
+      - name: TO EC2 instance
+        run: |
+          sudo docker compose up
