@@ -1,5 +1,11 @@
 version: "3.8"
 services:
+  nginx:
+    image: nginx:1-alpine
+    ports:
+      - '80:80'
+    volumes:
+      - . :usr/share/nginx/html
   frontend:
     container_name: frontend_c
     build: ./frontend
