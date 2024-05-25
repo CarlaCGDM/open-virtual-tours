@@ -3,6 +3,7 @@ services:
   nginx:
     depends_on:
       - frontend
+      - backend
     container_name: nginx_c
     build: ./nginx
     restart: always
