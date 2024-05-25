@@ -17,7 +17,7 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - . :/usr/src/app
+      - ./build :/usr/share/nginx/html
   backend:
     container_name: backend_c
     build: ./backend
