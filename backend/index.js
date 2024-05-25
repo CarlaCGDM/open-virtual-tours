@@ -3,7 +3,12 @@ const cors = require('cors')
 
 const app = express()
 
-app.use(cors())
+const corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200,
+};
+ 
+app.use(cors(corsOptions));
 
 app.get('/', (req, res) => {
   res.json([
