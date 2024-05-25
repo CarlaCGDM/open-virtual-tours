@@ -23,6 +23,6 @@ services:
     volumes:
       - ./frontend/build/:/var/www/html
       - ./frontend/nginx/default.conf:/etc/nginx/conf.d/default.conf
-    depends:on:
+    depends_on:
       - frontend
       - backend
