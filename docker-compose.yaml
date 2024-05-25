@@ -8,23 +8,17 @@ services:
     restart: always
     ports:
       - '80:80'
-    volumes:
-      - ./frontend/build:/usr/share/nginx/html
   frontend:
     container_name: frontend_c
     build: ./frontend
     restart: always
     ports:
       - '3000:3000'
-    volumes:
-      - ./build :/usr/share/nginx/html
   backend:
     container_name: backend_c
     build: ./backend
     restart: always
     ports:
       - '4000:4000'
-    volumes:
-      - . :/usr/src/app
     stdin_open: true
     tty: true
