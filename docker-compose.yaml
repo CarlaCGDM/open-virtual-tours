@@ -5,7 +5,7 @@ services:
     ports:
       - '80:80'
     volumes:
-      - . :usr/share/nginx/html
+      - ./frontend/build:/usr/share/nginx/html
   frontend:
     container_name: frontend_c
     build: ./frontend
