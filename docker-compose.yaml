@@ -1,14 +1,5 @@
 version: "3.8"
 services:
-  nginx:
-    depends_on:
-      - frontend
-      - backend
-    container_name: nginx_c
-    build: ./nginx
-    restart: always
-    ports:
-      - '80:80'
   frontend:
     container_name: frontend_c
     build: ./frontend
