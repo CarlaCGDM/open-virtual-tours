@@ -5,10 +5,14 @@ services:
     container_name: frontend_c
     ports:
       - '3000:3000'
+    volumes:
+      - . :/usr/src/app
   backend:
     build: ./backend
     container_name: backend_c
     ports:
       - '4000:4000'
+    volumes:
+      - . :/usr/src/app
     stdin_open: true
     tty: true
