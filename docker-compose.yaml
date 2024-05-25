@@ -14,15 +14,3 @@ services:
       - '4000:4000'
     stdin_open: true
     tty: true
-  nginx:
-    container_name: nginx_c
-    image: nginx:1-alpine
-    restart: always
-    ports:
-      - '8089:80'
-    volumes:
-      - ./frontend/build/:/var/www/html
-      - ./frontend/nginx/:/etc/nginx/conf.d/
-    depends_on:
-      - frontend
-      - backend
