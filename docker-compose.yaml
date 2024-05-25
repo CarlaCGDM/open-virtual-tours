@@ -5,7 +5,7 @@ services:
     ports:
       - '80:80'
     volumes:
-      - ./frontend/build:/usr/share/nginx/html
+      - ./frontend/build:/usr/share/nginx/html:Z
   frontend:
     container_name: frontend_c
     build: ./frontend
