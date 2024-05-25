@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Get permissions
         run: |
-          sudo chown -R $USER:$USER /ovt-actions-runner/_work/ovt
+          sudo chown -R $USER:$USER /ovt-actions-runner/_work/open-virtual-tours
       - name: Download files from the current repository
         uses: actions/checkout@v2
       - name: TO EC2 instance
