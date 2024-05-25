@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 
 function App() {
   const fetchData = async () => {
-    const res = await fetch("http://3.92.68.138:4000/");
+    const res = await fetch("http://3.89.89.153:4000/");
     console.log(res);
   };
 
