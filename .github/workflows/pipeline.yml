@@ -14,4 +14,4 @@ jobs:
         uses: actions/checkout@v2
       - name: TO EC2 instance
         run: |
-          sudo docker compose up
+          sudo docker compose up -d
