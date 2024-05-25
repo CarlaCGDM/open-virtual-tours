@@ -1,6 +1,7 @@
 version: "3.8"
 services:
   frontend:
+    restart: always
     build: ./frontend
     container_name: frontend_c
     ports:
@@ -8,6 +9,7 @@ services:
     volumes:
       - . :/usr/src/app
   backend:
+    restart: always
     build: ./backend
     container_name: backend_c
     ports:
