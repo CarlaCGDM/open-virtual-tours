@@ -1,11 +1,13 @@
 version: "3.8"
 services:
   nginx:
-    image: nginx:1-alpine
+    container_name: nginx_c
+    build: ./nginx
+    restart: always
     ports:
       - '80:80'
     volumes:
-      - ./frontend/build:/usr/share/nginx/html:Z
+      - ./frontend/build:/usr/share/nginx/html
   frontend:
     container_name: frontend_c
     build: ./frontend
