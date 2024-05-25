@@ -1,7 +1,9 @@
 # frontend/Dockerfile
 FROM node:18-alpine
 WORKDIR /app
-COPY package.json .
+COPY package.json package-lock.json ./
+RUN npm ci 
 RUN npm install
 COPY . .
-CMD ["npm", "run", "build"]
+RUN npm run build
+
