@@ -1,7 +1,7 @@
 FROM node:18-alpine
-WORKDIR '/app'
+WORKDIR '/app/src'
 COPY package.json .
 RUN npm install
 COPY . .
 EXPOSE 4000
-CMD ["node", "./src/index.js"]
+CMD ["node", "index.js"]
