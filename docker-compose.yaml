@@ -24,3 +24,4 @@ services:
     tty: true
 volumes:
   myvolume:
+    external: true
