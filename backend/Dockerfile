@@ -1,5 +1,6 @@
 FROM node:18-alpine
-WORKDIR '/app/src'
+WORKDIR '/app'
+RUN cd src/
 COPY package.json .
 RUN npm install
 COPY . .
