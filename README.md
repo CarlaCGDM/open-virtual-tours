@@ -13,3 +13,8 @@ Free tool for the creation of custom virtual tours using Three.js through React 
 $ sudo su
 $ cd /var/lib/docker/volumes/myvolume
 ```
+### Container bash
+```
+$ sudo docker ps
+$ sudo docker exec -it <container_id> bash
+```
