@@ -7,13 +7,13 @@ services:
     ports:
       - '80:80'
     volumes: 
-      - myvolume/html:/usr/share/nginx/html
+      - myvolume:/usr/share/nginx/html
   frontend:
     container_name: frontend_c
     build: ./frontend
     restart: always
     volumes: 
-      - myvolume/html:/app/build
+      - myvolume:/app/build
   backend:
     container_name: backend_c
     build: ./backend
