@@ -1,11 +1,19 @@
 version: "3.8"
 services:
+  nginx:
+    container_name: nginx_c
+    build: ./nginx
+    restart: always
+    ports:
+      - '80:80'
+    volumes: 
+      - myvolume/html:/usr/share/nginx/html
   frontend:
     container_name: frontend_c
     build: ./frontend
     restart: always
-    ports:
-      - '80:80'
+    volumes: 
+      - myvolume/html:/app/build
   backend:
     container_name: backend_c
     build: ./backend
@@ -14,3 +22,6 @@ services:
       - '4000:4000'
     stdin_open: true
     tty: true
+  volumes:
+    myvolume:
+      external: true
