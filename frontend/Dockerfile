@@ -1,6 +1,6 @@
 # build environment
 FROM node:lts-alpine as build
-WORKDIR /app
+WORKDIR '/app'
 COPY package*.json ./
 RUN npm install
 COPY . .
