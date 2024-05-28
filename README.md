@@ -13,7 +13,8 @@ graph TD;
     DBVolume-->MongoDB;
     MongoDB-->DockerCompose;
     DockerCompose-->GithubActionsRunner;
-    GithubActionsRunner-->AWSEC2Instance
+    GithubActionsRunner-->AWSEC2Instance;
+    ElasticIP-->AWSEC2Instance;
 ```
 ### 2.1. Check your requirements
 - Ubuntu EC2 instance with a static public IP address and at least 2GB of RAM.
