@@ -1,5 +1,21 @@
 # Open Virtual Tours
 Free tool for the creation of fully customizable 3D virtual tours using Three.js through React Three Fiber.
+
+- [Open Virtual Tours](#open-virtual-tours)
+  - [Features](#features)
+  - [Deploy to AWS](#deploy-to-aws)
+    - [Check your requirements](#check-your-requirements)
+    - [Access your terminal](#access-your-terminal)
+    - [Install Docker and Docker Compose](#install-docker-and-docker-compose)
+    - [Fork this repo](#fork-this-repo)
+    - [Fill in your data](#fill-in-your-data)
+    - [Clone your repo through Github Actions Runner](#clone-your-repo-through-github-actions-runner)
+  - [Troubleshooting](#troubleshooting)
+    - [See your volume](#see-your-volume)
+    - [Container bash](#container-bash)
+    - [View error logs](#view-error-logs)
+
+
 ## Features
 ## Deploy to AWS
 Here is a simple flow chart:
@@ -37,7 +53,7 @@ $ sudo ./svc.sh start
 ```
 ## Troubleshooting
 Everything should be up and running now. If you have any issues, you can see the data stored in your volume and the error logs of your containers through the following Docker commands.
-### 3.1. See your volume
+### See your volume
 ```bash
 $ sudo su
 $ cd /var/lib/docker/volumes/open-virtual-tours_myvolume
