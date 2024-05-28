@@ -17,7 +17,7 @@ graph TD;
     ElasticIP-->AWSEC2Instance;
 ```
 ### 2.1. Check your requirements
-- Ubuntu EC2 instance with an elastic IP address and at least 2GB of RAM.
+- Ubuntu small or higher EC2 instance with an elastic IP address.
 - SSL certificate (for testing purposes, you can generate a self-signed certificate with `openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365` on your local machine).
 ### 2.2. Access your terminal
 ### 2.3. Install Docker and Docker Compose
