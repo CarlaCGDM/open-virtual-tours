@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber'
-import TestAPICall from '../TestAPICall'
+import TestAPICall from '../TestAPICall.js'
 
 export default function Home() {
   return <>
