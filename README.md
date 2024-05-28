@@ -6,7 +6,7 @@ You can quickly get your own version of the web tour running by following these 
 ### 2.1. Requirements
 - VPS machine with a static public IP address, access to the terminal, and at least 2GB of RAM.
 - SSL certificate (for testing purposes, you can generate a self-signed certificate with `openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365` on your local machine).
-- Public DNS address pointing to your public IP address (normally included free with most cloud computing platforms, though purchasing a custom domain is highly reccommended for a real use case).
+- Public DNS address pointing to your public IP address (normally included free with most cloud computing platforms).
 ### 2.2. Connect to VPS terminal
 ### 2.3. Install Docker and Docker Compose
 You will need Docker and Docker Compose to be able to run the containers that contain the application. 
