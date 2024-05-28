@@ -2,7 +2,7 @@
 Free tool for the creation of fully customizable 3D virtual tours using Three.js through React Three Fiber.
 ## 1. Features
 ## 2. Installation
-### 2.1. Requirements
+### 2.1. Check your requirements
 - Ubuntu VPS with a static public IP address, access to the terminal and at least 2GB of RAM.
 - SSL certificate (for testing purposes, you can generate a self-signed certificate with `openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365` on your local machine).
 ### 2.3. Install Docker and Docker Compose
