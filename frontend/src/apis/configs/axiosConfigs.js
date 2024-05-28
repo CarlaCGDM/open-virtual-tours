@@ -5,7 +5,7 @@ import axios from "axios"
 
 export const api = axios.create({
   withCredentials: true,
-  baseURL: "http://localhost:4000/api",
+  baseURL: process.env.REACT_APP_API_ROOT,
 })
 
 // defining a custom error handler for all APIs
