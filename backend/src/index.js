@@ -1,7 +1,8 @@
-//index.js sirve para que arranque la aplicación
-
+// This is the entry point to the application
 import app from './app.js'
 import './database.js'
 
-app.listen(4000)
-console.log("Server listening on port",4000)
+const SERVER_PORT = process.env.SERVER_PORT;
+
+app.listen(SERVER_PORT)
+console.log("Server listening on port",SERVER_PORT)

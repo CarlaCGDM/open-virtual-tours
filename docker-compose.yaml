@@ -1,5 +1,6 @@
 version: "3.8"
 services:
+
   frontend:
     container_name: frontend_c
     build: ./frontend
@@ -7,13 +8,28 @@ services:
     ports:
       - '80:80'
       - '443:443'
+
   backend:
     container_name: backend_c
     build: ./backend
     restart: always
+    env_file: .env
     ports:
-      - '4000:4000'
+      - ${SERVER_PORT}:${SERVER_PORT}
     stdin_open: true
     tty: true
+    depends_on:
+      - database
+
+  database:
+    container_name: ${DATABASE_HOST}
+    build: ./database
+    restart: always
+    env_file: .env
+    ports: 
+      - ${DATABASE_PORT}:${DATABASE_PORT}
+    volumes:
+      - database_v:/data/db
+
 volumes:
-  storage:
+  database_v:
