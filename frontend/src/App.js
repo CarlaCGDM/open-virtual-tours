@@ -1,34 +1,26 @@
-import logo from "./logo.svg";
-import "./App.css";
-import React, { useEffect } from "react";
+import React from 'react';
+import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+import Home from './components/pages/Home.js';
+import Admin from './components/pages/Admin.js';
+import Login from './components/pages/Login.js';
 
 function App() {
-  const fetchData = async () => {
-    const res = await fetch(process.env.REACT_APP_API_ROOT);
-    console.log(res);
-  };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [email, setEmail] = useState('')
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hello! Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/admin" element={<Admin email={email} loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}></Route>
+            <Route path="/login" element={<Login setLoggedIn={setLoggedIn} setEmail={setEmail} />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 

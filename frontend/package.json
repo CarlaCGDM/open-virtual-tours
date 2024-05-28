@@ -1,14 +1,20 @@
 {
-  "name": "frontend",
+  "name": "ovt-frontend",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
+  "type": "module",
   "dependencies": {
+    "@react-three/fiber": "8.15",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.6.8",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
+    "three": "^0.158.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
