@@ -15,7 +15,7 @@ On your EC2 instance, you will need to install [Docker](https://docs.docker.com/
  - Include your public IP address where needed.
  - Include the name of your organization, the name of your tour, description, etc. (React .env file).
  - Include your cert.pem and key.pem certificates (frontend/certs folder).
-### 2.5. Clone the repo on your VPS through Github Actions Runner
+### 2.5. Clone your repo through Github Actions Runner
 Go to settings -> actions -> runners and create a new runner and follow the instructions. Keep in mind you need to run each installation comand as superuser and assign 777 permissions to the runner folder before the configuration step. Finally, to make the runner persist:
 ```bash
 $ sudo ./svc.sh install
