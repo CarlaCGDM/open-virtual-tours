@@ -1,8 +1,8 @@
 import { Router } from 'express'
 const router = Router()
 
-import * as userController from '../controllers/user.controller'
-import { authJwt, verifySignup } from '../middlewares';
+import * as userController from '../controllers/user.controller.js'
+import { authJwt, verifySignup } from '../middlewares.js';
 
 router.post('/', [
     authJwt.verifyToken,

@@ -1,8 +1,8 @@
 // check if the user already exists before creating it
 // check if the roles exist before creating a user with them
 
-import {ROLES} from '../models/Role'
-import User from '../models/User'
+import {ROLES} from '../models/Role.js'
+import User from '../models/User.js'
 
 export const checkDuplicateUsernameOrEmail = async (req,res,next) => {
 

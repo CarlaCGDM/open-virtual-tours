@@ -1,8 +1,8 @@
 import { Router } from 'express'
 const router = Router()
 
-import * as exhibitController from '../controllers/exhibit.controller'
-import {authJwt} from '../middlewares/index'
+import * as exhibitController from '../controllers/exhibit.controller.js'
+import {authJwt} from '../middlewares/index.js'
 
 //router.post('/', [authJwt.verifyToken, authJwt.isEditor], exhibitController.createExhibit)
 router.post('/', exhibitController.createExhibit)

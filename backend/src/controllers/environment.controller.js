@@ -1,4 +1,4 @@
-import Environment from '../models/Environment'
+import Environment from '../models/Environment.js'
 
 export const createEnvironment = async (req,res) => 
 {

@@ -1,4 +1,4 @@
-import Setting from '../models/Globalsetting'
+import Setting from '../models/Globalsetting.js'
 
 export const createSetting = async (req,res) => 
 {

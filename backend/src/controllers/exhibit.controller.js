@@ -1,4 +1,4 @@
-import Exhibit from '../models/Exhibit'
+import Exhibit from '../models/Exhibit.js'
 
 export const createExhibit = async (req,res) => 
 {

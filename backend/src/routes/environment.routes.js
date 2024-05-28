@@ -1,8 +1,8 @@
 import { Router } from 'express'
 const router = Router()
 
-import * as environmentController from '../controllers/environment.controller'
-import {authJwt} from '../middlewares/index'
+import * as environmentController from '../controllers/environment.controller.js'
+import {authJwt} from '../middlewares/index.js'
 
 router.post('/', environmentController.createEnvironment)
 

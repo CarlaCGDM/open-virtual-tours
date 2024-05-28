@@ -5,14 +5,14 @@ import morgan from 'morgan' //middleware de express que nos muestra las peticion
 import pkg from '../package.json'
 import cors from 'cors'
 
-import {createRoles} from './libs/initialSetup'
+import {createRoles} from './libs/initialSetup.js'
 
-import productRoutes from './routes/products.routes'
-import exhibitRoutes from './routes/exhibit.routes'
-import environmentRoutes from './routes/environment.routes'
-import authRoutes from './routes/auth.routes'
-import userRoutes from './routes/user.routes'
-import uploadRoutes from './routes/upload.routes'
+import productRoutes from './routes/products.routes.js'
+import exhibitRoutes from './routes/exhibit.routes.js'
+import environmentRoutes from './routes/environment.routes.js'
+import authRoutes from './routes/auth.routes.js'
+import userRoutes from './routes/user.routes.js'
+import uploadRoutes from './routes/upload.routes.js'
 
 const app = express()
 createRoles()

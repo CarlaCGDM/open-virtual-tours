@@ -1,8 +1,8 @@
 import { Router } from 'express'
 const router = Router()
 
-import * as settingsController from '../controllers/globalsettings.controller'
-import {authJwt} from '../middlewares/index'
+import * as settingsController from '../controllers/globalsettings.controller.js'
+import {authJwt} from '../middlewares/index.js'
 
 router.post('/', [authJwt.verifyToken, authJwt.isEditor], settingsController.createSetting)
 
