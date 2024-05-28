@@ -1,36 +1,28 @@
 # Open Virtual Tours
 Free tool for the creation of custom virtual tours using Three.js through React Three Fiber.
-## Features
-## Project structure
-## Installation
-### Requirements
+## 1. Features
+## 2. Installation
+Here is how you can have your own version of the tour deployed to the web.
+### 2.1. Requirements
 - VPS machine with a static IP
-### Connect to VPS terminal
-### (Optional) Generate SSL Certificate
-1. Purchase a domain through a domain register and make sure it points to the IP of your VPS machine.
-2. Install certbot.
+- SSL certificate (for testing purposes, you can generate a self-signed certificate with `openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365`)
+### 2.2. Connect to VPS terminal
+### 2.3. Install Docker and Docker Compose
+### 2.4. Fork this repo and fill in your data
+### 2.5. Clone it through Github Actions Runner
+## 3. Access the containers
+### 3.1. See your volume
 ```
-$ sudo snap install --classic certbot
+sudo su
+cd /var/lib/docker/volumes/open-virtual-tours_myvolume
 ```
-4. Generate certificate.
+### 3.2. Container bash
 ```
-$ sudo certbot certonly --standalone
+sudo docker ps
+sudo docker exec -it <container_id> bash
 ```
-### Install Docker and Docker Compose
-### Clone repo through Github Actions Runner
-## Access the containers
-### See your volume
+### 3.3. View error logs
 ```
-$ sudo su
-$ cd /var/lib/docker/volumes/open-virtual-tours_myvolume
-```
-### Container bash
-```
-$ sudo docker ps
-$ sudo docker exec -it <container_id> bash
-```
-### View error logs
-```
-$ sudo docker ps
-$ sudo docker logs <container_id>
+sudo docker ps
+sudo docker logs <container_id>
 ```
