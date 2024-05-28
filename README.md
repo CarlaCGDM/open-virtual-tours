@@ -18,3 +18,8 @@ $ cd /var/lib/docker/volumes/myvolume
 $ sudo docker ps
 $ sudo docker exec -it <container_id> bash
 ```
+### View error logs
+```
+$ sudo docker ps
+$ sudo docker logs <container_id>
+```
