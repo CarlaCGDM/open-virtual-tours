@@ -11,7 +11,7 @@ const DATABASE_COLLECTION = process.env.DATABASE_COLLECTION;
 const SERVER_HOST = process.env.SERVER_HOST;
 const SERVER_PORT = process.env.SERVER_PORT;
 
-mongoose.connect(`mongodb+srv://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}`)
+mongoose.connect(`mongodb://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}`)
     .then(db => console.log('Db is connected'))
     .catch(error => console.log(error))
 
