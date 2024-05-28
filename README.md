@@ -11,7 +11,7 @@ Free tool for the creation of custom virtual tours using Three.js through React 
 ### See your volume
 ```
 $ sudo su
-$ cd /var/lib/docker/volumes/myvolume
+$ cd /var/lib/docker/volumes/open-virtual-tours_myvolume
 ```
 ### Container bash
 ```
