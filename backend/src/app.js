@@ -2,7 +2,7 @@
 
 import express from 'express'
 import morgan from 'morgan' //middleware de express que nos muestra las peticiones que llegan a nuestro navegador
-import pkg from '../package.json'
+import pkg from '../package.json' with { type: "json" };
 import cors from 'cors'
 
 import {createRoles} from './libs/initialSetup.js'
