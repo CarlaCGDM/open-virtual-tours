@@ -2,6 +2,19 @@
 Free tool for the creation of fully customizable 3D virtual tours using Three.js through React Three Fiber.
 ## 1. Features
 ## 2. Deploy to AWS
+Here is a simple flow chart:
+
+```mermaid
+graph TD;
+    ReactApp-->NginxServer;
+    SSLCertificate-->NginxServer;
+    NginxServer-->DockerCompose;
+    NodeJSServer-->DockerCompose;
+    DBVolume-->MongoDB;
+    MongoDB-->DockerCompose;
+    DockerCompose-->GithubActionsRunner;
+    GithubActionsRunner-->AWSEC2Instance
+```
 ### 2.1. Check your requirements
 - Ubuntu EC2 instance with a static public IP address and at least 2GB of RAM.
 - SSL certificate (for testing purposes, you can generate a self-signed certificate with `openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365` on your local machine).
