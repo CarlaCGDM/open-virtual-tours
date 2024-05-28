@@ -5,9 +5,9 @@ Free tool for the creation of fully customizable 3D virtual tours using Three.js
 ### 2.1. Check your requirements
 - Ubuntu EC2 instance with a static public IP address and at least 2GB of RAM.
 - SSL certificate (for testing purposes, you can generate a self-signed certificate with `openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365` on your local machine).
+### 2.2. Access your EC2 instance terminal
 ### 2.3. Install Docker and Docker Compose
-In your VPS machine, you will need to install [Docker](https://docs.docker.com/engine/install/ubuntu/) and [Docker Compose](https://docs.docker.com/compose/install/linux/#install-using-the-repository) to be able to run the containers that hold the application. Check that Docker and Docker Compose are installed correctly through `sudo docker --version` and `sudo docker compose version`.
-
+On your EC2 instance, you will need to install [Docker](https://docs.docker.com/engine/install/ubuntu/) and [Docker Compose](https://docs.docker.com/compose/install/linux/#install-using-the-repository) to be able to run the containers that hold the application. Check that Docker and Docker Compose are installed correctly through `sudo docker --version` and `sudo docker compose version`.
 ### 2.4. Fork this repo
 [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) this repository as yourself or your organization.
 ### 2.5. Fill in your data
