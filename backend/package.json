@@ -1,5 +1,5 @@
 {
-  "name": "ford-backend",
+  "name": "ovt-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,8 +10,8 @@
     "start": "node build/index.js"
   },
   "keywords": [],
-  "author": "nadina carla cardillo garreta",
-  "license": "ISC",
+  "author": "Nadina Carla Cardillo Garreta",
+  "license": "GPLv3",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.0.0",
