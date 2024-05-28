@@ -4,8 +4,6 @@ services:
     container_name: frontend_c
     build: ./frontend
     restart: always
-    ports:
-      - '80:80'
   backend:
     container_name: backend_c
     build: ./backend
