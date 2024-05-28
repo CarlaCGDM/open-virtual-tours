@@ -5,7 +5,7 @@ Free tool for the creation of custom virtual tours using Three.js through React 
 You can quickly get your own version of the web tour running by following these simple steps.
 ### 2.1. Requirements
 - VPS machine with a static public IP address, access to the terminal, and at least 2GB of RAM.
-- SSL certificate (for testing purposes, you can generate a self-signed certificate with `openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365`).
+- SSL certificate (for testing purposes, you can generate a self-signed certificate with `openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365` on your local machine).
 - Public DNS address pointing to your public IP address (normally free with most cloud computing platorm instances).
 ### 2.2. Connect to VPS terminal
 ### 2.3. Install Docker and Docker Compose
