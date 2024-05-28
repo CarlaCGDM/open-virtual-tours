@@ -9,7 +9,7 @@ Free tool for the creation of fully customizable 3D virtual tours using Three.js
 In your VPS machine, you will need to install [Docker](https://docs.docker.com/engine/install/ubuntu/) and [Docker Compose](https://docs.docker.com/compose/install/linux/#install-using-the-repository) to be able to run the containers that hold the application. Check that Docker and Docker Compose are installed correctly through `sudo docker --version` and `sudo docker compose version`.
 
 ### 2.4. Create a copy of this repo
-Fork or import a copy of the repo 
+Either [fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) or clone locally and then [import](https://docs.github.com/en/migrations/importing-source-code/using-github-importer/importing-a-repository-with-github-importer) a copy of the repo to your github account. 
 ### 2.5. Fill in your data
  - Include your public DNS address where needed.
  - Include your public IP address where needed.
