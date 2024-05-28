@@ -4,7 +4,18 @@ Free tool for the creation of custom virtual tours using Three.js through React 
 ## Project structure
 ## Installation
 ### Requirements
+- VPS machine with a static IP
 ### Connect to VPS terminal
+### (Optional) Generate SSL Certificate
+1. Purchase a domain through a domain register and make sure it points to the IP of your VPS machine.
+2. Install certbot.
+```
+$ sudo snap install --classic certbot
+```
+4. Generate certificate.
+```
+$ sudo certbot certonly --standalone
+```
 ### Install Docker and Docker Compose
 ### Clone repo through Github Actions Runner
 ## Access the containers
