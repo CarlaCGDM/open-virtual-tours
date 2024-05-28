@@ -1,4 +1,4 @@
-import { api } from "./configs/axiosConfigs"
+import { api } from "./configs/axiosConfigs.js"
 // import { defineCancelApiObject } from "./configs/axiosUtils"
 
 export const ExhibitAPI = {

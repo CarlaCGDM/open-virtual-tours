@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ExhibitAPI } from "../apis/ExhibitAPI";
+import { ExhibitAPI } from "../apis/ExhibitAPI.js";
 
 function TestAPICall() {
   const [exhibitList, setExhibitList] = useState([]);
