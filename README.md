@@ -1,9 +1,9 @@
 # Open Virtual Tours
 Free tool for the creation of fully customizable 3D virtual tours using Three.js through React Three Fiber.
 ## 1. Features
-## 2. Installation
+## 2. Deploy to AWS
 ### 2.1. Check your requirements
-- Ubuntu VPS with a static public IP address, access to the terminal and at least 2GB of RAM.
+- Ubuntu EC2 instance with a static public IP address and at least 2GB of RAM.
 - SSL certificate (for testing purposes, you can generate a self-signed certificate with `openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365` on your local machine).
 ### 2.3. Install Docker and Docker Compose
 In your VPS machine, you will need to install [Docker](https://docs.docker.com/engine/install/ubuntu/) and [Docker Compose](https://docs.docker.com/compose/install/linux/#install-using-the-repository) to be able to run the containers that hold the application. Check that Docker and Docker Compose are installed correctly through `sudo docker --version` and `sudo docker compose version`.
