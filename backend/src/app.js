@@ -22,7 +22,13 @@ app.set('pkg', pkg) //guardar el valor de esta variable
 app.use(morgan('dev'))
 app.use(express.json())
 
-app.use(cors())
+const corsOptions = {
+    origin: 'https://openvirtualtours.org',
+    credentials: true,
+    optionsSuccessStatus: 200,
+};
+ 
+app.use(cors(corsOptions));
 
 app.get('/', (req,res) => {
     res.json({
