@@ -1,5 +1,5 @@
 # Open Virtual Tours
-Free tool for the creation of custom virtual tours using Three.js through React Three Fiber.
+Free tool for the creation of fully customizable 3D virtual tours using Three.js through React Three Fiber.
 ## 1. Features
 ## 2. Installation
 You can quickly get your own version of the web tour running by following these simple steps.
