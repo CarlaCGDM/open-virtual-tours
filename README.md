@@ -16,7 +16,7 @@ In your VPS machine, you will need to install [Docker](https://docs.docker.com/e
  - Include the name of your organization, the name of your tour, description, etc. (React .env file).
  - Include your cert.pem and key.pem certificates (frontend/certs folder).
 ### 2.5. Clone the repo on your VPS through Github Actions Runner
-Go to settings -> actions -> runners and create a new runner and follow the instructions. Additionally, to make the runner persist:
+Go to settings -> actions -> runners and create a new runner and follow the instructions. Keep in mind you need to run each installation comand as superuser and assign 777 permissions to the runner folder before the configuration step. Finally, to make the runner persist:
 ```bash
 $ sudo ./svc.sh install
 $ sudo ./svc.sh start
