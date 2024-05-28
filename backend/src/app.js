@@ -23,7 +23,7 @@ app.use(morgan('dev'))
 app.use(express.json())
 
 const corsOptions = {
-    origin: '*',
+    origin: 'https://openvirtualtours.org',
     credentials: true,
     optionsSuccessStatus: 200,
 };
