@@ -1,18 +1,18 @@
 import { Router } from 'express'
 const router = Router()
 
-import * as exhibitController from '../controllers/exhibit.controller.js'
+import * as modelController from '../controllers/model.controller.js'
 import {authJwt} from '../middlewares/index.js'
 
-//router.post('/', [authJwt.verifyToken, authJwt.isEditor], exhibitController.createExhibit)
-router.post('/', exhibitController.createExhibit)
+//router.post('/', [authJwt.verifyToken, authJwt.isEditor], modelController.createModel)
+router.post('/', modelController.createModel)
 
-router.get('/', exhibitController.getExhibits)
+router.get('/', modelController.getModels)
 
-router.get('/:exhibitId', exhibitController.getExhibitById)
-router.put('/:exhibitId', exhibitController.updateExhibitById)
-router.delete('/:exhibitId', exhibitController.deleteExhibitById)
+router.get('/:modelId', modelController.getModelById)
+router.put('/:modelId', modelController.updateModelById)
+router.delete('/:modelId', modelController.deleteModelById)
 
-router.get('/ids/:exhibitIds',exhibitController.getExhibitByIds)
+router.get('/ids/:modelIds',modelController.getModelByIds)
 
 export default router

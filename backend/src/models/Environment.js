@@ -9,7 +9,7 @@ const environmentSchema = new Schema({
     author: String,
     license: String,
     modelSlots: [{
-        ref: "Exhibit",
+        ref: "Model",
         type: Schema.Types.ObjectId,
         null: true
     }],

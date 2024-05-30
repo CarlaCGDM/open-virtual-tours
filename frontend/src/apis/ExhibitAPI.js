@@ -1,10 +1,10 @@
 import { api } from "./configs/axiosConfigs.js"
 // import { defineCancelApiObject } from "./configs/axiosUtils"
 
-export const ExhibitAPI = {
+export const ModelAPI = {
 //   get: async function (id, cancel = false) {
 //     const response = await api.request({
-//       url: `/exhibits/:id`,
+//       url: `/models/:id`,
 //       method: "GET",
 //       // retrieving the signal value by using the property name
 //       signal: cancel ? cancelApiObject[this.get.name].handleRequestCancellation().signal : undefined,
@@ -15,7 +15,7 @@ export const ExhibitAPI = {
 //   },
   getAll: async function (cancel = false) {
     const response = await api.request({
-      url: "/exhibits/",
+      url: "/models/",
       method: "GET",
       // signal: cancel ? cancelApiObject[this.getAll.name].handleRequestCancellation().signal : undefined,
     })
@@ -24,7 +24,7 @@ export const ExhibitAPI = {
   },
 //   search: async function (name, cancel = false) {
 //     const response = await api.request({
-//       url: "/exhibits/search",
+//       url: "/models/search",
 //       method: "GET",
 //       params: {
 //         name: name,
@@ -32,11 +32,11 @@ export const ExhibitAPI = {
 //       signal: cancel ? cancelApiObject[this.search.name].handleRequestCancellation().signal : undefined,
 //     })
 
-//     return response.data.exhibits
+//     return response.data.models
 //   },
 //   create: async function (product, cancel = false) {
 //     await api.request({
-//       url: `/exhibits`,
+//       url: `/models`,
 //       method: "POST",
 //       data: product,
 //       signal: cancel ? cancelApiObject[this.create.name].handleRequestCancellation().signal : undefined,
@@ -44,5 +44,5 @@ export const ExhibitAPI = {
 //   },
  }
 
-// // defining the cancel API object for ExhibitAPI
-// const cancelApiObject = defineCancelApiObject(ExhibitAPI)
+// // defining the cancel API object for ModelAPI
+// const cancelApiObject = defineCancelApiObject(ModelAPI)

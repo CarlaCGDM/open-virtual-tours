@@ -2,15 +2,15 @@ import Environment from '../models/Environment.js'
 
 export const createEnvironment = async (req,res) => 
 {
-    const {name, modelURL, imgURL, pathURL, description, author, license, exhibits, panels, isUsed} = req.body
+    const {name, modelURL, imgURL, pathURL, description, author, license, models, panels, isUsed} = req.body
 
-    // exhibits and panels is a number
+    // models and panels is a number
     // we create an array of empty 
 
     const modelSlots = []
     const panelSlots = []
 
-    for (let i = 0; i < exhibits; i++) {
+    for (let i = 0; i < models; i++) {
         modelSlots.push(null) // <- Create a placeholder 3D model
         
     }

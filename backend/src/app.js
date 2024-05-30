@@ -7,8 +7,7 @@ import cors from 'cors'
 
 import {createRoles} from './libs/initialSetup.js'
 
-import productRoutes from './routes/products.routes.js'
-import exhibitRoutes from './routes/exhibit.routes.js'
+import modelRoutes from './routes/model.routes.js'
 import environmentRoutes from './routes/environment.routes.js'
 import authRoutes from './routes/auth.routes.js'
 import userRoutes from './routes/user.routes.js'
@@ -39,8 +38,7 @@ app.get('/', (req,res) => {
     })
 })
 
-app.use('/api/products',productRoutes)
-app.use('/api/exhibits',exhibitRoutes)
+app.use('/api/models',modelRoutes)
 app.use('/api/environments',environmentRoutes)
 app.use('/api/auth',authRoutes)
 app.use('/api/users',userRoutes)

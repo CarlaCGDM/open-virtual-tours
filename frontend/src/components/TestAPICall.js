@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
-import { ExhibitAPI } from "../apis/ExhibitAPI.js";
+import { ModelAPI } from "../apis/ModelAPI.js";
 
 function TestAPICall() {
-  const [exhibitList, setExhibitList] = useState([]);
+  const [modelList, setModelList] = useState([]);
 
   useEffect(() => {
-    ExhibitAPI.getAll()
+    ModelAPI.getAll()
       .then((data) => {
         console.log(data)
-        setExhibitList(data);
+        setModelList(data);
       })
   }, []);
 
   return (
     <>
         <div>Hello</div>
-        {exhibitList.length > 0 && <div>{exhibitList[0]?.name}</div>}
+        {modelList.length > 0 && <div>{modelList[0]?.name}</div>}
     </>
   );
 }
