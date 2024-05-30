@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { ModelAPI } from "../apis/ModelAPI.js";
-import { useLoader } from '@react-three/fiber'
+import { useLoader, Canvas } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+
 
 
 function TestAPICall() {
@@ -31,7 +32,6 @@ function TestAPICall() {
         {modelList.length > 0 && <div>{modelList[0]?.name}</div>}
         <Canvas>
           <Model />
-          <OrbitControls />
       </Canvas>
     </>
   );
