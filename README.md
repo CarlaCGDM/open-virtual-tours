@@ -3,6 +3,7 @@ Free tool for the creation of fully customizable 3D virtual tours using Three.js
 
 - [Open Virtual Tours](#open-virtual-tours)
   - [Features](#features)
+  - [Install locally](#install-locally)
   - [Deploy to AWS](#deploy-to-aws)
     - [Check your requirements](#check-your-requirements)
     - [Access your terminal](#access-your-terminal)
@@ -17,6 +18,11 @@ Free tool for the creation of fully customizable 3D virtual tours using Three.js
 
 
 ## Features
+## Install locally
+### Basic installation
+Clone this repo and fill in all the .env file variables with your own data. Install Docker and Docker compose and run `docker compose up --build`. 
+### CI installation
+Fork this repo and fill in your data, then clone it on your machine through a github action runner. 
 ## Deploy to AWS
 Here is a simple flow chart:
 
@@ -28,8 +34,7 @@ graph TD;
     NodeJSServer-->DockerCompose;
     DBVolume-->MongoDB;
     MongoDB-->DockerCompose;
-    DockerCompose-->GithubActionsRunner;
-    GithubActionsRunner-->AWSEC2Instance;
+    DockerCompose--> |github actions runner| AWSEC2Instance;
     ElasticIP-->AWSEC2Instance;
 ```
 ### Check your requirements
