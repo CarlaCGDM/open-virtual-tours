@@ -2,9 +2,9 @@ import { Schema, model } from 'mongoose'
 
 const modelSchema = new Schema({
     name: String,
+    description: String,
     modelURL: String,
     imgURL: String,
-    description: String,
     author: String,
     license: String
 },

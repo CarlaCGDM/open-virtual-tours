@@ -2,10 +2,9 @@ import { Schema, model } from 'mongoose'
 
 const environmentSchema = new Schema({
     name: String,
+    description: String,
     modelURL: String,
     imgURL: String,
-    pathURL: String,
-    description: String,
     author: String,
     license: String,
     modelSlots: [{
@@ -20,8 +19,7 @@ const environmentSchema = new Schema({
             type: String,
             null: true
         }
-    ],
-    isUsed: Boolean
+    ]
 },
 {timestamps: true,
 versionKey: false})

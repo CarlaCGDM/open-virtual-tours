@@ -1,7 +1,10 @@
 import { Schema, model } from 'mongoose'
 
-const globalsettingSchema = new Schema({
-    name: String,
+const Config = new Schema({
+    contactEmail: String,
+    themeURL: String,
+    tourTitle: String,
+    tourDescription: String,
     environment: {
         ref: "Environment",
         type: Schema.Types.ObjectId

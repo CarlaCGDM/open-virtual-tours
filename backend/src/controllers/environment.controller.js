@@ -2,7 +2,7 @@ import Environment from '../models/Environment.js'
 
 export const createEnvironment = async (req,res) => 
 {
-    const {name, modelURL, imgURL, pathURL, description, author, license, models, panels, isUsed} = req.body
+    const {name, modelURL, imgURL, description, author, license, modelsCount, panelsCount} = req.body
 
     // models and panels is a number
     // we create an array of empty 
@@ -10,17 +10,17 @@ export const createEnvironment = async (req,res) =>
     const modelSlots = []
     const panelSlots = []
 
-    for (let i = 0; i < models; i++) {
+    for (let i = 0; i < modelsCount; i++) {
         modelSlots.push(null) // <- Create a placeholder 3D model
         
     }
 
-    for (let i = 0; i < panels; i++) {
+    for (let i = 0; i < panelsCount; i++) {
         panelSlots.push(null) // <- Create a placeholder 3D model
         
     }
-
-    const newEnvironment = new Environment({name,modelURL,imgURL,pathURL,description,author,license, modelSlots, panelSlots, isUsed})
+t
+    const newEnvironment = new Environment({name, modelURL, imgURL, description, author, license, modelSlots, panelSlots})
 
     const environmentSaved = await newEnvironment.save()
 
@@ -33,13 +33,6 @@ export const getEnvironments = async (req,res) =>
 {
     const environments = await Environment.find()
     res.json(environments)
-}
-
-export const getSelectedEnvironment = async (req,res) => 
-{
-    
-    const environment = await Environment.findOne({isUsed:1})
-    res.status(200).json(environment)
 }
 
 export const getEnvironmentById = async (req,res) => 
@@ -59,16 +52,4 @@ export const deleteEnvironmentById = async (req,res) =>
 {
     await Environment.findByIdAndDelete(req.params.environmentId)
     res.status(204).json()
-}
-
-export const selectEnvironmentById = async (req,res) => 
-{
-    // Deselect current selected environment
-    let oldEnvironment = await Environment.findOne({isUsed:1})
-    await Environment.findByIdAndUpdate(oldEnvironment._id,{isUsed:0},{new:true})
-    
-
-    // Select new enviornment
-    const newEnvironment = await Environment.findByIdAndUpdate(req.params.environmentId,{isUsed:1},{new:true})
-    res.status(200).json(newEnvironment)
 }
