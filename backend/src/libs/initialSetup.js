@@ -130,8 +130,8 @@ export const createUsers = async () => {
 
         if (count > 0) return
 
-        const editorRole = Role.findOne({name: 'editor'})
-        const adminRole = Role.findOne({name: 'admin'})
+        const editorRole = await Role.findOne({name: 'editor'})
+        const adminRole = await Role.findOne({name: 'admin'})
         const encryptedPassword = await User.encryptPassword('password')
 
         const values = await Promise.all([

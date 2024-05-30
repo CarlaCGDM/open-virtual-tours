@@ -12,7 +12,7 @@ import { authJwt, verifySignup } from '../middlewares/index.js';
 
 router.get('/', userController.getUsers)
 router.get('/:userId', userController.getUsersById)
-router.get('/:userId', userController.updateUsertById)
-router.get('/:userId', userController.deleteUserById)
+router.put('/:userId', userController.updateUsertById)
+router.delete('/:userId', userController.deleteUserById)
 
 export default router
