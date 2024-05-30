@@ -19,7 +19,10 @@ Free tool for the creation of fully customizable 3D virtual tours using Three.js
 
 ## Features
 ## Install locally
+### Basic installation
 Clone this repo and fill in all the .env file variables with your own data. Install Docker and Docker compose and run `docker compose up --build`. 
+### CI installation
+Fork this repo and fill in your data, then clone it on your machine through a github action runner. 
 ## Deploy to AWS
 Here is a simple flow chart:
 
