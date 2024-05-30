@@ -4,8 +4,8 @@ const router = Router()
 import * as configController from '../controllers/config.controller.js'
 import {authJwt} from '../middlewares/index.js'
 
-router.get('/', settingsController.getSettings)
+router.get('/', configController.getConfig)
 
-router.put('/:settingId', [authJwt.verifyToken, authJwt.isEditor], settingsController.updateSettingById)
+router.put('/:configId', [authJwt.verifyToken, authJwt.isEditor], configController.updateConfig)
 
 export default router
