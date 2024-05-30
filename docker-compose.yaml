@@ -30,6 +30,8 @@ services:
       - ${DATABASE_PORT}:${DATABASE_PORT}
     volumes:
       - database_v:/data/db
+      - configdatabase_v:/data/configdb
 
 volumes:
   database_v:
+  configdatabase_v:
