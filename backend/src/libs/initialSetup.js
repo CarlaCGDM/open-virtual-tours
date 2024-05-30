@@ -83,7 +83,7 @@ export const createConfig = async () => {
                 themeURL: '',
                 tourTitle: 'Open Virtual Tours',
                 tourDescription: 'Welcome to Open Virtual Tours. Follow the instructions to generate and deploy your own version of this tour.',
-                selectedEnvironment: demoEnvironment
+                selectedEnvironment: demoEnvironment._id
             }).save()
         ])
 
