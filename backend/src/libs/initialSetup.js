@@ -35,6 +35,31 @@ export const createModels = async () => {
 
 // Create demo panels
 
+export const createPanels = async () => {
+    try {
+
+        const count = await Panel.estimatedDocumentCount()
+
+        if (count > 0) return
+
+        const values = await Promise.all([
+            new Panel({
+                name: 'Example panel',
+                imgURL: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Example_image.svg/600px-Example_image.svg.png',
+                description: 'Demo panel for testing purposes.',
+                author: 'Open Virtual Tours',
+                license: 'CC Attribution'
+            }).save()
+        ])
+
+        console.log(values)
+
+    } catch (error) {
+
+        console.log(error)
+    }
+}
+
 // Create demo 3D environments
 
 export const createEnvironments = async () => {

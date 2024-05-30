@@ -5,22 +5,24 @@ import morgan from 'morgan' //middleware de express que nos muestra las peticion
 import pkg from '../package.json' with { type: "json" };
 import cors from 'cors'
 
-import {createModels,createEnvironments,createConfig,createRoles,createUsers} from './libs/initialSetup.js'
+import * as initDB from './libs/initialSetup.js'
 
 import modelRoutes from './routes/model.routes.js'
+import panelRoutes from './routes/panel.routes.js'
 import environmentRoutes from './routes/environment.routes.js'
 import authRoutes from './routes/auth.routes.js'
 import configRoutes from './routes/config.routes.js'
 import userRoutes from './routes/user.routes.js'
 import uploadRoutes from './routes/upload.routes.js'
 
-const app = express()
+initDB.createModels()
+initDB.createPanels()
+initDB.createEnvironments()
+initDB.createConfig()
+initDB.createRoles()
+initDB.createUsers()
 
-createModels()
-createEnvironments()
-createConfig()
-createRoles()
-createUsers()
+const app = express()
 
 app.set('pkg', pkg) //guardar el valor de esta variable
 
@@ -45,6 +47,7 @@ app.get('/', (req,res) => {
 })
 
 app.use('/api/models',modelRoutes)
+app.use('/api/panels',panelRoutes)
 app.use('/api/environments',environmentRoutes)
 app.use('/api/auth',authRoutes)
 app.use('/api/config',configRoutes)
