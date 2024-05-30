@@ -20,6 +20,8 @@ services:
     tty: true
     depends_on:
       - database
+    volumes:
+      - storage_v:/app/storage
 
   database:
     container_name: ${DATABASE_HOST}
@@ -35,3 +37,4 @@ services:
 volumes:
   database_v:
   configdatabase_v:
+  storage_v:

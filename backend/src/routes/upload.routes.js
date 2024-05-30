@@ -1,10 +1,25 @@
 import { Router } from 'express'
-const router = Router()
-
 import multer from 'multer'
 
-const storage = multer.memoryStorage()
-const upload = multer({storage})
+const router = Router()
+
+// const upload = multer({
+//     dest: 'public/uploads/models',
+// //destination folder is automatically created if it's not available
+//     limits: {
+//         fileSize: 5000000 // 5mb
+//     },
+//     fileFilter: (req, file, callback) => {
+//         console.log(file);
+//         if (!file.originalname.match(/\.(png|jpeg|jpg)$/)) {
+//             return callback(new Error('Please upload a Picture(PNG or JPEG)'))
+//         }
+//         callback(undefined, true);
+//     }
+
+// })
+
+
 
 router.post('/upload', upload.single('file'), async (req, res) => {
     try {

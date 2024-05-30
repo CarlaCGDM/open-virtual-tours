@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose'
+import mongoose, { Document, Schema, model } from 'mongoose'
 
 const panelSchema = new Schema({
     name: String,
