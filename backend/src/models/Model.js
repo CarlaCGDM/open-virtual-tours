@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose'
 
-const ModelSchema = new Schema({
+const modelSchema = new Schema({
     name: String,
     modelURL: String,
     imgURL: String,
@@ -11,4 +11,4 @@ const ModelSchema = new Schema({
 {timestamps: true,
 versionKey: false})
 
-export default model('Model', ModelSchema)
+export default model('Model', modelSchema)

@@ -1,18 +1,18 @@
 import { Router } from 'express'
 const router = Router()
 
-import * as ModelController from '../controllers/Model.controller.js'
+import * as modelController from '../controllers/model.controller.js'
 import {authJwt} from '../middlewares/index.js'
 
-//router.post('/', [authJwt.verifyToken, authJwt.isEditor], ModelController.createModel)
-router.post('/', ModelController.createModel)
+//router.post('/', [authJwt.verifyToken, authJwt.isEditor], modelController.createModel)
+router.post('/', modelController.createModel)
 
-router.get('/', ModelController.getModels)
+router.get('/', modelController.getModels)
 
-router.get('/:ModelId', ModelController.getModelById)
-router.put('/:ModelId', ModelController.updateModelById)
-router.delete('/:ModelId', ModelController.deleteModelById)
+router.get('/:modelId', modelController.getModelById)
+router.put('/:modelId', modelController.updateModelById)
+router.delete('/:modelId', modelController.deleteModelById)
 
-router.get('/ids/:ModelIds',ModelController.getModelByIds)
+router.get('/ids/:modelIds',modelController.getModelByIds)
 
 export default router

@@ -12,30 +12,30 @@ export const createModel = async (req,res) =>
 
     const newModel = new Model({name,modelURL,imgURL,description,author,license})
 
-    const ModelSaved = await newModel.save()
+    const modelSaved = await newModel.save()
 
     await newModel.save()
 
-    res.status(201).json(ModelSaved) // nuevo recurso se ha creado
+    res.status(201).json(modelSaved) // nuevo recurso se ha creado
 }
 
 export const getModels = async (req,res) => 
 {
-    const Models = await Model.find()
-    res.status(200).json(Models)
+    const models = await Model.find()
+    res.status(200).json(models)
 }
 
 export const getModelById = async (req,res) => 
 {
-        const Model = await Model.findById(req.params.ModelId)
-        res.status(200).json(Model)
+        const model = await Model.findById(req.params.modelId)
+        res.status(200).json(model)
 }
 
 export const getModelByIds = async (req,res) => 
 {
     // If we are being sent multiple Ids:
     // Split by Ids:
-    const ids = req.params.ModelIds.split("&")
+    const ids = req.params.modelIds.split("&")
     console.log(ids)
 
     // Filter out the 'nulls':
@@ -44,35 +44,35 @@ export const getModelByIds = async (req,res) =>
     console.log(existing_ids)
         
     // Obtain list of elements:
-    const unique_Models = await Model.find({ '_id': { $in: existing_ids } });
-    //console.log(unique_Models)
+    const unique_models = await Model.find({ '_id': { $in: existing_ids } });
+    //console.log(unique_models)
 
     // Recreate list of elements including the repeats:
 
     const buffer = {}
-    unique_Models.forEach(o => buffer[o._id] = o)
-    const Models = ids.map(id => buffer[id] ? buffer [id] : null)
+    unique_models.forEach(o => buffer[o._id] = o)
+    const models = ids.map(id => buffer[id] ? buffer [id] : null)
 
     // Recreate list of elements including the nulls:
     
 
 
-    console.log(Models)
+    console.log(models)
 
-    res.status(200).json(Models)
+    res.status(200).json(models)
 }
 
 export const updateModelById = async (req,res) => 
 {
     // we use this same method to update a single element in the model slots list
     // 
-    const updatedModel = await Model.findByIdAndUpdate(req.params.ModelId,req.body,{new:true})
+    const updatedModel = await Model.findByIdAndUpdate(req.params.modelId,req.body,{new:true})
     res.status(200).json(updatedModel)
 
 }
 
 export const deleteModelById = async (req,res) => 
 {
-    const deletedModel = await Model.findByIdAndDelete(req.params.ModelId)
+    const deletedModel = await Model.findByIdAndDelete(req.params.modelId)
     res.status(204).json(deletedModel)
 }
