@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose'
 
-const Config = new Schema({
+const configSchema = new Schema({
     contactEmail: String,
     themeURL: String,
     tourTitle: String,
