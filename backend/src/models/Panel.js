@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose'
 
-const modelSchema = new Schema({
+const panelSchema = new Schema({
     name: String,
     description: String,
     imgURL: String,
