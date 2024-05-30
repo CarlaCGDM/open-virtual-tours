@@ -9,7 +9,6 @@ router.post('/', environmentController.createEnvironment)
 router.get('/', environmentController.getEnvironments)
 
 router.get('/selected', environmentController.getSelectedEnvironment)
-router.put('/select/:environmentId',environmentController.selectEnvironmentById)
 
 router.get('/:environmentId', environmentController.getEnvironmentById)
 router.put('/:environmentId', environmentController.updateEnvironmentById)
