@@ -5,7 +5,7 @@ import morgan from 'morgan' //middleware de express que nos muestra las peticion
 import pkg from '../package.json' with { type: "json" };
 import cors from 'cors'
 
-import {createRoles} from './libs/initialSetup.js'
+import {createModels,createEnvironments,createConfig,createRoles,createUsers} from './libs/initialSetup.js'
 
 import modelRoutes from './routes/model.routes.js'
 import environmentRoutes from './routes/environment.routes.js'
