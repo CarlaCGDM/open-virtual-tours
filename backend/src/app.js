@@ -10,10 +10,12 @@ import {createModels,createEnvironments,createConfig,createRoles,createUsers} fr
 import modelRoutes from './routes/model.routes.js'
 import environmentRoutes from './routes/environment.routes.js'
 import authRoutes from './routes/auth.routes.js'
+import configRoutes from './routes/config.routes.js'
 import userRoutes from './routes/user.routes.js'
 import uploadRoutes from './routes/upload.routes.js'
 
 const app = express()
+
 createModels()
 createEnvironments()
 createConfig()
@@ -45,6 +47,7 @@ app.get('/', (req,res) => {
 app.use('/api/models',modelRoutes)
 app.use('/api/environments',environmentRoutes)
 app.use('/api/auth',authRoutes)
+app.use('/api/config',configRoutes)
 app.use('/api/users',userRoutes)
 app.use('/api/upload',uploadRoutes) // Delete? Save for JSON file?
 
