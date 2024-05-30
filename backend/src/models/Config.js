@@ -13,4 +13,4 @@ const Config = new Schema({
 {timestamps: true,
 versionKey: false})
 
-export default model('Globalsetting', globalsettingSchema)
+export default model('Config', configSchema)
