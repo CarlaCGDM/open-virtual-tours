@@ -31,8 +31,7 @@ graph TD;
     NodeJSServer-->DockerCompose;
     DBVolume-->MongoDB;
     MongoDB-->DockerCompose;
-    DockerCompose-->GithubActionsRunner;
-    GithubActionsRunner-->AWSEC2Instance;
+    DockerCompose--> |Github actions runner| AWSEC2Instance;
     ElasticIP-->AWSEC2Instance;
 ```
 ### Check your requirements
