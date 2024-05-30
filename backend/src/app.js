@@ -14,7 +14,11 @@ import userRoutes from './routes/user.routes.js'
 import uploadRoutes from './routes/upload.routes.js'
 
 const app = express()
+createModels()
+createEnvironments()
+createConfig()
 createRoles()
+createUsers()
 
 app.set('pkg', pkg) //guardar el valor de esta variable
 
