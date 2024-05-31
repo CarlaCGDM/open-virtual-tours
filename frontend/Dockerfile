@@ -2,9 +2,9 @@
 FROM node:lts-alpine as build-stage
 WORKDIR '/app'
 COPY package*.json /app/
-RUN npm install --max-old-space-size=4096
+RUN npm install
 COPY ./ /app/
-RUN npm run build --max-old-space-size=4096
+RUN npm run build
 
 # server environment
 FROM nginx:1.15

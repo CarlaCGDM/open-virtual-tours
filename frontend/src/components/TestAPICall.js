@@ -27,7 +27,7 @@ function TestAPICall() {
         {modelList.length > 0 && <div>{modelList[0]?.name}</div>}
         <Canvas>
           <Model 
-            url={modelList[0]?.modelURL}
+            url={modelList[0]?.modelURL || "https://res.cloudinary.com/dahr27egc/image/upload/v1709658481/model_psdrba.glb"}
           />
       </Canvas>
     </>
