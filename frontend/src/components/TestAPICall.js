@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { ModelAPI } from "../apis/ModelAPI.js"
 import { Canvas } from '@react-three/fiber'
-import { useGLTF } from '@react-three/drei'
+import { useGLTF,OrbitControls } from '@react-three/drei'
 
 
 
@@ -26,6 +26,9 @@ function TestAPICall() {
         <div>Hello</div>
         {modelList.length > 0 && <div>{modelList[0]?.name}</div>}
         <Canvas>
+          <directionalLight position={[1,2,3]} intensity={4.5}/>
+          <ambientLight intensity={1.5} />
+          <OrbitControls/>
           <Model 
             url={modelList[0]?.modelURL || "https://res.cloudinary.com/dahr27egc/image/upload/v1709658481/model_psdrba.glb"}
           />
