@@ -8,6 +8,9 @@ services:
     ports:
       - '80:80'
       - '443:443'
+    logging:
+      options:
+        max-size: 50m
 
   backend:
     container_name: backend_c
@@ -22,6 +25,9 @@ services:
       - database
     volumes:
       - storage_v:/app/storage
+    logging:
+      options:
+        max-size: 50m
 
   database:
     container_name: ${DATABASE_HOST}
@@ -33,6 +39,9 @@ services:
     volumes:
       - database_v:/data/db
       - configdatabase_v:/data/configdb
+    logging:
+      options:
+        max-size: 50m
 
 volumes:
   database_v:
