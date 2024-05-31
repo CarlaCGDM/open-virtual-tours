@@ -1,22 +1,17 @@
-import { useEffect, useState } from "react";
-import { ModelAPI } from "../apis/ModelAPI.js";
-import { useLoader, Canvas } from '@react-three/fiber'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { useEffect, useState } from "react"
+import { ModelAPI } from "../apis/ModelAPI.js"
+import { Canvas } from '@react-three/fiber'
+import { useGLTF } from '@react-three/drei'
 
 
 
 function TestAPICall() {
   const [modelList, setModelList] = useState([]);
-
-  const Model = () => {
-    const gltf = useLoader(GLTFLoader, modelList[0]?.modelURL);
-    return (
-      <>
-        <primitive object={gltf.scene} scale={0.4} />
-      </>
-    );
-  };
   
+  function Model({ url }) {
+    const { scene } = useGLTF(url)
+    return <primitive object={scene} />
+  }
 
   useEffect(() => {
     ModelAPI.getAll()
@@ -31,7 +26,9 @@ function TestAPICall() {
         <div>Hello</div>
         {modelList.length > 0 && <div>{modelList[0]?.name}</div>}
         <Canvas>
-          <Model />
+          <Model 
+            url={modelList[0]?.modelURL}
+          />
       </Canvas>
     </>
   );
