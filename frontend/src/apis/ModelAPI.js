@@ -2,17 +2,18 @@ import { api } from "./configs/axiosConfigs.js"
 // import { defineCancelApiObject } from "./configs/axiosUtils"
 
 export const ModelAPI = {
-//   get: async function (id, cancel = false) {
-//     const response = await api.request({
-//       url: `/models/:id`,
-//       method: "GET",
-//       // retrieving the signal value by using the property name
-//       signal: cancel ? cancelApiObject[this.get.name].handleRequestCancellation().signal : undefined,
-//     })
 
-//     // returning the product returned by the API
-//     return response.data.product
-//   },
+  getOne: async function (id, cancel = false) {
+    const response = await api.request({
+      url: `/models/:${id}`,
+      method: "GET"
+      // signal: cancel ? cancelApiObject[this.get.name].handleRequestCancellation().signal : undefined,
+    })
+
+    // returning the product returned by the API
+    return response.data
+  },
+
   getAll: async function (cancel = false) {
     const response = await api.request({
       url: "/models/",
@@ -22,6 +23,16 @@ export const ModelAPI = {
 
     return response.data
   },
+
+  createOne: async function (model, cancel = false) {
+    await api.request({
+      url: `/models/`,
+      method: "POST",
+      data: model,
+      // signal: cancel ? cancelApiObject[this.create.name].handleRequestCancellation().signal : undefined,
+    })
+  },
+
 //   search: async function (name, cancel = false) {
 //     const response = await api.request({
 //       url: "/models/search",
@@ -33,14 +44,6 @@ export const ModelAPI = {
 //     })
 
 //     return response.data.models
-//   },
-//   create: async function (product, cancel = false) {
-//     await api.request({
-//       url: `/models`,
-//       method: "POST",
-//       data: product,
-//       signal: cancel ? cancelApiObject[this.create.name].handleRequestCancellation().signal : undefined,
-//     })
 //   },
  }
 
