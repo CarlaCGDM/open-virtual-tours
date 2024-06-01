@@ -6,7 +6,10 @@ export const FileUploadAPI = {
 uploadImage: async function (id, cancel = false) {
     const response = await api.request({
         url: `/upload/image`,
-        method: "POST"
+        method: "POST",
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
 })
         
     return response.data
@@ -15,7 +18,10 @@ uploadImage: async function (id, cancel = false) {
 uploadModel: async function (id, cancel = false) {
     const response = await api.request({
         url: `/upload/model`,
-        method: "POST"
+        method: "POST",
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
 })
     
     return response.data
@@ -24,7 +30,10 @@ uploadModel: async function (id, cancel = false) {
 uploadEnvironment: async function (id, cancel = false) {
     const response = await api.request({
         url: `/upload/environment`,
-        method: "POST"
+        method: "POST",
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
 })
     
     return response.data

@@ -59,11 +59,11 @@ export default function UploadFileForm(props) {
     const uploadImage = () => {
 
         // Take snapshot of canvas component as data URL:
-        const image = canvasRef.current.toDataURL('image/png')
+        const imageToUpload = canvasRef.current.toDataURL('image/png')
 
         // Create form data:
         const formData = new FormData()
-        formData.append("image", image)
+        formData.append("image", imageToUpload)
 
         // Send data to server and get imageURL:
         FileUploadAPI.uploadImage(formData).then((data) => {
