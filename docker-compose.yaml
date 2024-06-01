@@ -28,7 +28,7 @@ services:
     depends_on:
       - database
     volumes:
-      - storage_v:/app/public
+      - storage_v:/app/public/uploads
     logging:
       options:
         max-size: 50m
