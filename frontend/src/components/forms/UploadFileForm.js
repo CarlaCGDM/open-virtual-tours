@@ -26,6 +26,8 @@ export default function UploadFileForm(props) {
 
     // Data for the 3D model preview:
 
+    const [modelPosition,setModelPosition] = useState([0,0,0])
+    const [modelScale,setModelScale] = useState([1,1,1])
     const displayModel = useGLTF(modelURL ? modelURL : "https://res.cloudinary.com/dahr27egc/image/upload/v1706573387/hamburger_dlwxib.glb")
     const modelRef = useRef("")
     const canvasRef = useRef("")
