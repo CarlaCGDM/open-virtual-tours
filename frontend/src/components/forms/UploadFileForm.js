@@ -49,7 +49,7 @@ export default function UploadFileForm(props) {
         // Send data to server and get modelURL:
         FileUploadAPI.uploadModel(formData).then((response) => {
             console.log(response)
-            setModelURL(`/static/uploads/models/${response}`)
+            setModelURL(`/static/uploads/models/${response.data}`)
         })
 
     }
@@ -66,9 +66,9 @@ export default function UploadFileForm(props) {
         formData.append("image", imageToUpload)
 
         // Send data to server and get imageURL:
-        FileUploadAPI.uploadImage(formData).then((data) => {
-            console.log(data)
-            setModelURL(`/static/uploads/images/${data}`)
+        FileUploadAPI.uploadImage(formData).then((response) => {
+            console.log(response)
+            setImageURL(`/static/uploads/images/${response.data}`)
         })
 
     }
