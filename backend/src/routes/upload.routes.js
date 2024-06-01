@@ -40,7 +40,7 @@ const uploadImg = multer({
 });
 
 router.post('/image', uploadImg.single('image'), (req, res) => {
-    res.json({data: uploadImg.storageConfig.filename})
+    res.json({data: req.file.filename})
 })
 
 export default router
