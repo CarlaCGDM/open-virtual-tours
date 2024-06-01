@@ -74,7 +74,7 @@ export default function UploadFileForm(props) {
     }
 
     return <>
-        <input type="file" onChange={(e) => {setModelToUpload(e.target.files[0])}} />
+        <input type="file" name="model" onChange={(e) => {setModelToUpload(e.target.files[0])}} />
         <button onClick={uploadModel}>Upload 3D model</button>
         <div>
         <div>
@@ -98,6 +98,6 @@ export default function UploadFileForm(props) {
         <button onClick={() => {
             uploadImage()
             }}>Upload thumbnail image</button>
-        <img className="model-preview-image" src={imageURL}></img>
+        <img src={imageURL}></img>
     </>
 }
