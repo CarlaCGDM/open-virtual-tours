@@ -11,8 +11,10 @@ services:
     logging:
       options:
         max-size: 50m
+    depends_on:
+      - backend
     volumes:
-      - storage_v:/app/public
+      - storage_v:/usr/share/nginx/html
 
   backend:
     container_name: backend_c
