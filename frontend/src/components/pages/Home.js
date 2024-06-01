@@ -3,14 +3,14 @@ import TestAPICall from '../TestAPICall.js'
 
 export default function Home() {
   return <>
-    <div> Home page </div>
-    <div> Testing build sync again</div>
+    {/* <div> Home page </div>
+    <div> Testing build sync again</div> */}
     <TestAPICall />
-    <Canvas>
+    {/* <Canvas>
         <mesh>
           <torusKnotGeometry />
           <meshNormalMaterial />
         </mesh>
-    </Canvas>
+    </Canvas> */}
   </>
 }

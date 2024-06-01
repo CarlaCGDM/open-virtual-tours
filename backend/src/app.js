@@ -4,7 +4,6 @@ import express from 'express'
 import morgan from 'morgan' //middleware de express que nos muestra las peticiones que llegan a nuestro navegador
 import pkg from '../package.json' with { type: "json" };
 import cors from 'cors'
-import multer from 'multer'
 
 import * as initDB from './libs/initialSetup.js'
 
@@ -53,6 +52,6 @@ app.use('/api/environments',environmentRoutes)
 app.use('/api/auth',authRoutes)
 app.use('/api/config',configRoutes)
 app.use('/api/users',userRoutes)
-app.use('/api/upload',uploadRoutes) // Delete? Save for JSON file?
+app.use('/api/upload',uploadRoutes)
 
 export default app

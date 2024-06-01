@@ -23,8 +23,8 @@ function TestAPICall() {
 
   return (
     <>
-        <div>Hello</div>
-        {modelList.length > 0 && <div>{modelList[0]?.name}</div>}
+        {/* <div>Hello</div>
+        {modelList.length > 0 && <div>{modelList[0]?.name}</div>} */}
         {/* <Canvas>
           <directionalLight position={[1,2,3]} intensity={4.5}/>
           <ambientLight intensity={1.5} />
@@ -41,7 +41,7 @@ function TestAPICall() {
             url="/static/uploads/models/CubePreset01.glb"
           />
       </Canvas>
-      <img src="/static/uploads/images/ImagePreset01.png" alt="Example image 1 for testing purposes"/>
+      <img src="/static/uploads/images/ImagePreset01.png" alt="Example image 1"/>
     </>
   );
 }
