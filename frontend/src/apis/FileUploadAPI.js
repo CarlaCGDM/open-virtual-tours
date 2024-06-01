@@ -3,37 +3,40 @@ import { api } from "./configs/axiosConfigs.js"
 
 export const FileUploadAPI = {
 
-uploadImage: async function (id, cancel = false) {
+uploadImage: async function (formData, cancel = false) {
     const response = await api.request({
         url: `/upload/image`,
         method: "POST",
         headers: {
             'Content-Type': 'multipart/form-data'
-        }
+        },
+        data: formData
 })
         
     return response.data
 },
 
-uploadModel: async function (id, cancel = false) {
+uploadModel: async function (formData, cancel = false) {
     const response = await api.request({
         url: `/upload/model`,
         method: "POST",
         headers: {
             'Content-Type': 'multipart/form-data'
-        }
+        },
+        data: formData
 })
     
     return response.data
 },
 
-uploadEnvironment: async function (id, cancel = false) {
+uploadEnvironment: async function (formData, cancel = false) {
     const response = await api.request({
         url: `/upload/environment`,
         method: "POST",
         headers: {
             'Content-Type': 'multipart/form-data'
-        }
+        },
+        data: formData
 })
     
     return response.data
