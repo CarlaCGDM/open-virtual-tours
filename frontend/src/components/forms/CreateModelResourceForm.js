@@ -1,6 +1,6 @@
 import { useState} from 'react'
 import { ModelAPI } from '../../apis/ModelAPI.js'
-import { UploadFileForm } from './UploadFileForm.js'
+import UploadFileForm from './UploadFileForm.js'
 
 /**
  * Upload 3D model data and files.
