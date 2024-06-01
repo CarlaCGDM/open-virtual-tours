@@ -3,7 +3,7 @@ import multer from 'multer'
 
 const router = Router()
 
-const storageConfig = multer.diskStorage({
+const storageConfigImg = multer.diskStorage({
     // destinations is uploads folder 
     // under the project directory
   destination: "public/uploads/images",
@@ -14,8 +14,15 @@ const storageConfig = multer.diskStorage({
   },
 });
 
+const storageConfigModel = multer.diskStorage({
+  destination: "public/uploads/models",
+  filename: (req, file, res) => {
+      res(null, Date.now() + "-" + file.originalname);
+  },
+});
+
 // file filter for filtering only images
-const fileFilterConfig = function(req, file, cb) {
+const fileFilterConfigImg = function(req, file, cb) {
     if (file.mimetype === "image/jpeg"
         || file.mimetype === "image/png") {
           // calling callback with true
@@ -27,19 +34,42 @@ const fileFilterConfig = function(req, file, cb) {
     }
 };
 
+// file filter for filtering only models
+const fileFilterConfigModel = function(req, file, cb) {
+    if (file.originalname.match(/\.(glb|gltf)$/)) {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+};
+
 // creating multer object for storing
 // with configuration
 const uploadImg = multer({
     // applying storage and file filter
-  storage: storageConfig,
+  storage: storageConfigImg,
   limits: {
         // limits file size to 5 MB
       fileSize: 1024 * 1024 * 5
   },
-  fileFilter: fileFilterConfig,
+  fileFilter: fileFilterConfigImg,
+});
+
+// creating multer object for storing
+// with configuration
+const uploadModel = multer({
+  storage: storageConfigModel,
+  limits: {
+      fileSize: 1024 * 1024 * 30
+  },
+  fileFilter: fileFilterConfigModel,
 });
 
 router.post('/image', uploadImg.single('image'), (req, res) => {
+    res.json({data: req.file.filename})
+})
+
+router.post('/model', uploadModel.single('model'), (req, res) => {
     res.json({data: req.file.filename})
 })
 
