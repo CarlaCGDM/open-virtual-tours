@@ -1,5 +1,5 @@
 import { useState} from "react"
-import { ModelAPI } from "../apis/ModelAPI.js"
+import { ModelAPI } from "../../apis/ModelAPI.js"
 import UploadFileForm from "./UploadFileForm.js"
 
 /**

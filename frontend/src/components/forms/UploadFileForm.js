@@ -2,7 +2,7 @@ import { Canvas } from '@react-three/fiber'
 import { useState, useRef, useEffect } from "react"
 import { Clone, useGLTF, OrbitControls } from '@react-three/drei'
 import { HexColorPicker } from "react-colorful";
-import { FileUploadAPI } from "../apis/FileUploadAPI.js"
+import { FileUploadAPI } from "../../apis/FileUploadAPI.js"
 
 
 /**
