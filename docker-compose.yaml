@@ -14,7 +14,7 @@ services:
     depends_on:
       - backend
     volumes:
-      - storage_v:/usr/share/nginx/html
+      - storage_v:/usr/share/nginx/html/static/uploads
 
   backend:
     container_name: backend_c
