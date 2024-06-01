@@ -36,7 +36,7 @@ const fileFilterConfigImg = function(req, file, cb) {
 
 // file filter for filtering only models
 const fileFilterConfigModel = function(req, file, cb) {
-    if (file.originalname.match(/\.(glb|gltf)$/)) {
+    if (file.originalname.match(/\.(glb)$/)) {
         cb(null, true);
     } else {
         cb(null, false);
@@ -60,16 +60,30 @@ const uploadImg = multer({
 const uploadModel = multer({
   storage: storageConfigModel,
   limits: {
-      fileSize: 1024 * 1024 * 30
+      fileSize: 1024 * 1024 * 10
   },
   fileFilter: fileFilterConfigModel,
 });
+
+// creating multer object for storing
+// with configuration
+const uploadEnvironment = multer({
+    storage: storageConfigModel,
+    limits: {
+        fileSize: 1024 * 1024 * 50
+    },
+    fileFilter: fileFilterConfigModel,
+  });
 
 router.post('/image', uploadImg.single('image'), (req, res) => {
     res.json({data: req.file.filename})
 })
 
 router.post('/model', uploadModel.single('model'), (req, res) => {
+    res.json({data: req.file.filename})
+})
+
+router.post('/environment', uploadModel.single('environment'), (req, res) => {
     res.json({data: req.file.filename})
 })
 
