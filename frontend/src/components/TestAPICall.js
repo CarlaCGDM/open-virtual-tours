@@ -38,7 +38,7 @@ function TestAPICall() {
           <ambientLight intensity={1.5} />
           <OrbitControls/>
           <Model 
-            url="/public/uploads/models/CubePreset01.glb"
+            url="/uploads/models/CubePreset01.glb"
           />
       </Canvas>
     </>
