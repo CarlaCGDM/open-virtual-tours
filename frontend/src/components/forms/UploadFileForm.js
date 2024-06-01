@@ -1,8 +1,9 @@
 import { Canvas } from '@react-three/fiber'
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect } from 'react'
 import { Clone, useGLTF, OrbitControls } from '@react-three/drei'
 import { HexColorPicker } from "react-colorful";
-import { FileUploadAPI } from "../../apis/FileUploadAPI.js"
+import { FileUploadAPI } from '../../apis/FileUploadAPI.js'
+import { dataURLtoFile } from '../../utils/fileUtils.js';
 
 
 /**
@@ -59,7 +60,10 @@ export default function UploadFileForm(props) {
     const uploadImage = () => {
 
         // Take snapshot of canvas component as data URL:
-        const imageToUpload = canvasRef.current.toDataURL('image/png')
+        const imageDataURL = canvasRef.current.toDataURL('image/png')
+
+        // Convert data URL to file:
+        const imageToUpload = dataURLtoFile(imageDataURL,`${modelToUpload.name}_thumbnailIMG`)
 
         // Create form data:
         const formData = new FormData()
