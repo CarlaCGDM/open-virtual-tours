@@ -28,8 +28,10 @@ export const ModelAPI = {
     await api.request({
       url: `/models/`,
       method: "POST",
-      data: model,
-      // signal: cancel ? cancelApiObject[this.create.name].handleRequestCancellation().signal : undefined,
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      data: model
     })
   },
 
