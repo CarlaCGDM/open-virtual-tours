@@ -31,5 +31,6 @@ export const EnvironmentAPI = {
     })
     
     return response.data
-  },
- }
+  }
+
+}

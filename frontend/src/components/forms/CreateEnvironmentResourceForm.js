@@ -28,7 +28,7 @@ export default function CreateNewEnvironmentResource() {
 
     // Data extracted from the 3D model:
 
-    const [markerData, setMarkerData] = useState({})
+    const [markerData, setMarkerData] = useState({modelSlots:0,panelSlots:0,path:{}})
 
     // Upload data to backend:
 

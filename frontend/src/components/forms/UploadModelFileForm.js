@@ -33,24 +33,17 @@ export default function UploadModelFileForm(props) {
         console.log(modelToUpload)
 
         if (props.environment === true) {
-
             // Create form data:
             const formData = new FormData()
-            formData.append("environment", modelToUpload)
+            formData.append("model", modelToUpload)
 
-            // Send data to server and get modelURL:
+        // Send data to server and get modelURL:
 
             FileUploadAPI.uploadEnvironment(formData).then((response) => {
                 console.log(response)
                 setModelURL(`/static/uploads/models/${response.data}`)
             })
         } else {
-
-            // Create form data:
-            const formData = new FormData()
-            formData.append("model", modelToUpload)
-
-            // Send data to server and get modelURL:
             FileUploadAPI.uploadModel(formData).then((response) => {
                 console.log(response)
                 setModelURL(`/static/uploads/models/${response.data}`)
@@ -85,8 +78,7 @@ export default function UploadModelFileForm(props) {
             imageURL={imageURL}
             fileName={modelToUpload.name}
             updateThumbnailIMG={(thumbnailIMG) => setImageToUpload(thumbnailIMG)}
+            uploadThumbnailIMG={uploadImage}
         />
-
-        <button onClick={uploadImage}>Upload thumbnail image</button>
     </>
 }

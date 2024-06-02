@@ -19,7 +19,7 @@ export const createEnvironment = async (req,res) =>
         panelSlots.push(null) // <- Create a placeholder 3D model
         
     }
-t
+
     const newEnvironment = new Environment({name, modelURL, imgURL, description, author, license, modelSlots, panelSlots})
 
     const environmentSaved = await newEnvironment.save()
