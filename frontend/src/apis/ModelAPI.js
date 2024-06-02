@@ -29,7 +29,7 @@ export const ModelAPI = {
       url: `/models/`,
       method: "POST",
       headers: {
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'application/json'
       },
       data: model
     })
