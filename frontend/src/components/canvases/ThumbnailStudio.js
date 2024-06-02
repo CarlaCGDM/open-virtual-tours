@@ -21,7 +21,7 @@ export default function ThumbnailStudio(props) {
     useEffect(() => { props.updateThumbnailIMG(thumbnailIMG) },[thumbnailIMG]);
 
     // Data for the 3D model preview:
-    
+
     const [modelPosition,setModelPosition] = useState([0,0,0])
     const [modelScale,setModelScale] = useState([1,1,1])
     const displayModel = useGLTF(modelURL ? modelURL : "https://res.cloudinary.com/dahr27egc/image/upload/v1706573387/hamburger_dlwxib.glb")
@@ -48,12 +48,12 @@ export default function ThumbnailStudio(props) {
             <div>
                 <div>Position model</div>
                 <Canvas ref={canvasRef} gl={{ preserveDrawingBuffer: true }}>
-            
+
+                    <color attach="background" args={[customBackgroundColor]} />
+
                     <directionalLight position={[1,2,3]} intensity={4.5}/>
                     <ambientLight intensity={4.5} />
                     <OrbitControls enablePan={true}/>
-
-                    <color attach="background" args={[customBackgroundColor]} />
                 
                     <Clone ref={modelRef} object={ displayModel.scene } position={modelPosition} scale={modelScale}/>
                     

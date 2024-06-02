@@ -3,7 +3,6 @@ import { useState, useRef, useEffect } from 'react'
 import { Clone, useGLTF, OrbitControls } from '@react-three/drei'
 import { FileUploadAPI } from '../../apis/FileUploadAPI.js'
 import ThumbnailStudio from '../canvases/ThumbnailStudio.js'
-import { model } from 'mongoose'
 
 
 /**
