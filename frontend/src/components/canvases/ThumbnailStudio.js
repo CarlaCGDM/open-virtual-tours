@@ -16,6 +16,10 @@ export default function ThumbnailStudio(props) {
 
     const [customBackgroundColor, setCustomBackgroundColor] = useState("#292929")
 
+    // Preview image:
+
+    const [previewIMG, setPreviewIMG] = useState("")
+
     // Data sent to the parent component:
 
     const [thumbnailIMG, setThumbnailIMG] = useState("")
@@ -31,7 +35,7 @@ export default function ThumbnailStudio(props) {
 
     // Generate thumbnail image and upload it to backend:
 
-    const saveImage = () => {
+    const takeSnapshot = () => {
 
         // Take snapshot of canvas component as data URL:
         const imageDataURL = canvasRef.current.toDataURL('image/png')
@@ -40,6 +44,7 @@ export default function ThumbnailStudio(props) {
         const imageToUpload = dataURLtoFile(imageDataURL,`${props.fileName}_thumbnailIMG`)
 
         // Set resulting image as current image to send to parent:
+        setPreviewIMG(imageDataURL)
         setThumbnailIMG(imageToUpload)
     }
 
@@ -66,10 +71,10 @@ export default function ThumbnailStudio(props) {
         </div>
 
         <button onClick={() => {
-            saveImage()
-            }}>Take picture!
+            takeSnapshot()
+            }}>Take snapshot!
         </button>
 
-        <img src={props.imageURL}></img>
+        <img src={previewIMG}></img>
     </>
 }
