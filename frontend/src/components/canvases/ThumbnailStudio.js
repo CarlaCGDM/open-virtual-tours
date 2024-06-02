@@ -2,6 +2,7 @@ import { Canvas } from '@react-three/fiber'
 import { useState, useRef, useEffect } from 'react'
 import { Clone, useGLTF, OrbitControls } from '@react-three/drei'
 import { HexColorPicker } from "react-colorful";
+import dataURLtoFile from '../../utils/fileUtils.js'
 
 
 /**
@@ -24,7 +25,7 @@ export default function ThumbnailStudio(props) {
 
     const [modelPosition,setModelPosition] = useState([0,0,0])
     const [modelScale,setModelScale] = useState([1,1,1])
-    const displayModel = useGLTF(modelURL ? modelURL : "https://res.cloudinary.com/dahr27egc/image/upload/v1706573387/hamburger_dlwxib.glb")
+    const displayModel = useGLTF(props.modelURL ? props.modelURL : "https://res.cloudinary.com/dahr27egc/image/upload/v1706573387/hamburger_dlwxib.glb")
     const modelRef = useRef("")
     const canvasRef = useRef("")
 
@@ -36,7 +37,7 @@ export default function ThumbnailStudio(props) {
         const imageDataURL = canvasRef.current.toDataURL('image/png')
 
         // Convert data URL to file:
-        const imageToUpload = dataURLtoFile(imageDataURL,`${modelToUpload.name}_thumbnailIMG`)
+        const imageToUpload = dataURLtoFile(imageDataURL,`${props.fileName}_thumbnailIMG`)
 
         // Set resulting image as current image to send to parent:
         setThumbnailIMG(imageToUpload)

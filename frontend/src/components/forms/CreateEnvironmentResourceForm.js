@@ -2,7 +2,8 @@ import { useState, useEffect} from 'react'
 import { useGLTF } from '@react-three/drei'
 import { EnvironmentAPI } from '../../apis/EnvironmentAPI.js'
 import extractMarkerData from '../../utils/modelUtils.js'
-import UploadEnvironmentFileForm from './UploadEnvironmentFileForm.js'
+import UploadMdelFileForm from './UploadModelFileForm.js'
+import UploadModelFileForm from './UploadModelFileForm.js'
 
 /**
  * Upload 3D model data and files.
@@ -72,9 +73,10 @@ export default function CreateNewEnvironmentResource() {
         <label>Author:<input type="text" onChange={(e) => {setAuthor(e.target.value)}} /></label>< br />
         <label>License:<input type="text" onChange={(e) => {setLicense(e.target.value)}} /></label>< br />
         
-        <UploadEnvironmentFileForm 
+        <UploadModelFileForm 
             updateModelURL={(modelURL) => setModelURL(modelURL)}
             updateImageURL={(imageURL) => setImageURL(imageURL)}
+            environment={true}
         />
 
         <button onClick={uploadForm}>Confirm</button>

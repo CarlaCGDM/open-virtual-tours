@@ -4,7 +4,7 @@ import ThumbnailStudio from '../canvases/ThumbnailStudio.js'
 
 
 /**
- * Upload 3D model alongside a generated thumbnail image and send storage URI to parent component.
+ * Upload 3D environment alongside a generated thumbnail image and send storage URI to parent component.
  * @returns 
  */
 
@@ -37,10 +37,19 @@ export default function UploadModelFileForm(props) {
         formData.append("model", modelToUpload)
 
         // Send data to server and get modelURL:
-        FileUploadAPI.uploadModel(formData).then((response) => {
-            console.log(response)
-            setModelURL(`/static/uploads/models/${response.data}`)
-        })
+
+        if (props.environment === true) {
+            FileUploadAPI.uploadEnvironment(formData).then((response) => {
+                console.log(response)
+                setModelURL(`/static/uploads/models/${response.data}`)
+            })
+        } else {
+            FileUploadAPI.uploadModel(formData).then((response) => {
+                console.log(response)
+                setModelURL(`/static/uploads/models/${response.data}`)
+            })
+        }
+        
 
     }
 
@@ -67,6 +76,7 @@ export default function UploadModelFileForm(props) {
         <ThumbnailStudio 
             modelURL={modelURL}
             imageURL={imageURL}
+            fileName={modelToUpload.name}
             updateThumbnailIMG={(thumbnailIMG) => setImageToUpload(thumbnailIMG)}
         />
 

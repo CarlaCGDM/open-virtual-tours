@@ -1,6 +1,6 @@
 import { useState} from 'react'
 import { ModelAPI } from '../../apis/ModelAPI.js'
-import UploadFileForm from './UploadModelFileForm.js'
+import UploadModelFileForm from './UploadModelFileForm.js'
 
 /**
  * Upload 3D model data and files.
@@ -52,9 +52,10 @@ export default function CreateNewModelResource() {
         <label>Author:<input type="text" onChange={(e) => {setAuthor(e.target.value)}} /></label>< br />
         <label>License:<input type="text" onChange={(e) => {setLicense(e.target.value)}} /></label>< br />
         
-        <UploadFileForm 
+        <UploadModelFileForm 
             updateModelURL={(modelURL) => setModelURL(modelURL)}
             updateImageURL={(imageURL) => setImageURL(imageURL)}
+            environment={false}
         />
 
         <button onClick={uploadForm}>Confirm</button>
