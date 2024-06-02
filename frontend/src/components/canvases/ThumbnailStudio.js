@@ -23,10 +23,7 @@ export default function ThumbnailStudio(props) {
     // Data sent to the parent component:
 
     const [thumbnailIMG, setThumbnailIMG] = useState("")
-    useEffect(() => { 
-        props.updateThumbnailIMG(thumbnailIMG)
-        props.uploadThumbnailIMG()
-    },[thumbnailIMG]);
+    useEffect(() => { props.updateThumbnailIMG(thumbnailIMG) },[thumbnailIMG]);
 
     // Data for the 3D model preview:
 

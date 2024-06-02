@@ -79,7 +79,7 @@ export default function CreateNewEnvironmentResource() {
             environment={true}
         />
 
-        <button onClick={uploadForm}>Confirm</button>
+        {modelURL && imageURL && <button onClick={uploadForm}>Confirm</button>}
         {/* <button className="closeButton" onClick={() => {props.showThisModal(false)}} >Cancel/Close</button> */}
     </div>
 }
