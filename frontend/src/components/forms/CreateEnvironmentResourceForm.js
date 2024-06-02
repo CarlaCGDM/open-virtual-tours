@@ -1,8 +1,8 @@
 import { useState} from 'react'
 import { useGLTF } from '@react-three/drei'
 import { EnvironmentAPI } from '../../apis/EnvironmentAPI.js'
-import { extractMarkerData } from '../../utils/modelUtils.js'
 import UploadFileForm from './UploadFileForm.js'
+import extractMarkerData from '../../utils/modelUtils.js'
 
 /**
  * Upload 3D model data and files.
