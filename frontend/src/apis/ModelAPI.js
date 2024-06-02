@@ -25,7 +25,7 @@ export const ModelAPI = {
   },
 
   createOne: async function (model, cancel = false) {
-    await api.request({
+    const response = await api.request({
       url: `/models/`,
       method: "POST",
       headers: {

@@ -21,7 +21,7 @@ export const EnvironmentAPI = {
   },
 
   createOne: async function (environment, cancel = false) {
-    await api.request({
+    const response = await api.request({
       url: `/environments/`,
       method: "POST",
       headers: {
