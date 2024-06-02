@@ -22,9 +22,8 @@ export default function CreateNewEnvironmentResource() {
 
     const [modelURL, setModelURL] = useState("")
     const [imageURL, setImageURL] = useState("")
-    const [model, setModel] = useState({})
 
-    useEffect(() => { setModel(useGLTF(modelURL)) }, [modelURL]);
+    const currentModel = useGLTF(modelURL ? modelURL : "https://res.cloudinary.com/dahr27egc/image/upload/v1706573387/hamburger_dlwxib.glb")
 
     // Data extracted from the 3D model:
 
@@ -36,10 +35,10 @@ export default function CreateNewEnvironmentResource() {
 
         // Extract marker data:
 
-        setMarkerData(extractMarkerData(model))
+        setMarkerData(extractMarkerData(currentModel))
 
         console.log("Environment model to be processed: ")
-        console.log(model)
+        console.log(currentModel)
         console.log("Extracted marker data:")
         console.log(markerData)
 
