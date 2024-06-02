@@ -84,7 +84,7 @@ export default function UploadModelFileForm(props) {
             imageURL={imageURL}
             fileName={modelToUpload.name}
             updateThumbnailIMG={(thumbnailIMG) => setImageToUpload(thumbnailIMG)}
-            uploadThumbnailIMG={uploadImage}
+            uploadThumbnailIMG={() => {uploadImage()}}
         />
     </>
 }
