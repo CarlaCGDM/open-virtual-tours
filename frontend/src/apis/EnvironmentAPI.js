@@ -2,7 +2,7 @@ import { api } from "./configs/axiosConfigs.js"
 
 export const EnvironmentAPI = {
 
-  getOne: async function (id, cancel = false) {
+  getOne: async function (id) {
     const response = await api.request({
       url: `/environments/:${id}`,
       method: "GET"
@@ -11,7 +11,7 @@ export const EnvironmentAPI = {
     return response.data
   },
 
-  getAll: async function (cancel = false) {
+  getAll: async function () {
     const response = await api.request({
       url: "/environments/",
       method: "GET",
@@ -20,7 +20,7 @@ export const EnvironmentAPI = {
     return response.data
   },
 
-  createOne: async function (environment, cancel = false) {
+  createOne: async function (environment) {
     const response = await api.request({
       url: `/environments/`,
       method: "POST",

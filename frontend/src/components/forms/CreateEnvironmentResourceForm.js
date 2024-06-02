@@ -1,5 +1,7 @@
 import { useState} from 'react'
-import { ModelAPI } from '../../apis/ModelAPI.js'
+import { useGLTF } from '@react-three/drei'
+import { EnvironmentAPI } from '../../apis/EnvironmentAPI.js'
+import { extractMarkerData } from '../../utils/modelUtils.js'
 import UploadFileForm from './UploadFileForm.js'
 
 /**
@@ -7,7 +9,7 @@ import UploadFileForm from './UploadFileForm.js'
  * @returns 
  */
 
-export default function CreateNewModelResource() {
+export default function CreateNewEnvironmentResource() {
 
     // Data from the main input form:
 
@@ -23,13 +25,21 @@ export default function CreateNewModelResource() {
 
     // Data extracted from the 3D model:
 
-    const [modelSlots,setModelSlots] = useState(0)
-    const [panelSlots,setPanelSlots] = useState(0)
-    const [path, setPath] = useState("")
+    const [markerData, setMarkerData] = useState({})
 
     // Upload data to backend:
 
     const uploadForm = () => {
+
+        // Extract marker data:
+
+        const environmentModel = useGLTF(modelURL)
+        setMarkerData(extractMarkerData(environmentModel))
+
+        console.log("Environment model to be processed: ")
+        console.log(environmentModel)
+        console.log("Extracted marker data:")
+        console.log(markerData)
 
         // Create form data:
 
@@ -40,27 +50,15 @@ export default function CreateNewModelResource() {
         formData.append("license", license)
         formData.append("modelURL", modelURL)
         formData.append("imgURL", imageURL)
-        formData.append("modelSlots", modelSlots)
-        formData.append("panelSlots", panelSlots)
-        formData.append("path", path)
+        formData.append("modelSlots", markerData.modelSlots)
+        formData.append("panelSlots", markerData.panelSlots)
+        formData.append("path", markerData.path)
 
         console.log(formData)
 
-        // Load 3D model:
-
-        // Extract number of floor markers:
-
-        // Extract number of wall markers:
-
-        // Extract path:
-
-        // Convert path to curve:
-
-
-
         // Send form data:
 
-        ModelAPI.createOne(formData).then((response) => {
+        EnvironmentAPI.createOne(formData).then((response) => {
             console.log(response)
         })
     }

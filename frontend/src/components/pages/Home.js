@@ -1,6 +1,7 @@
 import { Canvas } from '@react-three/fiber'
 import TestAPICall from '../TestAPICall.js'
 import CreateNewModelResource from '../forms/CreateModelResourceForm.js'
+import CreateNewEnvironmentResource from '../forms/CreateEnvironmentResourceForm.js'
 
 export default function Home() {
   return <>
@@ -13,6 +14,6 @@ export default function Home() {
           <meshNormalMaterial />
         </mesh>
     </Canvas> */}
-    <CreateNewModelResource />
+    <CreateNewEnvironmentResource />
   </>
 }
