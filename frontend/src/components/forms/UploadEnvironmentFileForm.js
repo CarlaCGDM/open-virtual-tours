@@ -1,21 +1,16 @@
 import { Canvas } from '@react-three/fiber'
 import { useState, useRef, useEffect } from 'react'
 import { Clone, useGLTF, OrbitControls } from '@react-three/drei'
-import { HexColorPicker } from "react-colorful";
 import { FileUploadAPI } from '../../apis/FileUploadAPI.js'
-import dataURLtoFile from '../../utils/fileUtils.js';
+import ThumbnailStudio from '../canvases/ThumbnailStudio.js'
 
 
 /**
- * Upload 3D model alongside a generated thumbnail image and send storage URI to parent component.
+ * Upload 3D environment alongside a generated thumbnail image and send storage URI to parent component.
  * @returns 
  */
 
 export default function UploadEnvironmentFileForm(props) {
-
-    // Color picker default color:
-
-    const [customBackgroundColor, setCustomBackgroundColor] = useState("#292929")
 
     // Data sent to the parent component:
 
@@ -25,13 +20,9 @@ export default function UploadEnvironmentFileForm(props) {
     useEffect(() => { props.updateModelURL(modelURL) },[modelURL]);
     useEffect(() => { props.updateImageURL(imageURL) },[imageURL]);
 
-    // Data for the 3D model preview:
+    // Data obtained from child component:
 
-    const [modelPosition,setModelPosition] = useState([0,0,0])
-    const [modelScale,setModelScale] = useState([1,1,1])
-    const displayModel = useGLTF(modelURL ? modelURL : "https://res.cloudinary.com/dahr27egc/image/upload/v1706573387/hamburger_dlwxib.glb")
-    const modelRef = useRef("")
-    const canvasRef = useRef("")
+    const [imageToUpload, setImageToUpload] = useState("")
 
     // Upload 3D model to backend:
 
@@ -48,22 +39,16 @@ export default function UploadEnvironmentFileForm(props) {
         formData.append("model", modelToUpload)
 
         // Send data to server and get modelURL:
-        FileUploadAPI.uploadModel(formData).then((response) => {
+        FileUploadAPI.uploadEnvironment(formData).then((response) => {
             console.log(response)
             setModelURL(`/static/uploads/models/${response.data}`)
         })
 
     }
 
-    // Generate thumbnail image and upload it to backend:
+    // Upload 3D model thumbnail to backend:
 
     const uploadImage = () => {
-
-        // Take snapshot of canvas component as data URL:
-        const imageDataURL = canvasRef.current.toDataURL('image/png')
-
-        // Convert data URL to file:
-        const imageToUpload = dataURLtoFile(imageDataURL,`${modelToUpload.name}_thumbnailIMG`)
 
         // Create formData:
         const formData = new FormData()
@@ -81,30 +66,12 @@ export default function UploadEnvironmentFileForm(props) {
         <input type="file" name="model" onChange={(e) => {setModelToUpload(e.target.files[0])}} />
         <button onClick={uploadModel}>Upload 3D model</button>
 
-        <div>
-            <div>
-                <Canvas ref={canvasRef} gl={{ preserveDrawingBuffer: true }}>
-            
-                    <directionalLight position={[1,2,3]} intensity={4.5}/>
-                    <ambientLight intensity={4.5} />
-                    <OrbitControls enablePan={true}/>
+        <ThumbnailStudio 
+            modelURL={modelURL}
+            imageURL={imageURL}
+            updateThumbnailIMG={(thumbnailIMG) => setImageToUpload(thumbnailIMG)}
+        />
 
-                    <color attach="background" args={[customBackgroundColor]} />
-                
-                    <Clone ref={modelRef} object={ displayModel.scene } position={modelPosition} scale={modelScale}/>
-                    
-                </Canvas>
-            </div>
-
-            <HexColorPicker color={customBackgroundColor} onChange={setCustomBackgroundColor} />
-        </div>
-
-        <button onClick={() => {
-            uploadImage()
-            }}>Upload thumbnail image
-        </button>
-
-        <img src={imageURL}></img>
-
+        <button onClick={uploadImage}>Upload thumbnail image</button>
     </>
 }

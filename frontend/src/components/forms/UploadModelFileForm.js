@@ -1,6 +1,4 @@
-import { Canvas } from '@react-three/fiber'
-import { useState, useRef, useEffect } from 'react'
-import { Clone, useGLTF, OrbitControls } from '@react-three/drei'
+import { useState, useEffect } from 'react'
 import { FileUploadAPI } from '../../apis/FileUploadAPI.js'
 import ThumbnailStudio from '../canvases/ThumbnailStudio.js'
 
