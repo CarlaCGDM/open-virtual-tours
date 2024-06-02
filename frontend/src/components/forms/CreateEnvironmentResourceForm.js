@@ -1,7 +1,7 @@
 import { useState} from 'react'
 import { useGLTF } from '@react-three/drei'
 import { EnvironmentAPI } from '../../apis/EnvironmentAPI.js'
-import UploadFileForm from './UploadFileForm.js'
+import UploadFileForm from './UploadModelFileForm.js'
 import extractMarkerData from '../../utils/modelUtils.js'
 
 /**
@@ -22,6 +22,9 @@ export default function CreateNewEnvironmentResource() {
 
     const [modelURL, setModelURL] = useState("")
     const [imageURL, setImageURL] = useState("")
+    const [model, setModel] = useState({})
+
+    useEffect(() => { setModel(useGLTF(modelURL)) }, [modelURL]);
 
     // Data extracted from the 3D model:
 
@@ -33,11 +36,10 @@ export default function CreateNewEnvironmentResource() {
 
         // Extract marker data:
 
-        const environmentModel = useGLTF(modelURL)
-        setMarkerData(extractMarkerData(environmentModel))
+        setMarkerData(extractMarkerData(model))
 
         console.log("Environment model to be processed: ")
-        console.log(environmentModel)
+        console.log(model)
         console.log("Extracted marker data:")
         console.log(markerData)
 

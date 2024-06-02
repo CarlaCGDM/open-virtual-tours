@@ -11,7 +11,7 @@ import dataURLtoFile from '../../utils/fileUtils.js';
  * @returns 
  */
 
-export default function UploadFileForm(props) {
+export default function UploadEnvironmentFileForm(props) {
 
     // Color picker default color:
 
