@@ -21,7 +21,7 @@ function countMarkers(markerType, model) {
 
   console.log("Counting markers of type: " + markerType)
 
-  displayModel.scene.children.forEach(child => {
+  model.scene.children.forEach(child => {
     if (child.name.includes('FloorMarker'))
     {
         markerCount++
