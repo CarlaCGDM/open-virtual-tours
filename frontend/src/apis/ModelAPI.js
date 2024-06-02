@@ -33,6 +33,8 @@ export const ModelAPI = {
       },
       data: model
     })
+    
+    return response.data
   },
 
 //   search: async function (name, cancel = false) {

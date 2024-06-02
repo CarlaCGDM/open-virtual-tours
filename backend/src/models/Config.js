@@ -5,7 +5,7 @@ const configSchema = new Schema({
     themeURL: String,
     tourTitle: String,
     tourDescription: String,
-    environment: {
+    tourEnvironment: {
         ref: "Environment",
         type: Schema.Types.ObjectId
     }

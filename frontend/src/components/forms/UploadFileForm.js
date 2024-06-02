@@ -55,7 +55,7 @@ export default function UploadFileForm(props) {
 
     }
 
-    // Take snapshot of 3D model and upload image to Cloudinary
+    // Generate thumbnail image and upload it to backend:
 
     const uploadImage = () => {
 
@@ -65,11 +65,11 @@ export default function UploadFileForm(props) {
         // Convert data URL to file:
         const imageToUpload = dataURLtoFile(imageDataURL,`${modelToUpload.name}_thumbnailIMG`)
 
-        // Create form data:
+        // Create formData:
         const formData = new FormData()
         formData.append("image", imageToUpload)
 
-        // Send data to server and get imageURL:
+        // Send fotmData to server and get imageURL:
         FileUploadAPI.uploadImage(formData).then((response) => {
             console.log(response)
             setImageURL(`/static/uploads/images/${response.data}`)
@@ -80,28 +80,31 @@ export default function UploadFileForm(props) {
     return <>
         <input type="file" name="model" onChange={(e) => {setModelToUpload(e.target.files[0])}} />
         <button onClick={uploadModel}>Upload 3D model</button>
-        <div>
-        <div>
-            <Canvas ref={canvasRef} gl={{ preserveDrawingBuffer: true }}>
-                
-        
-                <directionalLight position={[1,2,3]} intensity={4.5}/>
-                <ambientLight intensity={4.5} />
-                <OrbitControls enablePan={true}/>
 
-                <color attach="background" args={[customBackgroundColor]} />
+        <div>
+            <div>
+                <Canvas ref={canvasRef} gl={{ preserveDrawingBuffer: true }}>
+            
+                    <directionalLight position={[1,2,3]} intensity={4.5}/>
+                    <ambientLight intensity={4.5} />
+                    <OrbitControls enablePan={true}/>
+
+                    <color attach="background" args={[customBackgroundColor]} />
                 
-               
-                <Clone ref={modelRef} object={ displayModel.scene } position={modelPosition} scale={modelScale}/>
-                
-                
-            </Canvas>
+                    <Clone ref={modelRef} object={ displayModel.scene } position={modelPosition} scale={modelScale}/>
+                    
+                </Canvas>
+            </div>
+
+            <HexColorPicker color={customBackgroundColor} onChange={setCustomBackgroundColor} />
         </div>
-        <HexColorPicker color={customBackgroundColor} onChange={setCustomBackgroundColor} />
-        </div>
+
         <button onClick={() => {
             uploadImage()
-            }}>Upload thumbnail image</button>
+            }}>Upload thumbnail image
+        </button>
+
         <img src={imageURL}></img>
+
     </>
 }
