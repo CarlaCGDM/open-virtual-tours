@@ -17,7 +17,7 @@ Free tool for the creation of fully customizable 3D virtual tours using Three.js
 
 ## Features
 ## Local install
-Follow these steps to run a copy of this repo on your local machine in a development environment.
+Follow these steps to run a copy of this repo on your local machine in a development environment. Work on dev branch and merge into main when you are ready to push the changes to production.
 ```mermaid
 graph TD;
     ReactApp--> |Dockerfile dev-stage| DockerCompose;
@@ -37,6 +37,8 @@ graph TD;
 
 [<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://app.getpostman.com/run-collection/25772085-d717a68c-f457-4885-87ff-7ee63abe58e2?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D25772085-d717a68c-f457-4885-87ff-7ee63abe58e2%26entityType%3Dcollection%26workspaceId%3D4091baf8-aab2-4ec9-9b13-9cd393ff6634#?env%5Bdev%5D=W3sia2V5IjoiYXBpX3Jvb3QiLCJ2YWx1ZSI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDAwMCIsImVuYWJsZWQiOnRydWUsInR5cGUiOiJkZWZhdWx0Iiwic2Vzc2lvblZhbHVlIjoiaHR0cDovL2xvY2FsaG9zdDo0MDAwIiwic2Vzc2lvbkluZGV4IjowfV0=)
 
+### Development environment
+To enable hot-reload, install [Docker Desktop](https://docs.docker.com/desktop/install/ubuntu/) on your local machine and use the [Dev Containers](https://code.visualstudio.com/docs/devcontainers/tutorial) extension. 
 
 ## Cloud deployment
 Follow these steps to generate and deploy your own fully-customizable version of the 3D virtual tour in a production environment.
@@ -65,11 +67,15 @@ graph TD;
 
 :point_right: To create a new self-hosted runner navigate to Settings &rarr; Code and automation &rarr; Actions &rarr; Runners on your repo and follow the instructions. You may need to run `sudo chmod 777 actions-runner` from the parent directory before you are allowed to run the configuration command.
 
-4. Run `sudo ./svc.sh install` and `sudo ./svc.sh start`.
-5. Test the application by heading to the root of your public DNS address.
-6. Test the API by creating your own produpction Postman environment and setting api_root to your public DNS address.
+:point_right: Once you're finished, run `sudo ./svc.sh install` and `sudo ./svc.sh start` to make the runner service persist on reboot.
+
+4. Test the application by heading to the root of your public DNS address.
+5. Test the API by creating your own production environment on Postman and setting api_root to your public DNS address.
 
 [<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://app.getpostman.com/run-collection/25772085-d717a68c-f457-4885-87ff-7ee63abe58e2?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D25772085-d717a68c-f457-4885-87ff-7ee63abe58e2%26entityType%3Dcollection%26workspaceId%3D4091baf8-aab2-4ec9-9b13-9cd393ff6634#?env%5Bprod%5D=W3sia2V5IjoiYXBpX3Jvb3RcbiIsInZhbHVlIjoiaHR0cHM6Ly9vcGVudmlydHVhbHRvdXJzLm9yZyIsImVuYWJsZWQiOnRydWUsInR5cGUiOiJkZWZhdWx0Iiwic2Vzc2lvblZhbHVlIjoiaHR0cHM6Ly9vcGVudmlydHVhbHRvdXJzLm9yZyIsInNlc3Npb25JbmRleCI6MH1d)
+
+### Development environment
+Clone your new repo on your local machine and follow the local install instructions.
 
 ## Troubleshooting
 Everything should be up and running now. If you have any issues, you can see the data stored in your volume and the error logs of your containers through the following Docker commands.
