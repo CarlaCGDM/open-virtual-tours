@@ -39,7 +39,7 @@ graph TD;
 
 
 ## Cloud deployment
-Follow these steps to generate and deploy your own fully-customizable version of the 3D virtual tour.
+Follow these steps to generate and deploy your own fully-customizable version of the 3D virtual tour in a production environment.
 ```mermaid
 graph TD;
     ReactApp--> |Dockerfile build-stage| NginxServer;
