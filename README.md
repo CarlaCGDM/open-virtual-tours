@@ -17,15 +17,15 @@ Free tool for the creation of fully customizable 3D virtual tours using Three.js
 
 ## Features
 ## Local install
+Follow these steps to run a copy of this repo on your local machine in a development environment.
 ```mermaid
 graph TD;
-    ReactApp--> |Dockerfile| DockerCompose;
-    NodeJSServer--> |Dockerfile| DockerCompose;
+    ReactApp--> |Dockerfile dev-stage| DockerCompose;
+    NodeJSServer--> |Dockerfile dev-stage| DockerCompose;
     DBVolume-->MongoDB;
     MongoDB--> |Dockerfile| DockerCompose;
-    DockerCompose--> |docker compose up`| LocalMachine;
+    DockerCompose--> |sudo docker compose -f compose-dev.yaml up --build| LocalMachine;
 ```
-Follow these steps to run a copy of this repo on your local machine in a development environment.
 ### Local requirements
 - [Docker](https://docs.docker.com/engine/install/ubuntu/) and [docker-compose](https://docs.docker.com/compose/install/linux/#install-using-the-repository) installed on your local machine.
 - A minimum of 8GB of disk space and 4GB of RAM.
@@ -39,18 +39,18 @@ Follow these steps to run a copy of this repo on your local machine in a develop
 
 
 ## Cloud deployment
+Follow these steps to generate and deploy your own fully-customizable version of the 3D virtual tour.
 ```mermaid
 graph TD;
-    ReactApp-->NginxServer;
+    ReactApp--> |Dockerfile build-stage| NginxServer;
     SSLCertificate-->NginxServer;
-    NginxServer--> |Dockerfile| DockerCompose;
-    NodeJSServer--> |Dockerfile| DockerCompose;
+    NginxServer--> |Dockerfile prod-stage| DockerCompose;
+    NodeJSServer--> |Dockerfile prod-stage| DockerCompose;
     DBVolume-->MongoDB;
     MongoDB--> |Dockerfile| DockerCompose;
     DockerCompose--> |github actions runner| VPSInstance;
     StaticIP-->VPSInstance;
 ```
-Follow these steps to generate and deploy your own fully-customizable version of the 3D virtual tour.
 ### Cloud requirements
 - A VPS Linux machine with a static public IP and a public DNS address.
 - [Docker](https://docs.docker.com/engine/install/ubuntu/) and [docker-compose](https://docs.docker.com/compose/install/linux/#install-using-the-repository) installed on your VPS Linux machine.
@@ -60,15 +60,14 @@ Follow these steps to generate and deploy your own fully-customizable version of
 
 ### Cloud steps
 1. Fork or download and import this repo to generate a new copy under your own ownership.
-2. Generate a self-signed certificate with `openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365` in the frontend/nginx/certs directory.
-3. Fill in your own data in the .env and frontend/.env files.
-4. Access the terminal of your VPS machine and create a new [self-hosted runner](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners) for your repo.
+2. Replace the SSL certificates in frontend/nginx/certs and the .env and frontend/.env data with your own.
+3. Access the terminal of your VPS machine and create a new [self-hosted runner](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners) for your repo.
 
-:point_right: To create a new self-hosted runner, navigate to Settings &rarr; Code and automation &rarr; Actions &rarr; Runners and follow the instructions. You may need to run `sudo chmod 777 actions-runner` from the parent directory before you are allowed to run the configuration command.
+:point_right: To create a new self-hosted runner navigate to Settings &rarr; Code and automation &rarr; Actions &rarr; Runners on your repo and follow the instructions. You may need to run `sudo chmod 777 actions-runner` from the parent directory before you are allowed to run the configuration command.
 
-6. Run sudo `./svc.sh install` and `./svc.sh start`.
-7. Test the application by heading to the root of your public DNS address.
-8. Test the API by creating your own produpction Postman environment and setting api_root to your public DNS address.
+4. Run `sudo ./svc.sh install` and `sudo ./svc.sh start`.
+5. Test the application by heading to the root of your public DNS address.
+6. Test the API by creating your own produpction Postman environment and setting api_root to your public DNS address.
 
 [<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://app.getpostman.com/run-collection/25772085-d717a68c-f457-4885-87ff-7ee63abe58e2?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D25772085-d717a68c-f457-4885-87ff-7ee63abe58e2%26entityType%3Dcollection%26workspaceId%3D4091baf8-aab2-4ec9-9b13-9cd393ff6634#?env%5Bprod%5D=W3sia2V5IjoiYXBpX3Jvb3RcbiIsInZhbHVlIjoiaHR0cHM6Ly9vcGVudmlydHVhbHRvdXJzLm9yZyIsImVuYWJsZWQiOnRydWUsInR5cGUiOiJkZWZhdWx0Iiwic2Vzc2lvblZhbHVlIjoiaHR0cHM6Ly9vcGVudmlydHVhbHRvdXJzLm9yZyIsInNlc3Npb25JbmRleCI6MH1d)
 
