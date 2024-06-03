@@ -10,7 +10,7 @@ import UploadModelFileForm from './UploadModelFileForm.js'
  * @returns 
  */
 
-export default function CreateNewEnvironmentResource() {
+export default function CreateEnvironmentResourceForm() {
 
     // Data from the main input form:
 
@@ -26,9 +26,6 @@ export default function CreateNewEnvironmentResource() {
 
     const currentModel = useGLTF(modelURL ? modelURL : "https://res.cloudinary.com/dahr27egc/image/upload/v1706573387/hamburger_dlwxib.glb")
 
-    // Data extracted from the 3D model:
-
-    const [markerData, setMarkerData] = useState({modelSlots:0,panelSlots:0,path:{}})
 
     // Upload data to backend:
 
@@ -36,12 +33,7 @@ export default function CreateNewEnvironmentResource() {
 
         // Extract marker data:
 
-        setMarkerData(extractMarkerData(currentModel))
-
-        console.log("Environment model to be processed: ")
-        console.log(currentModel)
-        console.log("Extracted marker data:")
-        console.log(markerData)
+        const markerData = extractMarkerData(currentModel)
 
         // Create form data:
 
@@ -52,8 +44,8 @@ export default function CreateNewEnvironmentResource() {
         formData.append("license", license)
         formData.append("modelURL", modelURL)
         formData.append("imgURL", imageURL)
-        formData.append("modelSlots", markerData.modelSlots)
-        formData.append("panelSlots", markerData.panelSlots)
+        formData.append("modelSlots", JSON.stringify(markerData.floorMarkers))
+        formData.append("panelSlots", JSON.stringify(markerData.wallMarkers))
         formData.append("path", markerData.path)
 
         console.log(formData)

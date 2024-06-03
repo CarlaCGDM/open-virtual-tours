@@ -4,7 +4,7 @@ export const EnvironmentAPI = {
 
   getOne: async function (id) {
     const response = await api.request({
-      url: `/environments/:${id}`,
+      url: `/environments/${id}`,
       method: "GET"
     })
 

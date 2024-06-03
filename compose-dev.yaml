@@ -10,13 +10,17 @@ services:
     env_file: ./frontend/.env_dev
     ports:
       - ${REACT_PORT}:${REACT_PORT}
-    logging:
-      options:
-        max-size: 50m
     depends_on:
       - backend
     volumes:
       - storage_v:/app/public/uploads
+      - /app/node_modules
+      - ./frontend:/app
+    environment:
+       - CHOKIDAR_USEPOLLING=true
+    logging:
+      options:
+        max-size: 50m
 
   backend:
     container_name: backend_c
@@ -33,6 +37,9 @@ services:
       - database
     volumes:
       - storage_v:/app/public/uploads
+      - ./backend:/app
+    environment:
+       - CHOKIDAR_USEPOLLING=true
     logging:
       options:
         max-size: 50m

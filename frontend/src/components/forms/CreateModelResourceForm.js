@@ -7,7 +7,7 @@ import UploadModelFileForm from './UploadModelFileForm.js'
  * @returns 
  */
 
-export default function CreateNewModelResource() {
+export default function CreateModelResource() {
 
     // Data from the main input form:
 
