@@ -4,11 +4,11 @@ Free tool for the creation of fully customizable 3D virtual tours using Three.js
 - [Open Virtual Tours](#open-virtual-tours)
   - [Features](#features)
   - [Local install](#local-install)
-    - [Requirements](#requirements)
-    - [Steps](#steps)
+    - [Local requirements](#local-requirements)
+    - [Local steps](#local-steps)
   - [Cloud deployment](#cloud-deployment)
-    - [Requirements](#requirements)
-    - [Steps](#steps)
+    - [Cloud requirements](#cloud-requirements)
+    - [Cloud steps](#cloud-steps)
   - [Troubleshooting](#troubleshooting)
     - [See your volume](#see-your-volume)
     - [Container bash](#container-bash)
@@ -23,13 +23,13 @@ graph TD;
     NodeJSServer--> |Dockerfile| DockerCompose;
     DBVolume-->MongoDB;
     MongoDB--> |Dockerfile| DockerCompose;
-    DockerCompose--> |sudo docker compose -f compose-dev.yaml up --build`| LocalMachine;
+    DockerCompose--> |docker compose up`| LocalMachine;
 ```
 Follow these steps to run a copy of this repo on your local machine in a development environment.
-### Requirements
+### Local requirements
 - [Docker](https://docs.docker.com/engine/install/ubuntu/) and [docker-compose](https://docs.docker.com/compose/install/linux/#install-using-the-repository) installed on your local machine.
 - A minimum of 8GB of disk space and 4GB of RAM.
-### Steps
+### Local steps
 1. Clone or download and extract this repo on your local machine. 
 2. Navigate to the project directory and run `sudo docker compose -f compose-dev.yaml up --build`.
 3. Test the application by heading to http://localhost:3000/.
@@ -51,14 +51,14 @@ graph TD;
     StaticIP-->VPSInstance;
 ```
 Follow these steps to generate and deploy your own fully-customizable version of the 3D virtual tour.
-### Requirements
+### Cloud requirements
 - A VPS Linux machine with a static public IP and a public DNS address.
 - [Docker](https://docs.docker.com/engine/install/ubuntu/) and [docker-compose](https://docs.docker.com/compose/install/linux/#install-using-the-repository) installed on your VPS Linux machine.
 - A minimum of 8GB of disk space and 4GB of RAM.
 
 :point_right: This repo has been tested and is currently deployed on an AWS EC2 Ubuntu t2.medium instance with 8GB of disk space.
 
-### Steps
+### Cloud steps
 1. Fork or download and import this repo to generate a new copy under your own ownership.
 2. Generate a self-signed certificate with `openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365` in the frontend/nginx/certs directory.
 3. Fill in your own data in the .env and frontend/.env files.
