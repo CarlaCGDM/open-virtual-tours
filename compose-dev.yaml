@@ -1,0 +1,57 @@
+version: "3.8"
+services:
+
+  frontend:
+    container_name: frontend_c
+    build: 
+      context: ./frontend
+      target: development
+    restart: always
+    env_file: ./frontend/.env_dev
+    ports:
+      - ${REACT_PORT}:${REACT_PORT}
+    logging:
+      options:
+        max-size: 50m
+    depends_on:
+      - backend
+    volumes:
+      - storage_v:/app/public/uploads
+
+  backend:
+    container_name: backend_c
+    build: 
+      context: ./backend
+      target: development
+    restart: always
+    env_file: .env
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    stdin_open: true
+    tty: true
+    depends_on:
+      - database
+    volumes:
+      - storage_v:/app/public/uploads
+    logging:
+      options:
+        max-size: 50m
+
+  database:
+    container_name: ${DATABASE_HOST}
+    build: ./database
+    restart: always
+    env_file: .env
+    ports: 
+      - ${DATABASE_PORT}:${DATABASE_PORT}
+    volumes:
+      - database_v:/data/db
+      - configdatabase_v:/data/configdb
+    logging:
+      options:
+        max-size: 50m
+
+volumes:
+  database_v:
+  configdatabase_v:
+  storage_v:
