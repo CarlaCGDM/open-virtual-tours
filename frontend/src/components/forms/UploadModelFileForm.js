@@ -41,7 +41,7 @@ export default function UploadModelFileForm(props) {
             // Send data to server and get modelURL:
             FileUploadAPI.uploadEnvironment(formData).then((response) => {
                 console.log(response)
-                setModelURL(`/static/uploads/models/${response.data}`)
+                setModelURL(`${ process.env.REACT_APP_UPLOADS_ROOT }/uploads/models/${response.data}`)
             })
         } else {
 
@@ -52,7 +52,7 @@ export default function UploadModelFileForm(props) {
             // Send data to server and get modelURL:
             FileUploadAPI.uploadModel(formData).then((response) => {
                 console.log(response)
-                setModelURL(`/static/uploads/models/${response.data}`)
+                setModelURL(`${ process.env.REACT_APP_UPLOADS_ROOT }/uploads/models/${response.data}`)
             })
         }
         
@@ -70,9 +70,8 @@ export default function UploadModelFileForm(props) {
         // Send fotmData to server and get imageURL:
         FileUploadAPI.uploadImage(formData).then((response) => {
             console.log(response)
-            setImageURL(`/static/uploads/images/${response.data}`)
+            setImageURL(`${ process.env.REACT_APP_UPLOADS_ROOT }/uploads/images/${ response.data }`)
         })
-
     }
 
     return <>
