@@ -3,7 +3,9 @@ services:
 
   frontend:
     container_name: frontend_c
-    build: ./frontend
+    build: 
+      context: ./frontend
+      target: production
     restart: always
     ports:
       - '80:80'
@@ -18,7 +20,9 @@ services:
 
   backend:
     container_name: backend_c
-    build: ./backend
+    build: 
+      context: ./backend
+      target: production
     restart: always
     env_file: .env
     ports:
