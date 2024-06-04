@@ -5,7 +5,7 @@ export const ModelAPI = {
 
   getOne: async function (id, cancel = false) {
     const response = await api.request({
-      url: `/models/:${id}`,
+      url: `/models/${id}`,
       method: "GET"
       // signal: cancel ? cancelApiObject[this.get.name].handleRequestCancellation().signal : undefined,
     })

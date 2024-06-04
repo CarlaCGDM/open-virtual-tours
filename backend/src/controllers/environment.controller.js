@@ -1,30 +1,28 @@
+import { model } from 'mongoose'
 import Environment from '../models/Environment.js'
+import Model from '../models/Model.js'
 
 export const createEnvironment = async (req,res) => 
 {
-    const {name, modelURL, imgURL, description, author, license, modelsCount, panelsCount} = req.body
+    const {name, modelURL, imgURL, description, author, license, modelCount, panelCount, stringifiedPath} = req.body
 
-    // models and panels is a number
-    // we create an array of empty 
+    // decode path
 
+    const path = JSON.parse(stringifiedPath)
+
+    // fill panel slots with placeholder data
+
+    const placeholderModel = await Model.findOne({name: '3D Hamburger'})
     const modelSlots = []
+    for (let index = 0; index < modelCount; index++) {
+        modelSlots.push(placeholderModel._id)
+    }
+
     const panelSlots = []
 
-    for (let i = 0; i < modelsCount; i++) {
-        modelSlots.push(null) // <- Create a placeholder 3D model
-        
-    }
-
-    for (let i = 0; i < panelsCount; i++) {
-        panelSlots.push(null) // <- Create a placeholder 3D model
-        
-    }
-
-    const newEnvironment = new Environment({name, modelURL, imgURL, description, author, license, modelSlots, panelSlots})
+    const newEnvironment = new Environment({name, modelURL, imgURL, description, author, license, modelSlots, panelSlots, path})
 
     const environmentSaved = await newEnvironment.save()
-
-    await newEnvironment.save()
 
     res.status(201).json(environmentSaved) // nuevo recurso se ha creado
 }

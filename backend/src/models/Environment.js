@@ -12,14 +12,12 @@ const environmentSchema = new Schema({
         type: Schema.Types.ObjectId,
         null: true
     }],
-    panelSlots: [
-        {
-            // ref: "Panel",
-            // type: Schema.Types.ObjectId
-            type: String,
-            null: true
-        }
-    ]
+    panelSlots: [{
+        ref: "Panel",
+        type: Schema.Types.ObjectId,
+        null: true
+    }],
+    path: Schema.Types.Mixed
 },
 {timestamps: true,
 versionKey: false})
