@@ -13,7 +13,7 @@ import DisplayPath from '../models/DisplayPath.js'
 export default function TourExperience(props) {
 
     console.log("Rendering tour experience")
-    const tourModel = useGLTF(props.tourEnvironment.modelURL ? props.tourEnvironment.modelURL : "uploads/models/CubePreset01.glb")
+    const tourModel = useGLTF(props.tourEnvironment.modelURL ? props.tourEnvironment.modelURL : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/models/CubePreset01.glb`)
 
     // Info from child component:
     const [scrollPages, setScrollPages] = useState(10)
