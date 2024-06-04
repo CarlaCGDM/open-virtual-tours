@@ -1,0 +1,21 @@
+.footer {
+    background-color: black;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
+  .footer-content {
+    text-align: left;
+  }
+  
+  .footer-text p {
+    margin: 2px 0;
+  }
+  
+  .envelope-icon::before {
+    content: '\2709'; /* Unicode character for envelope icon */
+    margin-right: 8px;
+  }

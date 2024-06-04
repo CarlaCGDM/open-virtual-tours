@@ -1,10 +1,17 @@
 import { useEffect, useState } from "react"
-import TourExperience from '../canvases/TourExperience.js'
 import { ConfigAPI } from '../../apis/ConfigAPI.js'
 import { EnvironmentAPI } from '../../apis/EnvironmentAPI.js'
 import CreateEnvironmentResourceForm from "../forms/CreateEnvironmentResourceForm.js"
+import TourExperience from '../canvases/TourExperience.js'
+import WelcomeModal from './../modals/WelcomeModal.js';
+import Footer from '../navigation/Footer.js';
+import './Home.css';
 
 export default function Home() {
+
+  // Show welcome modal
+
+  const [modalOpacity,setModalOpacity] = useState(1)
   
   // Get config object and console.log()
 
@@ -39,8 +46,11 @@ export default function Home() {
   }, [tourConfig]);
 
   return <>
-    
-    {tourEnvironment && <TourExperience tourEnvironment={tourEnvironment}/>}
+    <div className="home-container">
+      <WelcomeModal modalOpacity={modalOpacity} tourTitle={tourConfig.tourTitle} tourDescription={tourConfig.tourDescription}/>
+      {tourEnvironment && <TourExperience tourEnvironment={tourEnvironment} setModalOpacity={(p) => setModalOpacity(p)}/>}
+      <Footer contactEmail={tourConfig.contactEmail}/>
+    </div>
 
     {/* < CreateEnvironmentResourceForm /> */}
 

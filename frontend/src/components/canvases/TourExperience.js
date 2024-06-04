@@ -18,26 +18,20 @@ export default function TourExperience(props) {
     // Info from child component:
     const [scrollPages, setScrollPages] = useState(10)
 
-    // Infor for child component:
-    const [scrollMode, setScrollMode] = useState(false); // Initially in scrolling mode
-
-
     return <>
-        <div>
-            <Canvas>
+        <Canvas className='tour-experience'>
 
-                <directionalLight position={[1,2,3]} intensity={4.5}/>
-                <ambientLight intensity={4.5} />
+            <directionalLight position={[1,2,3]} intensity={4.5}/>
+            <ambientLight intensity={4.5} />
 
-                <ScrollControls pages={scrollPages} damping={0.3}>
+            <ScrollControls pages={scrollPages} damping={0.3}>
 
-                    <DisplayPath tourModel={tourModel} setScrollPages={(n) => {setScrollPages(n)}} />
+                <DisplayPath tourModel={tourModel} setScrollPages={(n) => {setScrollPages(n)}} setModalOpacity={(p) => {props.setModalOpacity(p)}}/>
     
-                </ScrollControls>
+            </ScrollControls>
 
-                {props.tourEnvironment && <Clone object={ tourModel.scene } />}
+            {props.tourEnvironment && <Clone object={ tourModel.scene } />}
                     
-            </Canvas>
-        </div>
+        </Canvas>
     </>
 }
