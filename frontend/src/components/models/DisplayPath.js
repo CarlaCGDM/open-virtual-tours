@@ -1,7 +1,8 @@
 import * as THREE from 'three'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useState, useRef, useMemo, useEffect } from 'react'
-import { useScroll, PerspectiveCamera, ScrollControls, OrbitControls } from '@react-three/drei'
+import { useScroll, PerspectiveCamera, ScrollControls, PointerLockControls, OrbitControls } from '@react-three/drei'
+import { FirstPersonControls } from 'three/addons/controls/FirstPersonControls.js';
 
 export default function DisplayPath(props) {
 
@@ -31,6 +32,7 @@ export default function DisplayPath(props) {
           }
 
           path.points = pathPoints
+          object.visible = false // Hide path mesh
      
         }
      
@@ -42,9 +44,8 @@ export default function DisplayPath(props) {
         );
     }, []);
 
-    const points = curve.getPoints( curve.points.length );
-
     const LINE_NB_POINTS = curve.points.length * 100;
+    props.setScrollPages(curve.points.length * 3)
 
     const linePoints = useMemo(() => {
         return curve.getPoints(LINE_NB_POINTS);
@@ -60,38 +61,60 @@ export default function DisplayPath(props) {
 
     // Control camera with scroll
 
-    const [scrollMode, setScrollMode] = useState(true); // Initially in scrolling mode
+    // // Event listener for mouse movement
+    // const handleMouseMove = () => {
+    //     console.log("Moving mouse!")
+    //     if (scrollMode) {
+    //         setScrollMode(false); // Switch to mouse control mode
+    //     }
+    // };
+
+    // // Event listener for scrolling
+    // const handleScroll = () => {
+    //     console.log("Scrolling!")
+    //     if (!scrollMode) {
+    //         setScrollMode(true); // Switch to scrolling mode
+    //     }
+    // };
+
+    // window.addEventListener('mousemove', handleMouseMove);
+    // window.addEventListener('wheel', handleScroll);
 
     const cameraGroup = useRef();
     const scroll = useScroll();
     const direction = new THREE.Vector3();
-    
+
     useFrame((_state, delta) => {
-        // Calculate the exact point position based on scroll offset
-        const t = scroll.offset * (linePoints.length - 1);
-        const curPointIndex = Math.floor(t);
-        const nextPointIndex = Math.min(curPointIndex + 1, linePoints.length - 1);
         
-        const curPoint = linePoints[curPointIndex];
-        const nextPoint = linePoints[nextPointIndex];
+            // Code for scrolling mode
+            // Use the code for scrolling mode from the previous solution
+
+            const t = scroll.offset * (linePoints.length - 1);
+            const curPointIndex = Math.floor(t);
+            const nextPointIndex = Math.min(curPointIndex + 1, linePoints.length - 1);
+            
+            const curPoint = linePoints[curPointIndex];
+            const nextPoint = linePoints[nextPointIndex];
+            
+            // Calculate the interpolation factor
+            const lerpFactor = t - curPointIndex;
         
-        // Calculate the interpolation factor
-        const lerpFactor = t - curPointIndex;
-    
-        // Interpolate between the current point and the next point
-        const targetPosition = curPoint.clone().lerp(nextPoint, lerpFactor);
-    
-        // Smoothly interpolate the camera position
-        cameraGroup.current.position.lerp(targetPosition, delta * 6);
+            // Interpolate between the current point and the next point
+            const targetPosition = curPoint.clone().lerp(nextPoint, lerpFactor);
         
-        // Calculate the direction vector
-        direction.subVectors(nextPoint, curPoint).normalize();
-    
-        // Make the camera look in the direction of movement
-        cameraGroup.current.lookAt(cameraGroup.current.position.clone().add(direction));
-        cameraGroup.current.rotateY(Math.PI);
-    
+            // Smoothly interpolate the camera position
+            cameraGroup.current.position.lerp(targetPosition, delta * 6);
+            
+            // Calculate the direction vector
+            direction.subVectors(nextPoint, curPoint).normalize();
+        
+            // Make the camera look in the direction of movement
+            cameraGroup.current.lookAt(cameraGroup.current.position.clone().add(direction));
+            cameraGroup.current.rotateY(Math.PI);
+
+        
     });
+    
     // Render models
 
     // Render panels
@@ -107,7 +130,7 @@ export default function DisplayPath(props) {
             </group>
 
             {/* Path object */}
-            <ScrollControls pages={LINE_NB_POINTS} damping={0.3}>
+
             <mesh position={[0,1,0]}>
                 <extrudeGeometry args={[
                     shape,
@@ -118,8 +141,8 @@ export default function DisplayPath(props) {
                     }
                 ]} />
                 <meshStandardMaterial color={"black"} opacity={0.3} transparent />
+        
             </mesh>
-            </ScrollControls>
 
     </>
 }

@@ -15,29 +15,27 @@ export default function TourExperience(props) {
     console.log("Rendering tour experience")
     const tourModel = useGLTF(props.tourEnvironment.modelURL ? props.tourEnvironment.modelURL : "uploads/models/CubePreset01.glb")
 
-    // Render path
-
     // Info from child component:
     const [scrollPages, setScrollPages] = useState(10)
 
-    // Render models
+    // Infor for child component:
+    const [scrollMode, setScrollMode] = useState(false); // Initially in scrolling mode
 
-    // Render panels
 
     return <>
         <div>
             <Canvas>
 
+                <directionalLight position={[1,2,3]} intensity={4.5}/>
+                <ambientLight intensity={4.5} />
+
                 <ScrollControls pages={scrollPages} damping={0.3}>
 
-                    <directionalLight position={[1,2,3]} intensity={4.5}/>
-                    <ambientLight intensity={4.5} />
-
-                    <DisplayPath tourModel={tourModel}/>
-
-                    {props.tourEnvironment && <Clone object={ tourModel.scene } />}
-                
+                    <DisplayPath tourModel={tourModel} setScrollPages={(n) => {setScrollPages(n)}} />
+    
                 </ScrollControls>
+
+                {props.tourEnvironment && <Clone object={ tourModel.scene } />}
                     
             </Canvas>
         </div>

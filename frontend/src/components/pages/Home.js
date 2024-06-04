@@ -42,7 +42,7 @@ export default function Home() {
     
     {tourEnvironment && <TourExperience tourEnvironment={tourEnvironment}/>}
 
-    < CreateEnvironmentResourceForm />
+    {/* < CreateEnvironmentResourceForm /> */}
 
     {/* <div> Home page </div>
     <div> Testing build sync again</div> */}
