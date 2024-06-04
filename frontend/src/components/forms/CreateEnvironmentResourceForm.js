@@ -2,7 +2,6 @@ import { useState, useEffect} from 'react'
 import { useGLTF } from '@react-three/drei'
 import { EnvironmentAPI } from '../../apis/EnvironmentAPI.js'
 import extractMarkerData from '../../utils/modelUtils.js'
-import UploadMdelFileForm from './UploadModelFileForm.js'
 import UploadModelFileForm from './UploadModelFileForm.js'
 
 /**
@@ -44,9 +43,9 @@ export default function CreateEnvironmentResourceForm() {
         formData.append("license", license)
         formData.append("modelURL", modelURL)
         formData.append("imgURL", imageURL)
-        formData.append("modelSlots", JSON.stringify(markerData.floorMarkers))
-        formData.append("panelSlots", JSON.stringify(markerData.wallMarkers))
-        formData.append("path", markerData.path)
+        formData.append("modelCount", markerData.floorMarkers)
+        formData.append("panelCount", markerData.wallMarkers)
+        formData.append("stringifiedPath", JSON.stringify(markerData.path))
 
         console.log(formData)
 

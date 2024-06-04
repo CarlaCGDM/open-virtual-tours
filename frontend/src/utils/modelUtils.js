@@ -1,13 +1,13 @@
 // Extracts relevant data from a 3D Environment model object
 export default function extractMarkerData(model) {
 
-  const markerData = {floorMarkers:{},wallMarkers:{},path:{}}
+  const markerData = {floorMarkers:0,wallMarkers:0,path:{}}
 
     // Count the wall markers
-    markerData.floorMarkers = fillMarkerData(countMarkers("FloorMarker",model))
+    markerData.floorMarkers = countMarkers("FloorMarker",model)
 
     // Count the floor markers
-    markerData.wallMarkers = fillMarkerData(countMarkers("WallMarker",model))
+    markerData.wallMarkers = countMarkers("WallMarker",model)
 
     // Extract the path
     markerData.path = extractPath(model)
@@ -37,17 +37,29 @@ function countMarkers(markerType, model) {
 function extractPath(model) {
 
   const path = {}
+
+  model.scene.traverse( function( object ) {
+
+    console.log("Looking for path object.")
+    if ( object.name === "Path" && object.isMesh ) {
+ 
+      console.log("Found path object.")
+      let vertices = object.geometry.attributes.position.array
+      for (let i = 0; i < vertices.length; i=i+3) {
+        //a vertex' position is (vertices[i],vertices[i+1],vertices[i+2])
+        path[i/3] = {
+          x:vertices[i],
+          y:vertices[i+1],
+          z:vertices[i+2]
+        }
+      }
+ 
+    }
+ 
+ } );
+
+  console.log(path)
+
   return path
     
-}
-
-function fillMarkerData(count) {
-  const placeholders = {}
-  const placeholder = "665de2f449867a205bee52e6"
-
-  for (let index = 0; index < count; index++) {
-    placeholders[index] = placeholder
-  }
-
-  return placeholders
 }
