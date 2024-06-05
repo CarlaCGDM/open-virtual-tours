@@ -29,13 +29,14 @@ const DisplayPanel = (props) => {
   // Hover effect
 
   const [shiny, setShiny] = useState(false)
-  const [panelInfoCard, setPanelInfoCard] = useState(<PanelInfoCard setPopup={(bool) => props.setPopup(bool)}/>)
 
   // Handle click
 
   const handleClick = () => {
     props.setPopup(true)
-    props.setPopupContent(panelInfoCard)
+    props.setPopupContent(<PanelInfoCard 
+        setPopup={(bool) => props.setPopup(bool)}
+        panel={panel}/>)
   }
 
   console.log("Panel: ")
