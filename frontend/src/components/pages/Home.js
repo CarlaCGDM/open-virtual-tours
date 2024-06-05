@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { ConfigAPI } from '../../apis/ConfigAPI.js'
 import { EnvironmentAPI } from '../../apis/EnvironmentAPI.js'
-import CreateEnvironmentResourceForm from "../forms/CreateEnvironmentResourceForm.js"
 import TourExperience from '../canvases/TourExperience.js'
 import WelcomeModal from './../modals/WelcomeModal.js';
 import Footer from '../navigation/Footer.js';
@@ -51,17 +50,5 @@ export default function Home() {
       {tourEnvironment && <TourExperience tourEnvironment={tourEnvironment} setModalOpacity={(p) => setModalOpacity(p)}/>}
       <Footer contactEmail={tourConfig.contactEmail}/>
     </div>
-
-    {/* < CreateEnvironmentResourceForm /> */}
-
-    {/* <div> Home page </div>
-    <div> Testing build sync again</div> */}
-    {/* <TestAPICall /> */}
-    {/* <Canvas>
-        <mesh>
-          <torusKnotGeometry />
-          <meshNormalMaterial />
-        </mesh>
-    </Canvas> */}
   </>
 }

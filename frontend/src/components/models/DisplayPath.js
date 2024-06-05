@@ -6,7 +6,7 @@ import { FirstPersonControls } from 'three/addons/controls/FirstPersonControls.j
 
 export default function DisplayPath(props) {
 
-    console.log("Rendering tour path")
+    // console.log("Rendering tour path")
 
     // Process the path object to convert it to a 
     //Convert points to THREE.Vector3
@@ -95,7 +95,7 @@ export default function DisplayPath(props) {
 
             const t = scroll.offset * (linePoints.length - 1);
             const curPointIndex = Math.max(Math.floor(t),0);
-            console.log(curPointIndex)
+            // console.log(curPointIndex)
             const nextPointIndex = Math.min(curPointIndex + 1, linePoints.length - 1);
             
             const curPoint = linePoints[curPointIndex];

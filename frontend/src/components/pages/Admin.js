@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom'
+import CreateModelResourceForm from "../forms/CreateModelResourceForm.js"
+
 
 export default function Admin(props) {
 
@@ -21,5 +23,7 @@ export default function Admin(props) {
         />
         {loggedIn ? <div>This is the admin page hidden content. Logged in as {email}</div> : <div />}
     </div>
+
+    < CreateModelResourceForm />
   </>
 }

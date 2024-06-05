@@ -1,0 +1,24 @@
+.display-panel-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+  
+.image-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.annotation {
+    background-color: black;
+    border-radius: 100vh;
+    color: white;
+    font-size: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5vh;
+}
