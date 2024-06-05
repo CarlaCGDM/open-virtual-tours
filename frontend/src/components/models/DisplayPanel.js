@@ -58,7 +58,7 @@ const DisplayPanel = (props) => {
             </mesh>
             { shiny && <mesh position={[0,0,frame.depth + 0.001]}>
                 <planeGeometry args={[dimensions.width + 0.1, dimensions.height + 0.1]} />
-                <meshBasicMaterial color={0xff00ff} />
+                <meshBasicMaterial color={0xff00ff} opacity={0.5} transparent/>
             </mesh>}
             <mesh position={[0,0,frame.depth]}>
                 <planeGeometry args={[dimensions.width, dimensions.height]} />
