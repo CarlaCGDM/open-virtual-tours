@@ -1,5 +1,6 @@
 import React from 'react'
-import { Html, useThree } from '@react-three/drei'
+import { Html } from '@react-three/drei'
+import { Canvas, useThree } from "@react-three/fiber";
 
 const Annotation = ({ children, ...props }) => {
     const { gl } = useThree();
