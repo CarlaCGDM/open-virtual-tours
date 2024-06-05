@@ -9,7 +9,7 @@ export default function DisplayPath(props) {
     // console.log("Rendering tour path")
 
     // Process the path object to convert it to a 
-    //Convert points to THREE.Vector3
+    // Convert points to THREE.Vector3
     // const curve = new THREE.CatmullRomCurve3( path.points.map((point) => {return new THREE.Vector3(point.x,point.y,point.z)}) );
 
     const path = {points:[{}],closed:false}
@@ -17,10 +17,10 @@ export default function DisplayPath(props) {
 
     props.tourModel.scene.traverse( function( object ) {
 
-        console.log("Looking for path object.")
+        // console.log("Looking for path object.")
         if ( object.name === "Path" && object.isMesh ) {
      
-          console.log("Found path object.")
+          // console.log("Found path object.")
           let vertices = object.geometry.attributes.position.array
           for (let i = 0; i < vertices.length; i=i+3) {
             //a vertex' position is (vertices[i],vertices[i+1],vertices[i+2])
