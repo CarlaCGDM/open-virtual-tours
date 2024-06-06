@@ -39,8 +39,8 @@ const DisplayPanel = (props) => {
         panel={panel}/>)
   }
 
-  console.log("Panel: ")
-  console.log(panel)
+  // console.log("Panel: ")
+  // console.log(panel)
 
   const texture = new TextureLoader().load(panel.imgURL, function ( tex ) {
 

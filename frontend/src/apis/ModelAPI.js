@@ -3,14 +3,12 @@ import { api } from "./configs/axiosConfigs.js"
 
 export const ModelAPI = {
 
-  getOne: async function (id, cancel = false) {
+  getOne: async function (id) {
     const response = await api.request({
       url: `/models/${id}`,
       method: "GET"
-      // signal: cancel ? cancelApiObject[this.get.name].handleRequestCancellation().signal : undefined,
     })
 
-    // returning the product returned by the API
     return response.data
   },
 

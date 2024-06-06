@@ -20,6 +20,7 @@
     "sanitize.css": "^13.0.0",
     "three": "^0.158.0",
     "three-stdlib": "^2.30.3",
+    "three.modifiers": "^2.5.7",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

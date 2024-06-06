@@ -1,9 +1,10 @@
 import * as THREE from 'three'
 import { Canvas } from '@react-three/fiber'
 import { useState, useRef, useMemo, useEffect } from 'react'
-import { Clone, useGLTF, ScrollControls, OrbitControls, useScroll, PerspectiveCamera } from '@react-three/drei'
+import { Clone, useGLTF, ScrollControls, OrbitControls } from '@react-three/drei'
 import DisplayPath from '../models/DisplayPath.js'
 import DisplayPanel from '../models/DisplayPanel.js'
+import DisplayModel from '../models/DisplayModel.js'
 
 
 /**
@@ -28,8 +29,10 @@ export default function TourExperience(props) {
     const [displayModels, setDisplayModels] = useState([])
 
     useEffect(() => {
-      let index = 0;
+      let panelIndex = 0
+      let modelIndex = 0
       const newDisplayPanels = []
+      const newDisplayModels = []
   
       tourModel.scene.traverse((object) => {
         // console.log('Looking for WallMarker objects.')
@@ -38,17 +41,32 @@ export default function TourExperience(props) {
           object.visible=false
           newDisplayPanels.push(
             <DisplayPanel
-            key={index} 
+            key={panelIndex} 
             setPopup={(bool) => setPopup(bool)} 
             setPopupContent={(content) => setPopupContent(content)}
             position={[object.position.x,object.position.y,object.position.z]} 
-            id={props.tourEnvironment.panelSlots[index]} />
+            id={props.tourEnvironment.panelSlots[panelIndex]} />
           )
-          index++
+          panelIndex++
+        } else if (object.name.includes('FloorMarker')) {
+          //console.log('Found FloorMarker object.')
+          object.visible=false
+          newDisplayModels.push(
+            <DisplayModel
+            key={modelIndex} 
+            setPopup={(bool) => setPopup(bool)} 
+            setPopupContent={(content) => setPopupContent(content)}
+            position={[object.position.x,object.position.y,object.position.z]} 
+            id={props.tourEnvironment.modelSlots[modelIndex]}/>
+          )
+          modelIndex++
+        } else if (object.name.includes('Path')) {
+            object.visible=false
         }
       })
   
       setDisplayPanels(newDisplayPanels)
+      setDisplayModels(newDisplayModels)
     }, [tourModel])
 
     return <>
@@ -79,6 +97,7 @@ export default function TourExperience(props) {
         {/* Content */}
         
         {displayPanels}
+        {displayModels}
 
       </Canvas>
     </>

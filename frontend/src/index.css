@@ -19,19 +19,3 @@ code {
 .footer {
   height: 5vh;
 }
-
-.panel-popup {
-  position: fixed; /* Fixed position to cover the entire viewport */
-  top: 20vh;
-  left: 30vw;
-  right: 30vw;
-  bottom: 25vh;
-  color: white;
-  background-color: black;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000; /* High z-index to ensure it appears on top */
-  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
-}

@@ -32,7 +32,6 @@ export default function DisplayPath(props) {
           }
 
           path.points = pathPoints
-          object.visible = false // Hide path mesh
      
         }
      

@@ -1,50 +1,84 @@
 import React from 'react'
-import { useState, useRef, useMemo, useEffect } from 'react'
-import { TextureLoader } from 'three'
-import { Html } from '@react-three/drei'
+import * as THREE from 'three'
+import { useState, useEffect } from 'react'
+import { Clone, useGLTF } from '@react-three/drei'
 import './DisplayModel.css'
+import Annotation from './Annotation.js'
+import ModelInfoCard from '../modals/ModelInfoCard.js'
+import { ModelAPI } from '../../apis/ModelAPI.js'
 
 const DisplayModel = (props) => {
 
-  // Hover effect
+    // Model content
 
-  const [shiny, setShiny] = useState(false);
+    const [model, setModel] = useState("")
+    // Dynamically generate a base adequate to the size of the model (60-75% width and height)
 
+    useEffect(() => {
+        ModelAPI.getOne(props.id)
+        .then((data) => {
+            setModel(data)
+        })
+    }, []);
 
-  
+    // Load model
+
+    const modelModel = useGLTF(model.modelURL ? model.modelURL : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/models/CubePreset01.glb`)
+
+    // Get dimensions
+
+    const [dimensions, setDimensions] = useState({ width: 0, height: 0, depth: 0 })
+    useEffect(() => {
+        if (modelModel) {
+          // Compute the bounding box of the model
+          const box = new THREE.Box3().setFromObject(modelModel.scene)
+          const size = box.getSize(new THREE.Vector3())
+          setDimensions({ width: size.x, height: size.y, depth: size.z })
+        }
+      }, [modelModel])
+
+    // Hover effect
+
+    const [shiny, setShiny] = useState(false)
+
+    // Handle click
+
+    const handleClick = () => {
+        props.setPopup(true)
+        props.setPopupContent(<ModelInfoCard 
+        setPopup={(bool) => props.setPopup(bool)}
+        model={model}/>)
+    }
+
+    // console.log("Model: ")
+    // console.log(model)
+
+    // To make the 3D model shiny: 
+    // Duplicate it and make it slightly bigger
+    // Add transparent single color low opacity material and display on shiny
+
+    return (
+        <>
+        <group position={props.position}
+        onPointerEnter={() => setShiny(true)}
+        onPointerLeave={() => setShiny(false)}
+        onClick={() => handleClick()}
+        >
+            <Annotation position={[0,dimensions.height+0.7,0]}>
+                <p className='annotation'
+                >{model.name}</p> 
+            </Annotation>
+            <Clone position={[0,0.3,0]} object={modelModel.scene}/>
+            {shiny && <Clone position={[0,0.3,0]} object={modelModel.scene} inject={<meshStandardMaterial color="magenta" opacity={0.8} transparent/>} /> }
+            <mesh position= {[0,0,0]}>
+                <boxGeometry args={[dimensions.width*0.5,0.2,dimensions.depth*0.5]
+                    } />
+                <meshBasicMaterial  color={shiny ? 0xff00ff : "gray"}/>
+            </mesh>
+        </group>
+        </>
+    )
 }
 
-// console.log(dimensions)
+export default DisplayModel
 
-  return (
-    <>
-    <group position={props.position} 
-    onPointerEnter={() => setShiny(true)}
-    onPointerLeave={() => setShiny(false)}
-    onClick={() => props.setPopup(true)}
-    >
-        
-        <Annotation position={[0,dimensions.height/2 + 0.5,0]}>
-                <p className='annotation'
-                >{props.label}</p> 
-            </Annotation>
-            <mesh position={[0,0,frame.depth/2 - 0.001]}>
-                <boxGeometry args={[
-                    dimensions.width + frame.depth, 
-                    dimensions.height + frame.depth,
-                    frame.depth]
-                    } />
-                <meshBasicMaterial  color={shiny ? 0xff00ff : "black"}/>
-            </mesh>
-            { shiny && <mesh position={[0,0,frame.depth + 0.001]}>
-                <planeGeometry args={[dimensions.width + 0.1, dimensions.height + 0.1]} />
-                <meshBasicMaterial color={0xff00ff} opacity={0.5} transparent/>
-            </mesh>}
-            <mesh position={[0,0,frame.depth]}>
-                <planeGeometry args={[dimensions.width, dimensions.height]} />
-                <meshBasicMaterial map={texture} />
-            </mesh>
-    </group>
-    </>
-  );
-};
