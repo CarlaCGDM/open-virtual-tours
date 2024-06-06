@@ -59,6 +59,8 @@ const Content = (props) => {
                     zoom={size.height/dimensions.height * 0.75}/>
 
                 <OrbitControls />
+
+                <color attach="background" args={[props.bgColor ? props.bgColor : "black"]} />
                
                 <Clone 
                 object={ model.scene } 
