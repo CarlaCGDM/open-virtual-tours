@@ -68,7 +68,8 @@ const DisplayPanel = (props) => {
 
   return (
     <>
-    <group position={props.position} 
+    <group position={props.position}
+    rotation={props.rotation} 
     onPointerEnter={() => setShiny(true)}
     onPointerLeave={() => setShiny(false)}
     onClick={() => handleClick()}

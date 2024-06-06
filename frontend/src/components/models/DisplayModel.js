@@ -55,6 +55,7 @@ const DisplayModel = (props) => {
     return (
         <>
         <group position={props.position}
+        rotation={props.rotation}
         onPointerEnter={() => setShiny(true)}
         onPointerLeave={() => setShiny(false)}
         onClick={() => handleClick()}
@@ -66,8 +67,7 @@ const DisplayModel = (props) => {
             <Clone position={[0,0.3,0]} object={modelModel.scene}/>
             {shiny && <Clone position={[0,0.3,0]} object={modelModel.scene} inject={<meshStandardMaterial color="magenta" opacity={0.8} transparent/>} /> }
             <mesh position= {[0,0,0]}>
-                <boxGeometry args={[dimensions.width*0.5,0.2,dimensions.depth*0.5]
-                    } />
+            <cylinderGeometry args={[dimensions.width*0.3, dimensions.width*0.3, 0.2, 20]} />
                 <meshBasicMaterial  color={shiny ? 0xff00ff : "black"}/>
             </mesh>
         </group>

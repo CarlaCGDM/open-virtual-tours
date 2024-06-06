@@ -88,7 +88,7 @@ export default function DisplayPath(props) {
             // Code for scrolling mode
             // Use the code for scrolling mode from the previous solution
 
-            const modalOpacity = Math.max(1 - (scroll.offset * 4),0)
+            const modalOpacity = Math.max(1 - (scroll.offset * 5),0)
 
             props.setModalOpacity(modalOpacity)
 

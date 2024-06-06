@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { Canvas } from '@react-three/fiber'
-import { useState, useRef, useMemo, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Clone, useGLTF, ScrollControls, OrbitControls } from '@react-three/drei'
 import DisplayPath from '../models/DisplayPath.js'
 import DisplayPanel from '../models/DisplayPanel.js'
@@ -44,6 +44,7 @@ export default function TourExperience(props) {
             key={panelIndex} 
             setPopup={(bool) => setPopup(bool)} 
             setPopupContent={(content) => setPopupContent(content)}
+            rotation={[object.rotation.x,object.rotation.y,object.rotation.z]}
             position={[object.position.x,object.position.y,object.position.z]} 
             id={props.tourEnvironment.panelSlots[panelIndex]} />
           )
@@ -56,6 +57,7 @@ export default function TourExperience(props) {
             key={modelIndex} 
             setPopup={(bool) => setPopup(bool)} 
             setPopupContent={(content) => setPopupContent(content)}
+            rotation={[object.rotation.x,object.rotation.y,object.rotation.z]}
             position={[object.position.x,object.position.y,object.position.z]} 
             id={props.tourEnvironment.modelSlots[modelIndex]}/>
           )
@@ -77,7 +79,8 @@ export default function TourExperience(props) {
 
         {/* Staging */}
 
-        <directionalLight position={[1,2,3]} intensity={4.5}/>
+        <directionalLight position={[1,2,3]} intensity={3.5}/>
+        <directionalLight position={[-2,2,-2]} intensity={2.5}/>
         <ambientLight intensity={4.5} />
 
         {/* Navigation */}
