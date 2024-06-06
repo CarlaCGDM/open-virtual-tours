@@ -1,5 +1,6 @@
 import React from 'react'
 import * as THREE from 'three'
+import { ModifierStack,Taper } from "three.modifiers";
 import { useState, useEffect } from 'react'
 import { Clone, useGLTF } from '@react-three/drei'
 import './DisplayModel.css'
@@ -50,13 +51,6 @@ const DisplayModel = (props) => {
         model={model}/>)
     }
 
-    // console.log("Model: ")
-    // console.log(model)
-
-    // To make the 3D model shiny: 
-    // Duplicate it and make it slightly bigger
-    // Add transparent single color low opacity material and display on shiny
-
     return (
         <>
         <group position={props.position}
@@ -73,7 +67,7 @@ const DisplayModel = (props) => {
             <mesh position= {[0,0,0]}>
                 <boxGeometry args={[dimensions.width*0.5,0.2,dimensions.depth*0.5]
                     } />
-                <meshBasicMaterial  color={shiny ? 0xff00ff : "gray"}/>
+                <meshBasicMaterial  color={shiny ? 0xff00ff : "black"}/>
             </mesh>
         </group>
         </>
