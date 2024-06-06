@@ -3,7 +3,7 @@ import { useState, useRef, useMemo, useEffect } from 'react'
 import { TextureLoader } from 'three'
 import './DisplayPanel.css'
 import Annotation from './Annotation.js'
-import PanelInfoCard from '../modals/PanelInfoCard.js'
+import InfoCard from '../modals/InfoCard.js'
 import { PanelAPI } from '../../apis/PanelAPI.js'
 
 const DisplayPanel = (props) => {
@@ -34,9 +34,10 @@ const DisplayPanel = (props) => {
 
   const handleClick = () => {
     props.setPopup(true)
-    props.setPopupContent(<PanelInfoCard 
+    props.setPopupContent(<InfoCard 
         setPopup={(bool) => props.setPopup(bool)}
-        panel={panel}/>)
+        content={panel}
+        isModel={false}/>)
   }
 
   // console.log("Panel: ")

@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import { Clone, useGLTF } from '@react-three/drei'
 import './DisplayModel.css'
 import Annotation from './Annotation.js'
-import ModelInfoCard from '../modals/ModelInfoCard.js'
+import InfoCard from '../modals/InfoCard.js'
 import { ModelAPI } from '../../apis/ModelAPI.js'
 
 const DisplayModel = (props) => {
@@ -46,10 +46,11 @@ const DisplayModel = (props) => {
 
     const handleClick = () => {
         props.setPopup(true)
-        props.setPopupContent(<ModelInfoCard 
-        setPopup={(bool) => props.setPopup(bool)}
-        model={model}/>)
-    }
+        props.setPopupContent(<InfoCard 
+            setPopup={(bool) => props.setPopup(bool)}
+            content={model}
+            isModel={true}/>)
+      }
 
     return (
         <>
