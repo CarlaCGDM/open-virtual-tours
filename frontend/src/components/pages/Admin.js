@@ -21,7 +21,7 @@ export default function Admin(props) {
 
   // If user is logged in:
 
-  // Get config object and console.log()
+  // Get config object
 
   const [tourConfig, setTourConfig] = useState("")
   const [tourEnvironment, setTourEnvironment] = useState("")
@@ -31,8 +31,8 @@ export default function Admin(props) {
       .then((data) => {
 
         // Newest model uploaded
-        console.log("New updated tour config: ")
-        console.log(data)
+        // console.log("New updated tour config: ")
+        // console.log(data)
         setTourConfig(data)
       })
 
@@ -62,7 +62,7 @@ export default function Admin(props) {
     </div> */}
 
      {/* < CreateModelResourceForm />  */}
-    {/* < CreateEnvironmentResourceForm /> */}
+    < CreateEnvironmentResourceForm />
 
     <DndContext>
       <div style={{ display: 'flex', justifyContent: 'space-around', padding: '20px' }}>
