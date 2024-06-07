@@ -6,6 +6,7 @@ import CreateEnvironmentResourceForm from "../forms/CreateEnvironmentResourceFor
 
 export default function Admin(props) {
 
+  // Redirect to /login if not logged in
   const {loggedIn, email} = props
   const navigate = useNavigate()
 
@@ -13,8 +14,12 @@ export default function Admin(props) {
     // You'll update this function later
   }
 
+  // If user is logged in:
+
+
+
   return <>
-    <div> Admin page </div>
+    {/* <div> Admin page </div>
     <div className={'buttonContainer'}>
         <input
           className={'inputButton'}
@@ -23,10 +28,10 @@ export default function Admin(props) {
           value={loggedIn ? 'Log out' : 'Log in'}
         />
         {loggedIn ? <div>This is the admin page hidden content. Logged in as {email}</div> : <div />}
-    </div>
+    </div> */}
 
-    {/* < CreateModelResourceForm /> */}
-    < CreateEnvironmentResourceForm />
+     {/* < CreateModelResourceForm />  */}
+    {/* < CreateEnvironmentResourceForm /> */}
 
   </>
 }

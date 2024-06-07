@@ -1,6 +1,6 @@
 import './InfoCard.css'
 import CloseButton from '../buttons/CloseButton.js';
-import ModelPreview from '../models/ModelPreview.js';
+import ModelPreview from '../canvases/ModelPreview.js';
 
 const InfoCard = (props) => {
     return (

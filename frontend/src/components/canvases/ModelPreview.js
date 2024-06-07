@@ -6,14 +6,12 @@ import {
 } from 'react'
 import { 
     Canvas, 
-    useThree,
-    useFrame
+    useThree
 } from "@react-three/fiber"
 import { 
     Clone, 
     useGLTF, 
     OrbitControls,
-    PerspectiveCamera, 
     OrthographicCamera
 } from '@react-three/drei'
 import { gapSize } from 'three/examples/jsm/nodes/Nodes.js'
@@ -44,6 +42,7 @@ const Content = (props) => {
         // } else {
         //     setZoomFactor(size.width/dimensions.width)
         // }
+
         }
       }, [model])
 
@@ -75,7 +74,10 @@ const ModelPreview = (props) => {
 
     return (
         <>
-            <Canvas className="model-preview-canvas">
+            <Canvas
+            ref={props.canvasRef}
+            gl={{ preserveDrawingBuffer: true }}
+            >
                 
                 <Content {...props}/>
 

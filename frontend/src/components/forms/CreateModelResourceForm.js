@@ -45,7 +45,7 @@ export default function CreateModelResource() {
     }
     
     return <div className="popup-form">
-        <p>Upload new 3D model:</p>
+        <h2>Upload new 3D model</h2>
 
         <label>Name:<input type="text" onChange={(e) => {setName(e.target.value)}} /></label>< br />
         <label>Description:<input type="text" onChange={(e) => {setDescription(e.target.value)}} /></label>< br />

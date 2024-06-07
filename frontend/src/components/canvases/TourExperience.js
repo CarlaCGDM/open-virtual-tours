@@ -79,7 +79,7 @@ export default function TourExperience(props) {
 
         {/* Staging */}
 
-        <directionalLight position={[1,2,3]} intensity={3.5}/>
+        <directionalLight position={[1,2,3]} intensity={2.5}/>
         <directionalLight position={[-2,2,-2]} intensity={2.5}/>
         <ambientLight intensity={4.5} />
 
