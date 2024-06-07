@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom'
 import SourceList from './../dnd-context/SourceList.js'
-import TargetList from './../dnd-context/TargetList.js'
+import TargetBucket from './../dnd-context/TargetBucket.js'
 import DndContext from './../dnd-context/DndContext.js'
 import CreateModelResourceForm from "../forms/CreateModelResourceForm.js"
 import CreateEnvironmentResourceForm from "../forms/CreateEnvironmentResourceForm.js"
@@ -46,7 +46,7 @@ export default function Admin(props) {
     { id: 3, text: 'Card 3' },
   ])
 
-  const [targetCards, setTargetCards] = useState([])
+  const [targetBuckets] = useState([1, 2, 3]) // IDs of target lists
 
 
   return <>
@@ -70,9 +70,10 @@ export default function Admin(props) {
           <h2>Source List</h2>
           <SourceList cards={sourceCards} />
         </div>
-        <div>
-          <h2>Target List</h2>
-          <TargetList cards={targetCards} setCards={setTargetCards} />
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          {targetBuckets.map((id) => (
+            <TargetBucket key={id} id={id} />
+          ))}
         </div>
       </div>
     </DndContext>

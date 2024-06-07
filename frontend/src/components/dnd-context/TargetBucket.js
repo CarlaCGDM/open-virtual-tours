@@ -1,16 +1,19 @@
+import React, { useState } from 'react'
 import { useDrop } from 'react-dnd'
 
-const TargetList = ({ cards, setCards }) => {
+const TargetBucket = ({ id }) => {
+  const [cards, setCards] = useState([])
+
   const [, drop] = useDrop({
     accept: 'CARD',
     drop: (item) => {
-      // For simplicity, overwriting the target list with the dragged card's id
       setCards([{ id: item.id, text: `Card ${item.id}` }])
     },
   })
 
   return (
-    <div ref={drop} style={{ minHeight: '200px', border: '1px solid black', padding: '16px' }}>
+    <div ref={drop} style={{ minHeight: '200px', border: '1px solid black', padding: '16px', margin: '10px' }}>
+      <h2>Target Bucket {id}</h2>
       {cards.map((card) => (
         <div key={card.id} style={{ border: '1px solid gray', padding: '8px', margin: '4px', backgroundColor: 'white' }}>
           {card.text}
@@ -20,4 +23,5 @@ const TargetList = ({ cards, setCards }) => {
   )
 }
 
-export default TargetList
+export default TargetBucket
+
