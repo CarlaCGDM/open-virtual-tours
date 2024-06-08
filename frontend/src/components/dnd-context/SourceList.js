@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import Card from './../dnd-context/Card.js'
 import { ModelAPI } from '../../apis/ModelAPI.js';
+import './SourceList.css'
 
 const SourceList = ({ }) => {
 
@@ -20,7 +21,7 @@ const SourceList = ({ }) => {
 
 
   return (
-    <div>
+    <div className="source-list">
       {cards.map((card) => (
         <Card key={card._id} id={card._id} text={card.name} imgURL={card.imgURL} />
       ))}

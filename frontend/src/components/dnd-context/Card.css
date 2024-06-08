@@ -1,0 +1,11 @@
+.card {
+    border: 1px solid gray;
+    margin: 4px;
+    background-color: 'white';
+    display: flex;
+    flex-direction: column;
+}
+
+.card p {
+    text-align: center;
+}

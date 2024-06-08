@@ -1,4 +1,5 @@
 import { useDrag } from 'react-dnd'
+import './Card.css'
 
 const Card = ({ id, text, imgURL }) => {
   const [{ isDragging }, drag] = useDrag({
@@ -10,10 +11,13 @@ const Card = ({ id, text, imgURL }) => {
   })
 
   return (
-    <div ref={drag} style={{ opacity: isDragging ? 0.5 : 1, border: '1px solid gray', padding: '8px', margin: '4px', backgroundColor: 'white' }}>
+    <div
+    className="card" 
+    ref={drag} 
+    style={{ opacity: isDragging ? 0.5 : 1}}>
       <img 
         src={imgURL ? imgURL : "/uploads/images/ImageNotFound.png"}></img>
-      {text}
+      <p>{text}</p>
     </div>
   )
 }

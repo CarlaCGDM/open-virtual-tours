@@ -7,12 +7,13 @@ import CreateModelResourceForm from "../forms/CreateModelResourceForm.js"
 import CreateEnvironmentResourceForm from "../forms/CreateEnvironmentResourceForm.js"
 
 import { ConfigAPI } from '../../apis/ConfigAPI.js'
+import { EnvironmentAPI } from '../../apis/EnvironmentAPI.js'
 import Footer from '../navigation/Footer.js'
 
 export default function Admin(props) {
 
   // Redirect to /login if not logged in
-  const {loggedIn, email} = props
+  const { loggedIn, email } = props
   const navigate = useNavigate()
 
   const onButtonClick = () => {
@@ -38,15 +39,32 @@ export default function Admin(props) {
 
   }, []);
 
+  useEffect(() => {
+
+    if (tourConfig) {
+      EnvironmentAPI.getOne(tourConfig.tourEnvironment)
+        .then((data) => {
+
+          // Update environment on display
+          console.log("New updated tour environment: ")
+          console.log(data)
+          setTourEnvironment(data)
+        })
+    }
+
+  }, [tourConfig]);
+
   // Drag and drop
 
-  const [sourceCards] = useState([
-    { id: 1, text: 'Card 1' },
-    { id: 2, text: 'Card 2' },
-    { id: 3, text: 'Card 3' },
-  ])
+  const [targetBuckets, setTargetBuckets] = useState([1, 2, 3]) // IDs of target lists
+  useEffect(() => {
 
-  const [targetBuckets] = useState([1, 2, 3]) // IDs of target lists
+    if (tourEnvironment) {
+      const keys = tourEnvironment.modelSlots.map((model, index) => (index))
+      setTargetBuckets(keys)
+    }
+
+  }, [tourEnvironment]);
 
 
   return <>
@@ -61,24 +79,27 @@ export default function Admin(props) {
         {loggedIn ? <div>This is the admin page hidden content. Logged in as {email}</div> : <div />}
     </div> */}
 
-     {/* < CreateModelResourceForm />  */}
-    < CreateEnvironmentResourceForm />
+    {/* < CreateModelResourceForm />  */}
+    {/* < CreateEnvironmentResourceForm /> */}
 
-    <DndContext>
+    {tourEnvironment && <DndContext>
       <div style={{ display: 'flex', justifyContent: 'space-around', padding: '20px' }}>
         <div>
           <h2>Source List</h2>
-          <SourceList cards={sourceCards} />
+          <SourceList />
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {targetBuckets.map((id) => (
-            <TargetBucket key={id} id={id} />
+            <TargetBucket 
+            key={id} 
+            id={id}
+            tourEnvironment={tourEnvironment} />
           ))}
         </div>
       </div>
-    </DndContext>
-    
-    <Footer contactEmail={tourConfig.contactEmail}/>
+    </DndContext>}
+
+    <Footer contactEmail={tourConfig.contactEmail} />
 
   </>
 }

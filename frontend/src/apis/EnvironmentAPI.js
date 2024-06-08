@@ -31,6 +31,19 @@ export const EnvironmentAPI = {
     })
     
     return response.data
+  },
+
+  editOne: async function (id, environment) {
+    const response = await api.request({
+      url: `/environments/${id}`,
+      method: "PUT",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: environment
+    })
+    
+    return response.data
   }
 
 }
