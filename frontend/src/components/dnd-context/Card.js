@@ -14,9 +14,12 @@ const Card = ({ id, text, imgURL }) => {
     <div
     className="card" 
     ref={drag} 
+    title={text}
     style={{ opacity: isDragging ? 0.5 : 1}}>
       <img 
-        src={imgURL ? imgURL : "/uploads/images/ImageNotFound.png"}></img>
+        src={imgURL ? imgURL : "/uploads/images/ImageNotFound.png"}
+        alt={text}
+      />
       <p>{text}</p>
     </div>
   )

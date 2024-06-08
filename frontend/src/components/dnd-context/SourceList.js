@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import Card from './../dnd-context/Card.js'
+import Card from './Card.js'
 import { ModelAPI } from '../../apis/ModelAPI.js';
 import './SourceList.css'
 

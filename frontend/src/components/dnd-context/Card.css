@@ -1,11 +1,24 @@
 .card {
     border: 1px solid gray;
     margin: 4px;
-    background-color: 'white';
+    background-color: white;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    width: 6vw;
 }
 
 .card p {
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;  
+    text-overflow: ellipsis; 
+    width: 100%; 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0 4px;
+}
+
+.card img {
+    width: 100%; 
 }

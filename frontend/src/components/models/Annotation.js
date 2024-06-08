@@ -1,6 +1,7 @@
 import React from 'react'
 import { Html } from '@react-three/drei'
 import { useThree } from "@react-three/fiber";
+import './Annotation.css'
 
 const Annotation = ({ children, ...props }) => {
     const { gl } = useThree();

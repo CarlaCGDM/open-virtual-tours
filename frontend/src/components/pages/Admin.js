@@ -1,28 +1,19 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom'
-import SourceList from './../dnd-context/SourceList.js'
+import SourceList from '../dnd-context/SourceList.js'
 import TargetBucket from './../dnd-context/TargetBucket.js'
 import DndContext from './../dnd-context/DndContext.js'
 import CreateModelResourceForm from "../forms/CreateModelResourceForm.js"
 import CreateEnvironmentResourceForm from "../forms/CreateEnvironmentResourceForm.js"
-
+import TourExperienceDev from '../canvases/TourExperienceDev.js'
 import { ConfigAPI } from '../../apis/ConfigAPI.js'
 import { EnvironmentAPI } from '../../apis/EnvironmentAPI.js'
 import Footer from '../navigation/Footer.js'
+import SelectResource from "../admin-panels/SelectResource.js"
 
 export default function Admin(props) {
 
-  // Redirect to /login if not logged in
-  const { loggedIn, email } = props
-  const navigate = useNavigate()
-
-  const onButtonClick = () => {
-    // You'll update this function later
-  }
-
-  // If user is logged in:
-
-  // Get config object
+  // Fetch config and environment data
 
   const [tourConfig, setTourConfig] = useState("")
   const [tourEnvironment, setTourEnvironment] = useState("")
@@ -30,45 +21,87 @@ export default function Admin(props) {
   useEffect(() => {
     ConfigAPI.getAll()
       .then((data) => {
-
-        // Newest model uploaded
-        // console.log("New updated tour config: ")
-        // console.log(data)
-        setTourConfig(data)
+        setTourConfig({ ...data })
       })
 
   }, []);
 
-  useEffect(() => {
-
+  const fetchEnvironment = () => {
     if (tourConfig) {
       EnvironmentAPI.getOne(tourConfig.tourEnvironment)
         .then((data) => {
-
-          // Update environment on display
-          console.log("New updated tour environment: ")
-          console.log(data)
-          setTourEnvironment(data)
+          setTourEnvironment({ ...data })
         })
     }
+  }
 
+  useEffect(() => {
+    fetchEnvironment()
   }, [tourConfig]);
 
-  // Drag and drop
+  // Update environment from TargetBucket Card child component
 
-  const [targetBuckets, setTargetBuckets] = useState([1, 2, 3]) // IDs of target lists
+  const handleUpdate = () => {
+    fetchEnvironment()
+  }
+
+  const [targetBuckets, setTargetBuckets] = useState([])
+
   useEffect(() => {
 
     if (tourEnvironment) {
-      const keys = tourEnvironment.modelSlots.map((model, index) => (index))
-      setTargetBuckets(keys)
-    }
 
+      const keys = tourEnvironment.modelSlots.map((modelId, index) => (index))
+      setTargetBuckets(keys)
+
+    }
   }, [tourEnvironment]);
 
 
   return <>
-    {/* <div> Admin page </div>
+
+    {tourEnvironment &&
+      <DndContext>
+        <div style={{ display: 'flex', justifyContent: 'space-around', padding: '20px' }}>
+          <div>
+            <h2>Source List</h2>
+            <SourceList />
+          </div>
+
+          <TourExperienceDev
+            tourEnvironment={tourEnvironment} />
+
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {targetBuckets.map((id) => (
+              <TargetBucket
+                key={id}
+                id={id}
+                tourId={tourEnvironment._id}
+                modelSlots={tourEnvironment.modelSlots}
+                onUpdate={() => { handleUpdate() }} />)
+            )}
+          </div>
+        </div>
+      </DndContext>}
+
+    {/* <SelectResource /> */}
+
+    <Footer contactEmail={tourConfig.contactEmail} />
+
+  </>
+}
+
+// Redirect to /login if not logged in
+// const { loggedIn, email } = props
+// const navigate = useNavigate()
+
+// const onButtonClick = () => {
+//   // You'll update this function later
+// }
+
+// If user is logged in:
+
+{/* <div> Admin page </div>
     <div className={'buttonContainer'}>
         <input
           className={'inputButton'}
@@ -79,27 +112,5 @@ export default function Admin(props) {
         {loggedIn ? <div>This is the admin page hidden content. Logged in as {email}</div> : <div />}
     </div> */}
 
-    {/* < CreateModelResourceForm />  */}
-    {/* < CreateEnvironmentResourceForm /> */}
-
-    {tourEnvironment && <DndContext>
-      <div style={{ display: 'flex', justifyContent: 'space-around', padding: '20px' }}>
-        <div>
-          <h2>Source List</h2>
-          <SourceList />
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          {targetBuckets.map((id) => (
-            <TargetBucket 
-            key={id} 
-            id={id}
-            tourEnvironment={tourEnvironment} />
-          ))}
-        </div>
-      </div>
-    </DndContext>}
-
-    <Footer contactEmail={tourConfig.contactEmail} />
-
-  </>
-}
+{/* < CreateModelResourceForm />  */ }
+{/* < CreateEnvironmentResourceForm /> */ }

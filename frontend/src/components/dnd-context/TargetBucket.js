@@ -1,47 +1,44 @@
 import React, { useState, useEffect } from 'react'
 import { useDrop } from 'react-dnd'
-import Card from './Card.js'
 import { ModelAPI } from '../../apis/ModelAPI.js';
 import { EnvironmentAPI } from '../../apis/EnvironmentAPI.js';
+import Card from './Card.js'
 
 
-const TargetBucket = ( props ) => {
+const TargetBucket = (props) => {
 
   const [cards, setCards] = useState([])
 
   // Get the current card to display
 
-  useEffect(() => {
-    const modelId = props.tourEnvironment.modelSlots[props.id]
+  const updateCard = () => {
+    const modelId = props.modelSlots[props.id]
     ModelAPI.getOne(modelId)
       .then((data) => {
-        
-        console.log(data)
-        setCards([data])
+        setCards([{ ...data }])
       })
+  }
 
-  }, [cards]);
-  
+  useEffect(() => {
+    updateCard()
+  }, []);
+
 
   const [, drop] = useDrop({
     accept: 'CARD',
     drop: (item) => {
 
-      //When we drop an item
-      //We call update method on tour
+      // When we drop an item
 
-      const modelSlotsCopy = props.tourEnvironment.modelSlots
+      const modelSlotsCopy = props.modelSlots
       modelSlotsCopy[props.id] = item.id
 
-      console.log(modelSlotsCopy)
+      EnvironmentAPI.editOne(props.tourId, { "modelSlots": modelSlotsCopy })
+        .then((data) => {
+          props.onUpdate()
+          updateCard()
+        })
 
-      EnvironmentAPI.editOne(props.tourEnvironment._id,{"modelSlots":modelSlotsCopy})
-      .then((data) => {
-        console.log(data)
-      })
-      //But we will need to refresh the tour
-
-      setCards([{ key: item.id, id: item.id, text: `Card ${item.id}` }])
     },
   })
 
@@ -49,10 +46,6 @@ const TargetBucket = ( props ) => {
     <div ref={drop} style={{ minHeight: '200px', border: '1px solid black', padding: '16px', margin: '10px' }}>
       <h2>Target Bucket {props.id}</h2>
       {cards.map((card) => (
-        // <div key={card.id} style={{ border: '1px solid gray', padding: '8px', margin: '4px', backgroundColor: 'white' }}>
-        //   {card.text}
-        // </div>
-
         <Card key={card._id} id={card._id} text={card.name} imgURL={card.imgURL} />
       ))}
     </div>
@@ -61,3 +54,14 @@ const TargetBucket = ( props ) => {
 
 export default TargetBucket
 
+// // Redirect to /login if not logged in
+// const { loggedIn, email } = props
+// const navigate = useNavigate()
+
+// const onButtonClick = () => {
+//   // You'll update this function later
+// }
+
+// // If user is logged in:
+
+// // Get config object and console.log()
