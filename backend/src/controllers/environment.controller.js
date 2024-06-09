@@ -38,7 +38,7 @@ export const createEnvironment = async (req,res) =>
 export const getEnvironments = async (req,res) => 
 {
     const environments = await Environment.find()
-    res.json(environments)
+    res.status(200).json(environments)
 }
 
 export const getEnvironmentById = async (req,res) => 
