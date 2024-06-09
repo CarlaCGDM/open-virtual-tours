@@ -7,7 +7,7 @@ export const getConfig = async (req,res) =>
     const config = await Config.find()
     console.log(config)
     console.log(config[0])
-    res.status(200).json(config)
+    res.status(200).json(config[0])
 }
 
 // Finds the only Config obect and updates it
