@@ -5,20 +5,26 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 6vw;
+    width: 10vh;
+    cursor: pointer;
 }
 
 .card p {
     text-align: center;
     white-space: nowrap;
-    overflow: hidden;  
-    text-overflow: ellipsis; 
-    width: 100%; 
-    box-sizing: border-box; 
-    margin: 0; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
     padding: 0 4px;
 }
 
 .card img {
-    width: 100%; 
+    width: 100%;
+}
+
+.selected {
+    border-width: 2px;
+    background-color: rgb(255, 191, 95);
 }

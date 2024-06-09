@@ -22,6 +22,16 @@ export const ModelAPI = {
     return response.data
   },
 
+  getAllPaginated: async function (page,limit,query,sort) {
+    const response = await api.request({
+      url: `/models?page=${page}&limit=${limit}&search=${query}&sort=${sort}`,
+      method: "GET",
+      // signal: cancel ? cancelApiObject[this.getAll.name].handleRequestCancellation().signal : undefined,
+    })
+
+    return response.data
+  },
+
   createOne: async function (model, cancel = false) {
     const response = await api.request({
       url: `/models/`,

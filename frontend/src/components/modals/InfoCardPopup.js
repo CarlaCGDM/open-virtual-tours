@@ -1,9 +1,10 @@
 import './InfoCard.css'
+import CloseButton from '../buttons/CloseButton.js';
 import ModelPreview from '../canvases/ModelPreview.js';
 
-const InfoCard = (props) => {
+const InfoCardPopup = (props) => {
     return (
-      <div className='info-card'>
+      <div className='info-popup'>
         <h1>{props.content.name}</h1>
 
         {props.isModel && <ModelPreview modelURL={props.content.modelURL}/>}
@@ -14,10 +15,11 @@ const InfoCard = (props) => {
           alt={props.content.name}/>}
 
         <p className='content-description'>{props.content.description}</p>
-        <small>Author: {props.content.author}</small><br/>
+        <small>Author: {props.content.author}</small>
         <small>License: {props.content.license}</small>
+        <CloseButton setPopup={(bool) => props.setPopup(bool)}/>
       </div>
     );
   }
   
-  export default InfoCard
+  export default InfoCardPopup

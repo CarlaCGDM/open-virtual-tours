@@ -1,0 +1,46 @@
+.header {
+    background-color: black;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.header-title h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-right p {
+    margin: 0 10px 0 0;
+}
+
+.logout-button {
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background-color: grey;
+}
+
+.user-icon::before {
+    content: '👤'; /* Unicode character for envelope icon */
+    margin-right: 8px;
+}

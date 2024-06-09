@@ -61,6 +61,8 @@ export default function TourExperienceDev(props) {
         newDisplayModels.push(
           <DisplayModel
             key={modelIndex}
+            devMode={true}
+            slot={modelIndex}
             setPopup={(bool) => setPopup(bool)}
             setPopupContent={(content) => setPopupContent(content)}
             rotation={[object.rotation.x, object.rotation.y, object.rotation.z]}

@@ -16,6 +16,6 @@
   }
   
   .envelope-icon::before {
-    content: '\2709'; /* Unicode character for envelope icon */
+    content: '📧'; /* Unicode character for envelope icon */
     margin-right: 8px;
   }

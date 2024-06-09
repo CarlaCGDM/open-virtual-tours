@@ -9,3 +9,15 @@
     padding: 5vh;
     user-select: none
 }
+
+.index-annotation {
+    background-color: rgb(4, 113, 255);
+    border-radius: 100vh;
+    color: white;
+    font-size: 20rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5vh;
+    user-select: none
+}

@@ -9,7 +9,11 @@ import TourExperienceDev from '../canvases/TourExperienceDev.js'
 import { ConfigAPI } from '../../apis/ConfigAPI.js'
 import { EnvironmentAPI } from '../../apis/EnvironmentAPI.js'
 import Footer from '../navigation/Footer.js'
+import Header from "../navigation/Header.js"
 import SelectResource from "../admin-panels/SelectResource.js"
+import './Admin.css'
+import '../dnd-context/ModelsBucketList.js'
+import ModelsBucketsList from "../dnd-context/ModelsBucketList.js"
 
 export default function Admin(props) {
 
@@ -60,34 +64,40 @@ export default function Admin(props) {
 
   return <>
 
-    {tourEnvironment &&
-      <DndContext>
-        <div style={{ display: 'flex', justifyContent: 'space-around', padding: '20px' }}>
-          <div>
-            <h2>Source List</h2>
+    <div className="admin-container">
+
+      <Header />
+
+      <div className="dnd-context-wrapper">
+
+        {tourEnvironment &&
+
+          <DndContext>
+            
             <SourceList />
-          </div>
 
-          <TourExperienceDev
-            tourEnvironment={tourEnvironment} />
+            <div className="tour-preview">
 
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            {targetBuckets.map((id) => (
-              <TargetBucket
-                key={id}
-                id={id}
-                tourId={tourEnvironment._id}
-                modelSlots={tourEnvironment.modelSlots}
-                onUpdate={() => { handleUpdate() }} />)
-            )}
-          </div>
-        </div>
-      </DndContext>}
+              <div className="tour-preview-canvas">
+                <TourExperienceDev
+                  tourEnvironment={tourEnvironment} />
+              </div>
 
-    {/* <SelectResource /> */}
+              <ModelsBucketsList
+                targetBuckets={targetBuckets}
+                tourEnvironment={tourEnvironment}
+                handleUpdate={() => { handleUpdate() }}
+              />
+            </div>
 
-    <Footer contactEmail={tourConfig.contactEmail} />
 
+          </DndContext>}
+
+      </div>
+
+      <Footer contactEmail={tourConfig.contactEmail} />
+
+    </div>
   </>
 }
 

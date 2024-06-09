@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import { Clone, useGLTF } from '@react-three/drei'
 import './DisplayModel.css'
 import Annotation from './Annotation.js'
-import InfoCard from '../modals/InfoCard.js'
+import InfoCardPopup from '../modals/InfoCardPopup.js'
 import { ModelAPI } from '../../apis/ModelAPI.js'
 
 const DisplayModel = (props) => {
@@ -46,7 +46,7 @@ const DisplayModel = (props) => {
 
     const handleClick = () => {
         props.setPopup(true)
-        props.setPopupContent(<InfoCard
+        props.setPopupContent(<InfoCardPopup
             setPopup={(bool) => props.setPopup(bool)}
             content={model}
             isModel={true} />)
@@ -61,10 +61,14 @@ const DisplayModel = (props) => {
                 onPointerLeave={() => setShiny(false)}
                 onClick={() => handleClick()}
             >
-                <Annotation position={[0, dimensions.height + 0.7, 0]}>
+                {props.devMode && <Annotation position={[0, dimensions.height + 2, 0]}>
+                    <p className='index-annotation'
+                    >{ `<${props.slot}>` || "< 0 >"}</p>
+                </Annotation>}
+                {<Annotation position={[0, dimensions.height + 0.7, 0]}>
                     <p className='annotation'
                     >{model.name}</p>
-                </Annotation>
+                </Annotation>}
                 <Clone
                  position={[0, 0.3, 0]} object={modelModel.scene} />
                 {shiny && <Clone position={[0, 0.3, 0]} object={modelModel.scene} inject={<meshStandardMaterial color="magenta" opacity={0.8} transparent />} />}

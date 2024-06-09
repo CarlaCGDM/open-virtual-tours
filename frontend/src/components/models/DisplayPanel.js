@@ -3,7 +3,7 @@ import { useState, useRef, useMemo, useEffect } from 'react'
 import { TextureLoader } from 'three'
 import './DisplayPanel.css'
 import Annotation from './Annotation.js'
-import InfoCard from '../modals/InfoCard.js'
+import InfoCard from '../modals/InfoCardPopup.js'
 import { PanelAPI } from '../../apis/PanelAPI.js'
 
 const DisplayPanel = (props) => {

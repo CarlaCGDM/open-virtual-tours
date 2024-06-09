@@ -3,7 +3,7 @@ import { useDrop } from 'react-dnd'
 import { ModelAPI } from '../../apis/ModelAPI.js';
 import { EnvironmentAPI } from '../../apis/EnvironmentAPI.js';
 import Card from './Card.js'
-
+import './TargetBucket.css'
 
 const TargetBucket = (props) => {
 
@@ -43,10 +43,16 @@ const TargetBucket = (props) => {
   })
 
   return (
-    <div ref={drop} style={{ minHeight: '200px', border: '1px solid black', padding: '16px', margin: '10px' }}>
-      <h2>Target Bucket {props.id}</h2>
+    <div ref={drop} className="target-buckets">
+      <p className="bucket-title">Slot {props.id}</p>
       {cards.map((card) => (
-        <Card key={card._id} id={card._id} text={card.name} imgURL={card.imgURL} />
+        <Card 
+        key={card._id} 
+        id={card._id} 
+        text={card.name} 
+        imgURL={card.imgURL} 
+        isSelected={false}
+        onSelect={() => {}}/>
       ))}
     </div>
   )

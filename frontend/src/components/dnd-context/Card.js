@@ -1,7 +1,7 @@
 import { useDrag } from 'react-dnd'
 import './Card.css'
 
-const Card = ({ id, text, imgURL }) => {
+const Card = ({ id, text, imgURL,isSelected,onSelect }) => {
   const [{ isDragging }, drag] = useDrag({
     type: 'CARD',
     item: { id },
@@ -12,7 +12,8 @@ const Card = ({ id, text, imgURL }) => {
 
   return (
     <div
-    className="card" 
+    className={`card ${isSelected ? 'selected' : ''}`}
+    onClick={() => {onSelect();console.log("selected " + id)}}
     ref={drag} 
     title={text}
     style={{ opacity: isDragging ? 0.5 : 1}}>

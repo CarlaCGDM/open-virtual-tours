@@ -16,6 +16,19 @@
     padding: 2vh;
   }
 
+  .info-card {
+    color: white;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* High z-index to ensure it appears on top */
+    overflow: scroll;
+    padding: 2vh;
+    margin: 1vh 1vw;
+  }
+
   .content-image {
     height: 80%;
   }
