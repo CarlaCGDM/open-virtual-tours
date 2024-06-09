@@ -12,6 +12,15 @@ export const ModelAPI = {
     return response.data
   },
 
+  deleteOne: async function (id) {
+    const response = await api.request({
+      url: `/models/${id}`,
+      method: "DELETE"
+    })
+
+    return response.data
+  },
+
   getAll: async function (cancel = false) {
     const response = await api.request({
       url: "/models/",

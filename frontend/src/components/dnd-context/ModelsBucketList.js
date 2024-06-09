@@ -29,8 +29,8 @@ const ModelsBucketsList = (props) => {
     return (
         <div className="buckets-list-container">
             <div className="buckets-title">
-            <h3>3D Models</h3>
-            <p>Assign new 3D models through drag and drop.</p>
+                <h3>3D Models in environment</h3>
+                <p>Assign new 3D models through drag and drop.</p>
             </div>
             <div className="buckets">
                 {currentItems.map((id) => (
@@ -44,11 +44,17 @@ const ModelsBucketsList = (props) => {
                 ))}
             </div>
             <div className="pagination-controls">
-                <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+                <button
+                    className="pagination-button"
+                    onClick={handlePreviousPage}
+                    disabled={currentPage === 1}>
                     Previous
                 </button>
-                <span>Page {currentPage} of {totalPages}</span>
-                <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+                <span className="pagination-info">Page {currentPage} of {totalPages}</span>
+                <button
+                    className="pagination-button"
+                    onClick={handleNextPage}
+                    disabled={currentPage === totalPages}>
                     Next
                 </button>
             </div>

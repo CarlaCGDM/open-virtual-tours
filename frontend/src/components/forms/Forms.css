@@ -1,14 +1,12 @@
 .popup-form {
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
+    background-color: black;
+    color: white;
+    padding: 2vw;
     display: flex;
     flex-direction: column;
+    gap: 0.5vw;
     width: 30vw;
-    gap: 2vw;
+    border-radius: 5px;
 }
 
 .popup-columns {
@@ -27,7 +25,6 @@
     display: flex;
     flex-direction: column;
     font-size: 14px;
-    margin-bottom: 10px;
 }
 
 .popup-form input[type="text"] {
@@ -87,6 +84,23 @@
     display: flex;
     flex-direction: column;
     gap: 1vw;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-form .cancel-button {
+    background-color: rgb(235, 47, 0);
+}
+
+.popup-form .cancel-button:hover {
+    background-color: rgb(136, 34, 9);
+}
+
+
+.confirm-cancel-buttons {
+    width: 100%;
+    display: flex;
+    gap: 0.5vw;
     align-items: center;
     justify-content: center;
 }

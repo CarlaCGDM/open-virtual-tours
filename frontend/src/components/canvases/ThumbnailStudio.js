@@ -22,7 +22,7 @@ export default function ThumbnailStudio(props) {
 
     // Data for the 3D model preview:
 
-    const displayModel = useGLTF(props.modelURL ? `${process.env.REACT_APP_UPLOADS_ROOT + props.modelURL}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/images/ImageNotFound.jpg`)
+    const displayModel = useGLTF(props.modelURL ? `${process.env.REACT_APP_UPLOADS_ROOT + props.modelURL}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/models/CubePreset01.glb`)
     const canvasRef = useRef("")
 
     // Generate thumbnail image and upload it to backend:
@@ -44,7 +44,7 @@ export default function ThumbnailStudio(props) {
         <div className="snapshot-container">
             <div className="square-canvas-container">
                 <ModelPreview
-                    modelURL={props.modelURL ? props.modelURL : "/uploads/images/ImageNotFound.jpg"}
+                    modelURL={props.modelURL ? props.modelURL : "/uploads/models/CubePreset01.glb"}
                     bgColor={customBackgroundColor}
                     canvasRef={canvasRef}
                 />

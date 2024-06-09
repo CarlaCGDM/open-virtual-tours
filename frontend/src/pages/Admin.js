@@ -12,6 +12,7 @@ import Header from "../components/navigation/Header.js"
 import SelectResource from "../components/admin-panels/SelectResource.js"
 import './Admin.css'
 import ModelsBucketsList from "../components/dnd-context/ModelsBucketList.js"
+import HeaderContainer from "../components/navigation/HeaderContainer.js"
 
 export default function Admin(props) {
 
@@ -64,15 +65,17 @@ export default function Admin(props) {
 
     <div className="admin-container">
 
-      <Header />
+      <HeaderContainer />
 
       <div className="dnd-context-wrapper">
 
         {tourEnvironment &&
 
           <DndContext>
+
+            <SelectResource />
             
-            <SourceList />
+            {/* <SourceList /> */}
 
             <div className="tour-preview">
 
