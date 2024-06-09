@@ -5,7 +5,9 @@ import Config from '../models/Config.js'
 export const getConfig = async (req,res) => 
 {
     const config = await Config.find()
-    res.json(config[0])
+    console.log(config)
+    console.log(config[0])
+    res.status(200).json(config)
 }
 
 // Finds the only Config obect and updates it
