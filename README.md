@@ -86,10 +86,10 @@ Clone your new repo on your local machine and follow the local install instructi
 
 ## Troubleshooting
 Everything should be up and running now. If you have any issues, you can see the data stored in your volume and the error logs of your containers through the following Docker commands.
-### See your volume
+### See your volumes
 ```bash
 $ sudo su
-$ cd /var/lib/docker/volumes/open-virtual-tours_myvolume
+$ cd /var/lib/docker/volumes/<my_volume>
 ```
 ### Container bash
 ```bash
