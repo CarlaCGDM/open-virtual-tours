@@ -14,7 +14,7 @@ const InfoCard = (props) => {
           alt={props.content.name}/>}
 
         <p className='content-description'>{props.content.description}</p>
-        <small>Author: {props.content.author}</small><br/>
+        <small>Author: {props.content.author}</small>
         <small>License: {props.content.license}</small>
       </div>
     );
