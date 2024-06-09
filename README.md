@@ -16,6 +16,13 @@ Free tool for the creation of fully customizable 3D virtual tours using Three.js
 
 
 ## Features
+## Test online
+To test the application online, head to https://openvirtualtours.org/admin and login with the following credentials:
+
+email: superuser@email.com
+
+password: password
+
 ## Local install
 Follow these steps to run a copy of this repo on your local machine in a development environment. Work on dev branch and merge into main when you are ready to push the changes to production.
 ```mermaid
