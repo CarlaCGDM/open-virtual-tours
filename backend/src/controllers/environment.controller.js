@@ -1,6 +1,7 @@
 import { model } from 'mongoose'
 import Environment from '../models/Environment.js'
 import Model from '../models/Model.js'
+import Panel from '../models/Panel.js'
 
 export const createEnvironment = async (req,res) => 
 {
@@ -10,20 +11,27 @@ export const createEnvironment = async (req,res) =>
 
     const path = JSON.parse(stringifiedPath)
 
-    // fill panel slots with placeholder data
+    // fill model and panel slots with placeholder data
 
-    const placeholderModel = await Model.findOne({name: '3D Hamburger'})
+    const placeholderModel = await Model.findOne({name: 'Rubber duck'})
     const modelSlots = []
     for (let index = 0; index < modelCount; index++) {
         modelSlots.push(placeholderModel._id)
     }
 
+    const placeholderPanel = await Panel.findOne({name: 'Example panel'})
     const panelSlots = []
+    for (let index = 0; index < panelCount; index++) {
+        panelSlots.push(placeholderPanel._id)
+    }
+
+    // create new environment
 
     const newEnvironment = new Environment({name, modelURL, imgURL, description, author, license, modelSlots, panelSlots, path})
 
-    const environmentSaved = await newEnvironment.save()
+    // send response
 
+    const environmentSaved = await newEnvironment.save()
     res.status(201).json(environmentSaved) // nuevo recurso se ha creado
 }
 

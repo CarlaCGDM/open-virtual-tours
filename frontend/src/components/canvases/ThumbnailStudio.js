@@ -1,8 +1,8 @@
-import { Canvas } from '@react-three/fiber'
-import { useState, useRef, useEffect } from 'react'
-import { Clone, useGLTF, OrbitControls } from '@react-three/drei'
-import { HexColorPicker } from "react-colorful";
+import { useState, useRef } from 'react'
+import { useGLTF } from '@react-three/drei'
 import dataURLtoFile from '../../utils/fileUtils.js'
+import { PopoverPicker } from '../buttons/PopoverPicker.js'
+import ModelPreview from './ModelPreview.js'
 
 
 /**
@@ -20,15 +20,8 @@ export default function ThumbnailStudio(props) {
 
     const [previewIMG, setPreviewIMG] = useState("")
 
-    // Data sent to the parent component:
-
-    const [thumbnailIMG, setThumbnailIMG] = useState("")
-    useEffect(() => { props.updateThumbnailIMG(thumbnailIMG) },[thumbnailIMG]);
-
     // Data for the 3D model preview:
 
-    const [modelPosition,setModelPosition] = useState([0,0,0])
-    const [modelScale,setModelScale] = useState([1,1,1])
     const displayModel = useGLTF(props.modelURL ? props.modelURL : "https://res.cloudinary.com/dahr27egc/image/upload/v1706573387/hamburger_dlwxib.glb")
     const modelRef = useRef("")
     const canvasRef = useRef("")
@@ -41,40 +34,36 @@ export default function ThumbnailStudio(props) {
         const imageDataURL = canvasRef.current.toDataURL('image/png')
 
         // Convert data URL to file:
-        const imageToUpload = dataURLtoFile(imageDataURL,`${props.fileName}_thumbnailIMG`)
+        const newIMGFile = dataURLtoFile(imageDataURL, `${props.fileName}_thumbnailIMG`)
 
-        // Set resulting image as current image to send to parent:
+        // Send the new image to the parent component:
         setPreviewIMG(imageDataURL)
-        setThumbnailIMG(imageToUpload)
+        props.handleSnapshot(newIMGFile)
     }
 
     return <>
-        <div>Thumbnail Studio</div>
-        <div>
-            <div>
-                <div>Position model</div>
-                <Canvas ref={canvasRef} gl={{ preserveDrawingBuffer: true }}>
-
-                    <color attach="background" args={[customBackgroundColor]} />
-
-                    <directionalLight position={[1,2,3]} intensity={4.5}/>
-                    <ambientLight intensity={4.5} />
-                    <OrbitControls enablePan={true}/>
-                
-                    <Clone ref={modelRef} object={ displayModel.scene } position={modelPosition} scale={modelScale}/>
-                    
-                </Canvas>
+        <div className="snapshot-container">
+            <div className="square-canvas-container">
+                <ModelPreview
+                    modelURL={props.modelURL ? props.modelURL : "https://res.cloudinary.com/dahr27egc/image/upload/v1706573387/hamburger_dlwxib.glb"}
+                    bgColor={customBackgroundColor}
+                    canvasRef={canvasRef}
+                />
             </div>
-
-            <div>Pick bg color</div>
-            <HexColorPicker color={customBackgroundColor} onChange={setCustomBackgroundColor} />
+            <img 
+                className="preview-img" 
+                src={previewIMG ? previewIMG : 'https://static.vecteezy.com/system/resources/previews/005/337/799/non_2x/icon-image-not-found-free-vector.jpg'} 
+                alt="Snapshot result"/>
         </div>
+        <div className="snapshot-container">
 
-        <button onClick={() => {
-            takeSnapshot();
+            <button onClick={() => {
+                takeSnapshot();
             }}>Take snapshot!
-        </button>
+            </button>
 
-        <img src={previewIMG}></img>
+            <PopoverPicker color={customBackgroundColor} onChange={setCustomBackgroundColor} />
+
+        </div>
     </>
 }

@@ -1,0 +1,21 @@
+.query-results {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.search-area {
+    display: flex;
+    flex-direction: row;
+}
+
+.source-list {
+    background-color: blue;
+}
+
+.source-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: aquamarine;
+}

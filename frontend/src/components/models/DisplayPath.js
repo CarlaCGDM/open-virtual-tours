@@ -6,10 +6,10 @@ import { FirstPersonControls } from 'three/addons/controls/FirstPersonControls.j
 
 export default function DisplayPath(props) {
 
-    console.log("Rendering tour path")
+    // console.log("Rendering tour path")
 
     // Process the path object to convert it to a 
-    //Convert points to THREE.Vector3
+    // Convert points to THREE.Vector3
     // const curve = new THREE.CatmullRomCurve3( path.points.map((point) => {return new THREE.Vector3(point.x,point.y,point.z)}) );
 
     const path = {points:[{}],closed:false}
@@ -17,10 +17,10 @@ export default function DisplayPath(props) {
 
     props.tourModel.scene.traverse( function( object ) {
 
-        console.log("Looking for path object.")
+        // console.log("Looking for path object.")
         if ( object.name === "Path" && object.isMesh ) {
      
-          console.log("Found path object.")
+          // console.log("Found path object.")
           let vertices = object.geometry.attributes.position.array
           for (let i = 0; i < vertices.length; i=i+3) {
             //a vertex' position is (vertices[i],vertices[i+1],vertices[i+2])
@@ -32,7 +32,6 @@ export default function DisplayPath(props) {
           }
 
           path.points = pathPoints
-          object.visible = false // Hide path mesh
      
         }
      
@@ -45,7 +44,7 @@ export default function DisplayPath(props) {
     }, []);
 
     const LINE_NB_POINTS = curve.points.length * 100;
-    props.setScrollPages(curve.points.length * 3)
+    props.setScrollPages(curve.points.length / 3)
 
     const linePoints = useMemo(() => {
         return curve.getPoints(LINE_NB_POINTS);
@@ -89,8 +88,13 @@ export default function DisplayPath(props) {
             // Code for scrolling mode
             // Use the code for scrolling mode from the previous solution
 
+            const modalOpacity = Math.max(1 - (scroll.offset * 5),0)
+
+            props.setModalOpacity(modalOpacity)
+
             const t = scroll.offset * (linePoints.length - 1);
-            const curPointIndex = Math.floor(t);
+            const curPointIndex = Math.max(Math.floor(t),0);
+            // console.log(curPointIndex)
             const nextPointIndex = Math.min(curPointIndex + 1, linePoints.length - 1);
             
             const curPoint = linePoints[curPointIndex];

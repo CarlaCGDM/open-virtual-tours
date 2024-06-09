@@ -1,0 +1,39 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .admin-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  .dnd-context-wrapper {
+    display: flex;
+    flex-direction: row;
+    height: 95vh;
+  }
+
+  .resource-list-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tour-preview {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tour-preview-canvas {
+    width: 50vw;
+    height: 55vh;
+    background-color: rgb(54, 54, 54);
+  }
+
+  .tour-placeholder {
+    width: 100%;
+    background-color: blue;
+
+  }

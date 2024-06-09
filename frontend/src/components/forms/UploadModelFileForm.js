@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { FileUploadAPI } from '../../apis/FileUploadAPI.js'
 import ThumbnailStudio from '../canvases/ThumbnailStudio.js'
+import { upload } from '@testing-library/user-event/dist/upload.js'
 
 
 /**
@@ -15,47 +16,52 @@ export default function UploadModelFileForm(props) {
     const [modelURL, setModelURL] = useState("")
     const [imageURL, setImageURL] = useState("")
 
-    useEffect(() => { props.updateModelURL(modelURL) },[modelURL]);
-    useEffect(() => { props.updateImageURL(imageURL) },[imageURL]);
+    useEffect(() => { props.updateModelURL(modelURL) }, [modelURL]);
+    useEffect(() => { props.updateImageURL(imageURL) }, [imageURL]);
 
-    // Data obtained from child component:
+    // Data sent to and obtained from the child component:
 
-    const [imageToUpload, setImageToUpload] = useState("")
+    const [newIMGFile, setNewIMGFile] = useState("")
+    const handleSnapshot = (snapshot) => {
+        setNewIMGFile(snapshot)
+    }
+
+    useEffect(() => { if (newIMGFile) uploadImage() }, [newIMGFile]);
 
     // Upload 3D model to backend:
 
-    const [modelToUpload, setModelToUpload] = useState("")
+    const [modelFile, setModelFile] = useState("")
 
     const uploadModel = () => {
 
         // When we hit upload:
         console.log("File to upload: ")
-        console.log(modelToUpload)
+        console.log(modelFile)
 
         if (props.environment === true) {
 
             // Create form data:
             const formData = new FormData()
-            formData.append("environment", modelToUpload)
+            formData.append("environment", modelFile)
 
             // Send data to server and get modelURL:
             FileUploadAPI.uploadEnvironment(formData).then((response) => {
                 console.log(response)
-                setModelURL(`${ process.env.REACT_APP_UPLOADS_ROOT }/uploads/models/${response.data}`)
+                setModelURL(`${process.env.REACT_APP_UPLOADS_ROOT}/uploads/models/${response.data}`)
             })
         } else {
 
             // Create form data:
             const formData = new FormData()
-            formData.append("model", modelToUpload)
+            formData.append("model", modelFile)
 
             // Send data to server and get modelURL:
             FileUploadAPI.uploadModel(formData).then((response) => {
                 console.log(response)
-                setModelURL(`${ process.env.REACT_APP_UPLOADS_ROOT }/uploads/models/${response.data}`)
+                setModelURL(`${process.env.REACT_APP_UPLOADS_ROOT}/uploads/models/${response.data}`)
             })
         }
-        
+
 
     }
 
@@ -65,26 +71,28 @@ export default function UploadModelFileForm(props) {
 
         // Create formData:
         const formData = new FormData()
-        formData.append("image", imageToUpload)
+        formData.append("image", newIMGFile)
 
         // Send fotmData to server and get imageURL:
         FileUploadAPI.uploadImage(formData).then((response) => {
             console.log(response)
-            setImageURL(`${ process.env.REACT_APP_UPLOADS_ROOT }/uploads/images/${ response.data }`)
+            setImageURL(`${process.env.REACT_APP_UPLOADS_ROOT}/uploads/images/${response.data}`)
         })
     }
 
     return <>
-        <input type="file" name="model" onChange={(e) => {setModelToUpload(e.target.files[0])}} />
-        <button onClick={uploadModel}>Upload 3D model</button>
+        <div className="model-upload-form">
+            <div>
+                <input type="file" name="model" onChange={(e) => { setModelFile(e.target.files[0]) }} />
+                <button onClick={uploadModel}>Upload 3D model</button>
+            </div>
 
-        <ThumbnailStudio 
-            modelURL={modelURL}
-            imageURL={imageURL}
-            fileName={modelToUpload.name}
-            updateThumbnailIMG={(thumbnailIMG) => setImageToUpload(thumbnailIMG)}
-        />
-
-        <button onClick={uploadImage}>Upload thumbnail image</button>
+            <ThumbnailStudio
+                modelURL={modelURL}
+                imageURL={imageURL}
+                fileName={modelFile.name}
+                handleSnapshot={(snapshot) => handleSnapshot(snapshot)}
+            />
+        </div>
     </>
 }

@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react"
-import TourExperience from '../canvases/TourExperience.js'
-import { ConfigAPI } from '../../apis/ConfigAPI.js'
-import { EnvironmentAPI } from '../../apis/EnvironmentAPI.js'
-import CreateEnvironmentResourceForm from "../forms/CreateEnvironmentResourceForm.js"
+import { ConfigAPI } from '../apis/ConfigAPI.js'
+import { EnvironmentAPI } from '../apis/EnvironmentAPI.js'
+import TourExperience from '../components/canvases/TourExperience.js'
+import WelcomeModal from '../components/modals/WelcomeModal.js'
+import Footer from '../components/navigation/Footer.js';
+import './Home.css';
 
 export default function Home() {
+
+  // Show welcome modal
+
+  const [modalOpacity,setModalOpacity] = useState(1)
   
   // Get config object and console.log()
 
@@ -39,19 +45,10 @@ export default function Home() {
   }, [tourConfig]);
 
   return <>
-    
-    {tourEnvironment && <TourExperience tourEnvironment={tourEnvironment}/>}
-
-    {/* < CreateEnvironmentResourceForm /> */}
-
-    {/* <div> Home page </div>
-    <div> Testing build sync again</div> */}
-    {/* <TestAPICall /> */}
-    {/* <Canvas>
-        <mesh>
-          <torusKnotGeometry />
-          <meshNormalMaterial />
-        </mesh>
-    </Canvas> */}
+    <div className="home-container">
+      <WelcomeModal modalOpacity={modalOpacity} tourTitle={tourConfig.tourTitle} tourDescription={tourConfig.tourDescription}/>
+      {tourEnvironment && <TourExperience tourEnvironment={tourEnvironment} setModalOpacity={(p) => setModalOpacity(p)}/>}
+      <Footer contactEmail={tourConfig.contactEmail}/>
+    </div>
   </>
 }

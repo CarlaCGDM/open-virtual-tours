@@ -1,0 +1,18 @@
+.cta-button {
+    background-color: black;
+    border-radius: 1vh;
+    border: none;
+    color: #333;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 2vh;
+  }
+  
+  .cta-button:hover {
+    color: #ff0000;
+  }
+  
+  .cta-button:focus {
+    outline: none;
+  }  

@@ -1,0 +1,38 @@
+.info-popup {
+    position: fixed; /* Fixed position to cover the entire viewport */
+    top: 10vh;
+    left: 30vw;
+    right: 30vw;
+    bottom: 15vh;
+    color: white;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* High z-index to ensure it appears on top */
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    overflow: scroll;
+    padding: 2vh;
+  }
+
+  .info-card {
+    color: white;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* High z-index to ensure it appears on top */
+    overflow: scroll;
+    padding: 2vh;
+    margin: 1vh 1vw;
+  }
+
+  .content-image {
+    height: 80%;
+  }
+
+  .content-description {
+    padding: 2vh;
+  }

@@ -3,6 +3,8 @@ import { useGLTF } from '@react-three/drei'
 import { EnvironmentAPI } from '../../apis/EnvironmentAPI.js'
 import extractMarkerData from '../../utils/modelUtils.js'
 import UploadModelFileForm from './UploadModelFileForm.js'
+import './Forms.css'
+import CloseButton from '../buttons/CloseButton.js'
 
 /**
  * Upload 3D model data and files.
@@ -56,21 +58,45 @@ export default function CreateEnvironmentResourceForm() {
         })
     }
     
-    return <div className="popup-form">
-        <p>Upload new 3D environment:</p>
+    return (<>
+    <CloseButton />
+    <div className="popup-form">
+    <h2>Upload new 3D environment</h2>
+    <div className="popup-columns">
 
-        <label>Name:<input type="text" onChange={(e) => {setName(e.target.value)}} /></label>< br />
-        <label>Description:<input type="text" onChange={(e) => {setDescription(e.target.value)}} /></label>< br />
-        <label>Author:<input type="text" onChange={(e) => {setAuthor(e.target.value)}} /></label>< br />
-        <label>License:<input type="text" onChange={(e) => {setLicense(e.target.value)}} /></label>< br />
-        
-        <UploadModelFileForm 
-            updateModelURL={(modelURL) => setModelURL(modelURL)}
-            updateImageURL={(imageURL) => setImageURL(imageURL)}
-            environment={true}
-        />
-
-        {modelURL && imageURL && <button onClick={uploadForm}>Confirm</button>}
-        {/* <button className="closeButton" onClick={() => {props.showThisModal(false)}} >Cancel/Close</button> */}
+    <div>
+        <label>
+        Name:
+        <input type="text" onChange={(e) => setName(e.target.value)} />
+        </label>
+        <br />
+        <label>
+        Description:
+        <input type="text" onChange={(e) => setDescription(e.target.value)} />
+        </label>
+        <br />
+        <label>
+        Author:
+        <input type="text" onChange={(e) => setAuthor(e.target.value)} />
+        </label>
+        <br />
+        <label>
+        License:
+        <input type="text" onChange={(e) => setLicense(e.target.value)} />
+        </label>
+        <br />
     </div>
+
+    <div>
+    <UploadModelFileForm
+      updateModelURL={(modelURL) => setModelURL(modelURL)}
+      updateImageURL={(imageURL) => setImageURL(imageURL)}
+      environment={true}
+    />
+    </div>    
+    </div>
+    <button onClick={uploadForm} disabled={!modelURL && !imageURL}>Confirm</button>
+    </div>
+    </>
+)
 }
