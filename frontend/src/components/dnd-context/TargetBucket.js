@@ -59,15 +59,3 @@ const TargetBucket = (props) => {
 }
 
 export default TargetBucket
-
-// // Redirect to /login if not logged in
-// const { loggedIn, email } = props
-// const navigate = useNavigate()
-
-// const onButtonClick = () => {
-//   // You'll update this function later
-// }
-
-// // If user is logged in:
-
-// // Get config object and console.log()

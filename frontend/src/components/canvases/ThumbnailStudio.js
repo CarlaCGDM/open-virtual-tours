@@ -22,8 +22,7 @@ export default function ThumbnailStudio(props) {
 
     // Data for the 3D model preview:
 
-    const displayModel = useGLTF(props.modelURL ? props.modelURL : "https://res.cloudinary.com/dahr27egc/image/upload/v1706573387/hamburger_dlwxib.glb")
-    const modelRef = useRef("")
+    const displayModel = useGLTF(props.modelURL ? `${process.env.REACT_APP_UPLOADS_ROOT + props.modelURL}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/images/ImageNotFound.jpg`)
     const canvasRef = useRef("")
 
     // Generate thumbnail image and upload it to backend:
@@ -45,14 +44,14 @@ export default function ThumbnailStudio(props) {
         <div className="snapshot-container">
             <div className="square-canvas-container">
                 <ModelPreview
-                    modelURL={props.modelURL ? props.modelURL : "https://res.cloudinary.com/dahr27egc/image/upload/v1706573387/hamburger_dlwxib.glb"}
+                    modelURL={props.modelURL ? props.modelURL : "/uploads/images/ImageNotFound.jpg"}
                     bgColor={customBackgroundColor}
                     canvasRef={canvasRef}
                 />
             </div>
             <img 
                 className="preview-img" 
-                src={previewIMG ? previewIMG : 'https://static.vecteezy.com/system/resources/previews/005/337/799/non_2x/icon-image-not-found-free-vector.jpg'} 
+                src={previewIMG ? `${process.env.REACT_APP_UPLOADS_ROOT + previewIMG}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/images/ImageNotFound.jpg`} 
                 alt="Snapshot result"/>
         </div>
         <div className="snapshot-container">
