@@ -15,7 +15,7 @@ import DisplayModel from '../models/DisplayModel.js'
 export default function TourExperience(props) {
 
     // console.log("Rendering tour experience")
-    const tourModel = useGLTF(`${process.env.REACT_APP_UPLOADS_ROOT + props.tourEnvironment.modelURL}` || `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/models/CubePreset01.glb`)
+    const tourModel = useGLTF(`/${process.env.REACT_APP_UPLOADS_ROOT + props.tourEnvironment.modelURL}` || `/${process.env.REACT_APP_UPLOADS_ROOT}/uploads/models/CubePreset01.glb`)
 
     // Info popup
     const [popup, setPopup] = useState(false);
