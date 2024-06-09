@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from 'react-router-dom'
-import SourceList from '../dnd-context/SourceList.js'
-import TargetBucket from './../dnd-context/TargetBucket.js'
-import DndContext from './../dnd-context/DndContext.js'
-import CreateModelResourceForm from "../forms/CreateModelResourceForm.js"
-import CreateEnvironmentResourceForm from "../forms/CreateEnvironmentResourceForm.js"
-import TourExperienceDev from '../canvases/TourExperienceDev.js'
-import { ConfigAPI } from '../../apis/ConfigAPI.js'
-import { EnvironmentAPI } from '../../apis/EnvironmentAPI.js'
-import Footer from '../navigation/Footer.js'
-import Header from "../navigation/Header.js"
-import SelectResource from "../admin-panels/SelectResource.js"
+import SourceList from '../components/dnd-context/SourceList.js'
+import TargetBucket from '../components/dnd-context/TargetBucket.js'
+import DndContext from '../components/dnd-context/DndContext.js'
+import CreateModelResourceForm from "../components/forms/CreateModelResourceForm.js"
+import CreateEnvironmentResourceForm from "../components/forms/CreateEnvironmentResourceForm.js"
+import TourExperienceDev from '../components/canvases/TourExperienceDev.js'
+import { ConfigAPI } from '../apis/ConfigAPI.js'
+import { EnvironmentAPI } from '../apis/EnvironmentAPI.js'
+import Footer from '../components/navigation/Footer.js'
+import Header from "../components/navigation/Header.js"
+import SelectResource from "../components/admin-panels/SelectResource.js"
 import './Admin.css'
-import '../dnd-context/ModelsBucketList.js'
-import ModelsBucketsList from "../dnd-context/ModelsBucketList.js"
+import ModelsBucketsList from "../components/dnd-context/ModelsBucketList.js"
 
 export default function Admin(props) {
 

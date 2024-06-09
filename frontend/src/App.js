@@ -1,23 +1,28 @@
 import React from 'react';
-import { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import ProtectedRoute  from "./routes/ProtectedRoute.js"
 
-import Home from './components/pages/Home.js';
-import Admin from './components/pages/Admin.js';
-import Login from './components/pages/Login.js';
+import Home from "./pages/Home.js"
+import Admin from "./pages/Admin.js"
+import Login from "./pages/Login.js"
+import Logout from "./pages/Logout.js"
 
 function App() {
 
-  const [loggedIn, setLoggedIn] = useState(false)
-  const [email, setEmail] = useState('')
-
   return (
     <>
-      <Router>
+        <Router>
         <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/admin" element={<Admin email={email} loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}></Route>
-            <Route path="/login" element={<Login setLoggedIn={setLoggedIn} setEmail={setEmail} />} />
+        <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <Admin />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Router>
     </>

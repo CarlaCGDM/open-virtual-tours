@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
-import { ConfigAPI } from '../../apis/ConfigAPI.js'
-import { EnvironmentAPI } from '../../apis/EnvironmentAPI.js'
-import TourExperience from '../canvases/TourExperience.js'
-import WelcomeModal from './../modals/WelcomeModal.js';
-import Footer from '../navigation/Footer.js';
+import { ConfigAPI } from '../apis/ConfigAPI.js'
+import { EnvironmentAPI } from '../apis/EnvironmentAPI.js'
+import TourExperience from '../components/canvases/TourExperience.js'
+import WelcomeModal from '../components/modals/WelcomeModal.js'
+import Footer from '../components/navigation/Footer.js';
 import './Home.css';
 
 export default function Home() {
