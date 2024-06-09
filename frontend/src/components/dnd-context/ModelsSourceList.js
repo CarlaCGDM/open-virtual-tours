@@ -153,8 +153,8 @@ const ModelsSourceList = () => {
 
         <div className="delete-button-wrapper">
 
-      <button onClick={() => {destroyCard(selectedCard._id)}} className="delete-button">Edit this card</button>
-      <button className="delete-button">Delete this card</button>
+      <button disabled className="delete-button">Edit this card</button>
+      <button disabled onClick={() => {destroyCard(selectedCard._id)}} className="delete-button">Delete this card</button>
       </div>
 
     </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import SourceList from '../components/dnd-context/SourceList.js'
+import ModelsSourceList from '../components/dnd-context/ModelsSourceList.js'
 import TargetBucket from '../components/dnd-context/TargetBucket.js'
 import DndContext from '../components/dnd-context/DndContext.js'
 import CreateModelResourceForm from "../components/forms/CreateModelResourceForm.js"
@@ -101,27 +101,3 @@ export default function Admin(props) {
     </div>
   </>
 }
-
-// Redirect to /login if not logged in
-// const { loggedIn, email } = props
-// const navigate = useNavigate()
-
-// const onButtonClick = () => {
-//   // You'll update this function later
-// }
-
-// If user is logged in:
-
-{/* <div> Admin page </div>
-    <div className={'buttonContainer'}>
-        <input
-          className={'inputButton'}
-          type="button"
-          onClick={onButtonClick}
-          value={loggedIn ? 'Log out' : 'Log in'}
-        />
-        {loggedIn ? <div>This is the admin page hidden content. Logged in as {email}</div> : <div />}
-    </div> */}
-
-{/* < CreateModelResourceForm />  */ }
-{/* < CreateEnvironmentResourceForm /> */ }
