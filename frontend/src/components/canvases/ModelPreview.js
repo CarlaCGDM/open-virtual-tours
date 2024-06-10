@@ -14,12 +14,11 @@ import {
     OrbitControls,
     OrthographicCamera
 } from '@react-three/drei'
-import { gapSize } from 'three/examples/jsm/nodes/Nodes.js'
 
 const Content = (props) => {
 
     // Get the 3D model
-    const model = useGLTF(props.modelURL ? props.modelURL : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/models/CubePreset01.glb`)
+    const model = useGLTF(props.modelURL ? `${process.env.REACT_APP_UPLOADS_ROOT + props.modelURL}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/models/CubePreset01.glb`)
 
     // Canvas dimensions
     const { size } = useThree();
@@ -48,7 +47,6 @@ const Content = (props) => {
 
     return (
         <>
-                
                 <directionalLight position={[1,2,3]} intensity={4.5}/>
                 <ambientLight intensity={1.5} />
 

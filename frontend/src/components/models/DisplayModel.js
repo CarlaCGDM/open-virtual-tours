@@ -24,7 +24,7 @@ const DisplayModel = (props) => {
 
     // Load model
 
-    const modelModel = useGLTF(model.modelURL ? model.modelURL : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/models/CubePreset01.glb`)
+    const modelModel = useGLTF( model.modelURL ? `${process.env.REACT_APP_UPLOADS_ROOT + model.modelURL}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/models/CubePreset01.glb`)
 
     // Get dimensions
 

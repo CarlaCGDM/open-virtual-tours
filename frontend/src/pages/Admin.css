@@ -28,12 +28,6 @@ html, body {
 
   .tour-preview-canvas {
     width: 50vw;
-    height: 55vh;
+    height: 54vh;
     background-color: rgb(54, 54, 54);
-  }
-
-  .tour-placeholder {
-    width: 100%;
-    background-color: blue;
-
   }

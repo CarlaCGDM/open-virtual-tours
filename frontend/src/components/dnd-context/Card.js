@@ -18,7 +18,7 @@ const Card = ({ id, text, imgURL,isSelected,onSelect }) => {
     title={text}
     style={{ opacity: isDragging ? 0.5 : 1}}>
       <img 
-        src={imgURL ? imgURL : "/uploads/images/ImageNotFound.png"}
+        src={imgURL ? `${process.env.REACT_APP_UPLOADS_ROOT + imgURL}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/images/ImageNotFound.png`}
         alt={text}
       />
       <p>{text}</p>

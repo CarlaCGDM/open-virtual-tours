@@ -1,4 +1,4 @@
-import { useState} from 'react'
+import { useState } from 'react'
 import { ModelAPI } from '../../apis/ModelAPI.js'
 import UploadModelFileForm from './UploadModelFileForm.js'
 
@@ -7,14 +7,14 @@ import UploadModelFileForm from './UploadModelFileForm.js'
  * @returns 
  */
 
-export default function CreateModelResource() {
+export default function CreateModelResourceForm({onClose, onCardCreated}) {
 
     // Data from the main input form:
 
-    const [name,setName] = useState("")
-    const [description,setDescription] = useState("")
-    const [author,setAuthor] = useState("")
-    const [license,setLicense] = useState("")
+    const [name, setName] = useState("")
+    const [description, setDescription] = useState("")
+    const [author, setAuthor] = useState("")
+    const [license, setLicense] = useState("")
 
     // Data from the child component:
 
@@ -29,7 +29,7 @@ export default function CreateModelResource() {
 
         const formData = new FormData()
         formData.append("name", name)
-        formData.append("description",description)
+        formData.append("description", description)
         formData.append("author", author)
         formData.append("license", license)
         formData.append("modelURL", modelURL)
@@ -43,22 +43,25 @@ export default function CreateModelResource() {
             console.log(response)
         })
     }
-    
+
     return <div className="popup-form">
         <h2>Upload new 3D model</h2>
 
-        <label>Name:<input type="text" onChange={(e) => {setName(e.target.value)}} /></label>< br />
-        <label>Description:<input type="text" onChange={(e) => {setDescription(e.target.value)}} /></label>< br />
-        <label>Author:<input type="text" onChange={(e) => {setAuthor(e.target.value)}} /></label>< br />
-        <label>License:<input type="text" onChange={(e) => {setLicense(e.target.value)}} /></label>< br />
-        
-        <UploadModelFileForm 
+        <label>Name:<input type="text" onChange={(e) => { setName(e.target.value) }} /></label>< br />
+        <label>Description:<input type="text" onChange={(e) => { setDescription(e.target.value) }} /></label>< br />
+        <label>Author:<input type="text" onChange={(e) => { setAuthor(e.target.value) }} /></label>< br />
+        <label>License:<input type="text" onChange={(e) => { setLicense(e.target.value) }} /></label>< br />
+
+        <UploadModelFileForm
             updateModelURL={(modelURL) => setModelURL(modelURL)}
             updateImageURL={(imageURL) => setImageURL(imageURL)}
             environment={false}
         />
 
-        <button onClick={uploadForm}>Confirm</button>
+        <div className="confirm-cancel-buttons">
+            <button onClick={() => {uploadForm();onCardCreated()}} disabled={!modelURL && !imageURL}>Confirm</button>
+            <button className="cancel-button" onClick={() => {onClose()}}>Cancel</button>
+        </div>
         {/* <button className="closeButton" onClick={() => {props.showThisModal(false)}} >Cancel/Close</button> */}
     </div>
 }

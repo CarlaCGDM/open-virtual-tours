@@ -15,7 +15,7 @@ import DisplayModel from '../models/DisplayModel.js'
 export default function TourExperienceDev(props) {
 
   // Tour model
-  const tourModel = useGLTF(props.tourEnvironment.modelURL || `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/models/CubePreset01.glb`)
+  const tourModel = useGLTF(props.tourEnvironment ? `${process.env.REACT_APP_UPLOADS_ROOT + props.tourEnvironment.modelURL}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/models/CubePreset01.glb`)
 
   // Tour content 
   const [displayPanels, setDisplayPanels] = useState([])

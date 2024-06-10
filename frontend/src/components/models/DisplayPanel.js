@@ -43,7 +43,7 @@ const DisplayPanel = (props) => {
   // console.log("Panel: ")
   // console.log(panel)
 
-  const texture = new TextureLoader().load(panel.imgURL, function ( tex ) {
+  const texture = new TextureLoader().load(process.env.REACT_APP_UPLOADS_ROOT + panel.imgURL, function ( tex ) {
 
     if (!dimensions) {
         const ratio = tex.image.width/tex.image.height

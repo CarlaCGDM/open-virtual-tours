@@ -5,18 +5,21 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState(null);
+  const [userEmail, setUserEmail] = useState(null);
 
-  const login = (token) => {
+  const login = (token, email) => {
     setAuthToken(token);
+    setUserEmail(email);
   };
 
   const logout = () => {
     setAuthToken(null);
+    setUserEmail(null);
     Navigate('/login'); // Redirect to login page after logging out
   };
 
   return (
-    <AuthContext.Provider value={{ authToken, login, logout }}>
+    <AuthContext.Provider value={{ authToken, userEmail, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

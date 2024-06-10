@@ -10,7 +10,7 @@ const InfoCard = (props) => {
 
         {!props.isModel && <img 
           className='content-image'
-          src={props.content.imgURL} 
+          src={process.env.REACT_APP_UPLOADS_ROOT + props.content.imgURL} 
           alt={props.content.name}/>}
 
         <p className='content-description'>{props.content.description}</p>
