@@ -10,8 +10,8 @@ export default function Home() {
 
   // Show welcome modal
 
-  const [modalOpacity,setModalOpacity] = useState(1)
-  
+  const [modalOpacity, setModalOpacity] = useState(1)
+
   // Get config object and console.log()
 
   const [tourConfig, setTourConfig] = useState("")
@@ -33,22 +33,39 @@ export default function Home() {
 
     if (tourConfig) {
       EnvironmentAPI.getOne(tourConfig.tourEnvironment)
-      .then((data) => {
+        .then((data) => {
 
-        // Update environment on display
-        console.log("New updated tour environment: ")
-        console.log(data)
-        setTourEnvironment(data)
-      })
+          // Update environment on display
+          console.log("New updated tour environment: ")
+          console.log(data)
+          setTourEnvironment(data)
+        })
     }
 
   }, [tourConfig]);
 
   return <>
     <div className="home-container">
-      <WelcomeModal modalOpacity={modalOpacity} tourTitle={tourConfig.tourTitle} tourDescription={tourConfig.tourDescription}/>
-      {tourEnvironment && <TourExperience tourEnvironment={tourEnvironment} setModalOpacity={(p) => setModalOpacity(p)}/>}
-      <Footer contactEmail={tourConfig.contactEmail}/>
+
+      <WelcomeModal
+        modalOpacity={modalOpacity}
+        tourTitle={tourConfig.tourTitle}
+        tourDescription={tourConfig.tourDescription} />
+
+
+      {tourEnvironment &&
+
+        <div className="virtual-tour">
+          <TourExperience
+            tourEnvironment={tourEnvironment}
+            setModalOpacity={(p) => setModalOpacity(p)}
+          />
+        </div>
+        
+      }
+
+
+      <Footer contactEmail={tourConfig.contactEmail} />
     </div>
   </>
 }

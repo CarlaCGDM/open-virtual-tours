@@ -4,12 +4,38 @@ html, body {
     padding: 0;
   }
   
-  .admin-container {
+  .admin-page {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    overflow: hidden;
   }
 
+  .admin-content {
+    background-color: purple;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .resource-area {
+    background-color: blue;
+    width: 50vw;
+  }
+
+  .preview-area {
+    background-color: rgb(41, 41, 41);
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .virtual-tour {
+    position: relative;
+    height: 100%;
+  }
+
+  /* 
   .dnd-context-wrapper {
     display: flex;
     flex-direction: row;
@@ -30,4 +56,14 @@ html, body {
     width: 50vw;
     height: 54vh;
     background-color: rgb(54, 54, 54);
-  }
+  } */
+
+  @media (max-width: 768px) {
+    .resource-area {
+      width: 100vw;
+    }
+  
+    .preview-area {
+      display: none;
+    }
+}

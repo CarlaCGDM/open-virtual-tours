@@ -27,12 +27,18 @@ const ModelsBucketsList = (props) => {
     };
 
     return (
-        <div className="buckets-list-container">
+        <div className="bucket-list-container">
             <div className="buckets-title">
-                <h3>3D Models in environment</h3>
-                <p>Assign new 3D models through drag and drop.</p>
+                <h2>3D Models in environment</h2>
+                <p>(Assign new 3D models through drag and drop.)</p>
             </div>
             <div className="buckets">
+            <button
+                    className="pagination-button"
+                    onClick={handlePreviousPage}
+                    disabled={currentPage === 1}>
+                    &lt;
+                </button>
                 {currentItems.map((id) => (
                     <TargetBucket
                         key={id}
@@ -42,21 +48,15 @@ const ModelsBucketsList = (props) => {
                         onUpdate={() => { props.handleUpdate() }}
                     />
                 ))}
-            </div>
-            <div className="pagination-controls">
-                <button
-                    className="pagination-button"
-                    onClick={handlePreviousPage}
-                    disabled={currentPage === 1}>
-                    Previous
-                </button>
-                <span className="pagination-info">Page {currentPage} of {totalPages}</span>
-                <button
+            <button
                     className="pagination-button"
                     onClick={handleNextPage}
                     disabled={currentPage === totalPages}>
-                    Next
+                    &#62;
                 </button>
+            </div>
+            <div className="pagination-controls">
+                <span className="pagination-info">Page {currentPage} of {totalPages}</span>
             </div>
         </div>
     );

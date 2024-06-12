@@ -63,36 +63,30 @@ export default function Admin(props) {
 
   return <>
 
-    <div className="admin-container">
+    <div className="admin-page">
 
       <HeaderContainer />
+  
+      <div className="admin-content">
 
-      <div className="dnd-context-wrapper">
+      <DndContext>
 
-        {tourEnvironment &&
+        <div className="resource-area">
+          Resource area.
+        </div>
+        <div className="preview-area">
+          <div className="virtual-tour">
+          <TourExperienceDev
+            tourEnvironment={tourEnvironment} />
+          </div>
+          <ModelsBucketsList
+            targetBuckets={targetBuckets}
+            tourEnvironment={tourEnvironment}
+            handleUpdate={() => { handleUpdate() }}
+          />
+        </div>
 
-          <DndContext>
-
-            <SelectResource />
-            
-            {/* <SourceList /> */}
-
-            <div className="tour-preview">
-
-              <div className="tour-preview-canvas">
-                <TourExperienceDev
-                  tourEnvironment={tourEnvironment} />
-              </div>
-
-              <ModelsBucketsList
-                targetBuckets={targetBuckets}
-                tourEnvironment={tourEnvironment}
-                handleUpdate={() => { handleUpdate() }}
-              />
-            </div>
-
-
-          </DndContext>}
+      </ DndContext>
 
       </div>
 
@@ -101,3 +95,29 @@ export default function Admin(props) {
     </div>
   </>
 }
+
+
+{/* {tourEnvironment && */ }
+
+// <DndContext>
+
+//   <SelectResource />
+
+{/* <SourceList /> */ }
+
+{/* <div className="tour-preview">
+
+      <div className="tour-preview-canvas">
+        <TourExperienceDev
+          tourEnvironment={tourEnvironment} />
+      </div>
+
+      <ModelsBucketsList
+        targetBuckets={targetBuckets}
+        tourEnvironment={tourEnvironment}
+        handleUpdate={() => { handleUpdate() }}
+      />
+    </div> */}
+
+
+// </DndContext>}

@@ -91,8 +91,6 @@ export default function TourExperience(props) {
     
         </ScrollControls>
 
-        {/* <OrbitControls /> */}
-
         {/* Environment */}
 
         {props.tourEnvironment && <Clone object={ tourModel.scene } />}

@@ -88,6 +88,7 @@ export default function TourExperienceDev(props) {
   return <>
 
     {popup && popupContent}
+    
     <Canvas className='tour-experience'>
 
       {/* Staging */}
@@ -97,12 +98,6 @@ export default function TourExperienceDev(props) {
       <ambientLight intensity={4.5} />
 
       {/* Navigation */}
-
-      {/* <ScrollControls pages={scrollPages} damping={0.3}>
-
-          <DisplayPath tourModel={tourModel} setScrollPages={(n) => {setScrollPages(n)}} setModalOpacity={(p) => {props.setModalOpacity(p)}}/>
-    
-        </ScrollControls> */}
 
       <OrbitControls />
 
@@ -119,5 +114,6 @@ export default function TourExperienceDev(props) {
       {console.log(props.tourEnvironment.modelSlots)}
 
     </Canvas>
+
   </>
 }
