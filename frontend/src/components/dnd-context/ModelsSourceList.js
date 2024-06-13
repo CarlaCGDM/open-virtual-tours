@@ -4,6 +4,7 @@ import { ModelAPI } from '../../apis/ModelAPI.js'
 import './SourceList.css'
 import DevInfoCard from '../modals/DevInfoCard.js'
 import CreateModelResourceForm from '../forms/CreateModelResourceForm.js'
+import UpdateModelResourceForm from '../forms/UpdateModelResourceForm.js'
 
 const ModelsSourceList = (props) => {
   // State variables
@@ -15,11 +16,30 @@ const ModelsSourceList = (props) => {
   const [sortType, setSortType] = useState('oldest') // Default sorting type
   const limit = 14; // Number of items per page
 
-  const [isModalOpen, setIsModalOpen] = useState(false); // State
+  const [isCreateNewOpen, setIsCreateNewOpen] = useState(false); // State
+  const [isEditOpen, setIsEditOpen] = useState(false); // State
+
+  const [devInfoCard, setDevInfoCard] = useState(
+
+  );
+
 
   useEffect(() => {
     fetchCards();
   }, [currentPage, searchTerm, sortType]);
+
+  const fetchSelectedCard = async () => {
+    console.log("Re-fetching the list of cards!")
+    try {
+      await ModelAPI.getOne(selectedCard._id)
+        .then((response) => {
+          setSelectedCard(response)
+        }
+        );
+    } catch (error) {
+      console.error('Failed to fetch cards:', error);
+    }
+  };
 
 
   // Fetch cards function
@@ -42,6 +62,7 @@ const ModelsSourceList = (props) => {
     }
   };
 
+
   // Check if card is in use
 
   const modelIsUsed = () => {
@@ -55,8 +76,12 @@ const ModelsSourceList = (props) => {
 
   const destroyCard = async (id) => {
     try {
-      const response = await ModelAPI.deleteOne(id);
-      fetchCards()
+      await ModelAPI.deleteOne(id)
+        .then((response) => {
+          setSelectedCard('')
+          fetchCards()
+        })
+
     } catch (error) {
       console.error('Failed to fetch cards:', error);
     }
@@ -82,17 +107,28 @@ const ModelsSourceList = (props) => {
   };
 
   const handleOpenModal = () => {
-    setIsModalOpen(true);
+    setIsCreateNewOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  const handleCloseCreateNewModal = () => {
+    setIsCreateNewOpen(false);
+  };
+
+  const handleCloseUpdateModal = () => {
+    setIsEditOpen(false);
   };
 
   // Handler for card creation
   const handleCardCreated = () => {
-    handleCloseModal(); // Close the modal after card creation
+    handleCloseCreateNewModal(); // Close the modal after card creation
     fetchCards(); // Re-fetch the list of cards
+  };
+
+  // Handler for card update
+  const handleCardUpdated = () => {
+    handleCloseUpdateModal(); // Close the modal after card creation
+    fetchCards(); // Re-fetch the list of cards
+    fetchSelectedCard();
   };
 
 
@@ -160,14 +196,26 @@ const ModelsSourceList = (props) => {
         content={selectedCard}
       />}
 
-      {isModalOpen && <div className="popup-create-model">
+      {isCreateNewOpen && <div className="popup-create-model">
         <CreateModelResourceForm
-          onClose={handleCloseModal}
+          onClose={handleCloseCreateNewModal}
           onCardCreated={handleCardCreated}
         /></div>}
 
+      {isEditOpen && <div className="popup-create-model">
+        <UpdateModelResourceForm
+          onClose={handleCloseUpdateModal}
+          onCardUpdated={handleCardUpdated}
+          selectedCard={selectedCard}
+        /></div>}
+
       <div className="action-buttons-wrapper">
-        <button disabled className="delete-button">Edit selected</button>
+        <button
+          className="delete-button"
+          onClick={() => { setIsEditOpen(true) }}>
+          Edit selected
+        </button>
+
         <button
           disabled={modelIsUsed(selectedCard._id)}
           title={modelIsUsed(selectedCard._id) ? "Models currently in use cannot be deleted." : "Delete selected model."}

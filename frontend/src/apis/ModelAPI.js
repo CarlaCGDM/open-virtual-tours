@@ -1,5 +1,4 @@
 import { api } from "./configs/axiosConfigs.js"
-// import { defineCancelApiObject } from "./configs/axiosUtils"
 
 export const ModelAPI = {
 
@@ -21,7 +20,7 @@ export const ModelAPI = {
     return response.data
   },
 
-  getAll: async function (cancel = false) {
+  getAll: async function () {
     const response = await api.request({
       url: "/models/",
       method: "GET",
@@ -41,7 +40,7 @@ export const ModelAPI = {
     return response.data
   },
 
-  createOne: async function (model, cancel = false) {
+  createOne: async function (model) {
     const response = await api.request({
       url: `/models/`,
       method: "POST",
@@ -54,19 +53,17 @@ export const ModelAPI = {
     return response.data
   },
 
-//   search: async function (name, cancel = false) {
-//     const response = await api.request({
-//       url: "/models/search",
-//       method: "GET",
-//       params: {
-//         name: name,
-//       },
-//       signal: cancel ? cancelApiObject[this.search.name].handleRequestCancellation().signal : undefined,
-//     })
+  editOne: async function (model,id) {
+    const response = await api.request({
+      url: `/models/${id}`,
+      method: "PUT",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: model
+    })
+    
+    return response.data
+  }
 
-//     return response.data.models
-//   },
  }
-
-// // defining the cancel API object for ModelAPI
-// const cancelApiObject = defineCancelApiObject(ModelAPI)

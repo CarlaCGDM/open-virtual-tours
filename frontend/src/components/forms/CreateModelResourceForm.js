@@ -63,6 +63,5 @@ export default function CreateModelResourceForm({onClose, onCardCreated}) {
             <button onClick={() => {uploadForm()}} disabled={!modelURL && !imageURL}>Confirm</button>
             <button className="cancel-button" onClick={() => {onClose()}}>Cancel</button>
         </div>
-        {/* <button className="closeButton" onClick={() => {props.showThisModal(false)}} >Cancel/Close</button> */}
     </div>
 }
