@@ -7,7 +7,7 @@ export default function SelectResource(props) {
     const [currentTab, setCurrentTab] = useState("3D Models");
 
     return (
-        <div className="settings-panel">
+        <div className="resource-panel">
             <div className="buttons-row">
                 <button
                     className={`tab-button ${currentTab === "Environments" ? "active" : ""}`}
@@ -22,16 +22,16 @@ export default function SelectResource(props) {
                     3D Models
                 </button>
                 <button
-                    className={`tab-button ${currentTab === "Info Panels" ? "active" : ""}`}
-                    onClick={() => setCurrentTab("Info Panels")}
+                    className={`tab-button ${currentTab === "Panels" ? "active" : ""}`}
+                    onClick={() => setCurrentTab("Panels")}
                 >
-                    Info Panels
+                    Panels
                 </button>
                 <button
-                    className={`tab-button ${currentTab === "Lighting Presets" ? "active" : ""}`}
-                    onClick={() => setCurrentTab("Lighting Presets")}
+                    className={`tab-button ${currentTab === "Lighting" ? "active" : ""}`}
+                    onClick={() => setCurrentTab("Lighting")}
                 >
-                    Lighting Presets
+                    Lighting
                 </button>
                 <button
                     className={`tab-button ${currentTab === "Config" ? "active" : ""}`}
@@ -47,12 +47,12 @@ export default function SelectResource(props) {
                 </button>
             </div>
 
-            {currentTab === "3D Models" && <ModelsSourceList />}
+            {currentTab === "3D Models" && <ModelsSourceList tourEnvironment={props.tourEnvironment}/>}
             {currentTab === "Environments" && <div>Sorry, coming soon!</div>}
-            {currentTab === "Info Panels" && <div>Sorry, coming soon!</div>}
+            {currentTab === "Panels" && <div>Sorry, coming soon!</div>}
             {currentTab === "Config" && <div>Sorry, coming soon!</div>}
             {currentTab === "Users" && <div>Sorry, coming soon!</div>}
-            {currentTab === "Lighting Presets" && <div>Sorry, coming soon!</div>}
+            {currentTab === "Lighting" && <div>Sorry, coming soon!</div>}
         </div>
     );
 }

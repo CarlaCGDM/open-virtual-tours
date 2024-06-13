@@ -28,3 +28,25 @@
     border-width: 2px;
     background-color: rgb(255, 191, 95);
 }
+
+@keyframes pop-in {
+    from {
+      transform: scale(0.5);
+      opacity: 0;
+      visibility: visible;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  
+  .pop-in {
+    visibility: hidden; /* Hide initially */
+    animation: pop-in 0.3s ease forwards;
+  }
+  
+  .hidden {
+    visibility: hidden;
+  }

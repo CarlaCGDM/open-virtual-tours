@@ -44,7 +44,7 @@ const TargetBucket = (props) => {
 
   return (
     <div ref={drop} className="target-buckets">
-      <p className="bucket-title">Slot {props.id}</p>
+      <p className="bucket-title"> &lt;{props.id}&gt;</p>
       {cards.map((card) => (
         <Card 
         key={card._id} 

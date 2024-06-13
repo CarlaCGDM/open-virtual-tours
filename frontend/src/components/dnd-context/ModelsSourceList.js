@@ -1,37 +1,55 @@
 import React, { useState, useEffect } from 'react'
 import Card from './Card.js'
-import { ModelAPI } from '../../apis/ModelAPI.js';
+import { ModelAPI } from '../../apis/ModelAPI.js'
 import './SourceList.css'
-import DevInfoCard from '../modals/DevInfoCard.js';
-import CreateModelResourceForm from '../forms/CreateModelResourceForm.js';
+import DevInfoCard from '../modals/DevInfoCard.js'
+import CreateModelResourceForm from '../forms/CreateModelResourceForm.js'
 
-const ModelsSourceList = () => {
+const ModelsSourceList = (props) => {
   // State variables
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState([])
   const [selectedCard, setSelectedCard] = useState('')
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [sortType, setSortType] = useState('name_asc'); // Default sorting type
-  const limit = 16; // Number of items per page
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [sortType, setSortType] = useState('oldest') // Default sorting type
+  const limit = 14; // Number of items per page
 
   const [isModalOpen, setIsModalOpen] = useState(false); // State
 
   useEffect(() => {
     fetchCards();
-  }, [currentPage, searchTerm, sortType,isModalOpen]);
+  }, [currentPage, searchTerm, sortType]);
+
 
   // Fetch cards function
   const fetchCards = async () => {
+    console.log("Re-fetching the list of cards!")
     try {
-      const response = await ModelAPI.getAllPaginated(currentPage, limit, searchTerm, sortType);
-      setCards(response.models)
-      setTotalPages(response.totalPages)
-      setSelectedCard(response.models[0])
+      await ModelAPI.getAllPaginated(currentPage, limit, searchTerm, sortType)
+        .then((response) => {
+          setCards(response.models)
+          setTotalPages(response.totalPages)
+          if (!selectedCard) {
+            setSelectedCard(response.models[0])
+          } else {
+            setSelectedCard(selectedCard)
+          }
+        }
+        );
     } catch (error) {
       console.error('Failed to fetch cards:', error);
     }
   };
+
+  // Check if card is in use
+
+  const modelIsUsed = () => {
+    if (props.tourEnvironment) {
+      return (props.tourEnvironment.modelSlots.includes(selectedCard._id))
+    }
+    return false
+  }
 
   // Destroy card function
 
@@ -69,7 +87,6 @@ const ModelsSourceList = () => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    fetchCards()
   };
 
   // Handler for card creation
@@ -89,7 +106,7 @@ const ModelsSourceList = () => {
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search by name"
+              placeholder="🔍 Search by name"
               className="search-input"
             />
             <button type="submit" className="search-button">Search</button>
@@ -104,27 +121,29 @@ const ModelsSourceList = () => {
         </div>
 
         <div className="query-results">
-          {cards.map((card) => (
+          {cards.map((card, index) => (
             <Card
               key={card._id}
               id={card._id}
               text={card.name}
               imgURL={card.imgURL}
-              isSelected={selectedCard === card}
+              isSelected={selectedCard._id === card._id}
               onSelect={() => setSelectedCard(card)}
+              delay={index * 0.05}
             />
           ))}
         </div>
-        <div className="pagination-controls">
+
+        <div className="pagination-controls-left">
           <button
-            className="pagination-button"
+            className="pagination-button-left"
             onClick={handlePreviousPage}
             disabled={currentPage === 1}>
             Previous
           </button>
           <span className="pagination-info">Page {currentPage} of {totalPages}</span>
           <button
-            className="pagination-button"
+            className="pagination-button-left"
             onClick={handleNextPage}
             disabled={currentPage === totalPages}>
             Next
@@ -136,25 +155,26 @@ const ModelsSourceList = () => {
         </div>
       </div>
 
+      {selectedCard && <DevInfoCard
+        isModel={true}
+        content={selectedCard}
+      />}
 
-      <div className="info-card-section">
+      {isModalOpen && <div className="popup-create-model">
+        <CreateModelResourceForm
+          onClose={handleCloseModal}
+          onCardCreated={handleCardCreated}
+        /></div>}
 
-        {selectedCard && <DevInfoCard
-          isModel={true}
-          content={selectedCard}
-        />}
-
-      </div>
-
-      { isModalOpen && <div className="popup-create-model"><CreateModelResourceForm
-        onClose={handleCloseModal}
-        onCardCreated={handleCardCreated}
-      /></div>}
-
-        <div className="delete-button-wrapper">
-
-      <button disabled className="delete-button">Edit this card</button>
-      <button disabled onClick={() => {destroyCard(selectedCard._id)}} className="delete-button">Delete this card</button>
+      <div className="action-buttons-wrapper">
+        <button disabled className="delete-button">Edit selected</button>
+        <button
+          disabled={modelIsUsed(selectedCard._id)}
+          title={modelIsUsed(selectedCard._id) ? "Models currently in use cannot be deleted." : "Delete selected model."}
+          onClick={() => { destroyCard(selectedCard._id) }}
+          className="delete-button">
+          Delete selected
+        </button>
       </div>
 
     </div>

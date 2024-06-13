@@ -7,7 +7,11 @@ const DevInfoCard = (props) => {
       <h1>{props.content.name}</h1>
 
       <dev className="image-and-description">
-        {props.isModel && <ModelPreview modelURL={props.content.modelURL} />}
+        {props.isModel &&
+          <div>
+            <ModelPreview modelURL={props.content.modelURL} />
+          </div>
+        }
 
         {!props.isModel && <img
           className='content-image'
@@ -18,8 +22,10 @@ const DevInfoCard = (props) => {
 
       </dev>
 
-      <small>Author: {props.content.author}</small>
-      <small>License: {props.content.license}</small>
+      <div className="credits">
+        <small>Author: {props.content.author}</small>
+        <small>License: {props.content.license}</small>
+      </div>
 
     </div>
   );

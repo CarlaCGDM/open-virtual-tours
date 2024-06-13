@@ -41,6 +41,7 @@ export default function CreateModelResourceForm({onClose, onCardCreated}) {
 
         ModelAPI.createOne(formData).then((response) => {
             console.log(response)
+            onCardCreated()
         })
     }
 
@@ -59,7 +60,7 @@ export default function CreateModelResourceForm({onClose, onCardCreated}) {
         />
 
         <div className="confirm-cancel-buttons">
-            <button onClick={() => {uploadForm();onCardCreated()}} disabled={!modelURL && !imageURL}>Confirm</button>
+            <button onClick={() => {uploadForm()}} disabled={!modelURL && !imageURL}>Confirm</button>
             <button className="cancel-button" onClick={() => {onClose()}}>Cancel</button>
         </div>
         {/* <button className="closeButton" onClick={() => {props.showThisModal(false)}} >Cancel/Close</button> */}

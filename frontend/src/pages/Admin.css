@@ -1,15 +1,76 @@
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .admin-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  }
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
+.admin-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.admin-content {
+  background-color: purple;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.resource-area {
+  background-color: rgb(58, 58, 58);
+  width: 50vw;
+  padding: 1vh 1vh 1vh 0;
+}
+
+.preview-area {
+  background-color: rgb(58, 58, 58);
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 2vh;
+}
+
+.virtual-tour-dev {
+  position: relative;
+  height: 40vh;
+  padding: 1vh;
+  border-radius: 1vh;
+}
+
+.error-console {
+  background-color: rgb(29, 29, 29);
+  height: 10vh;
+  margin: 1vh;
+  border-radius: 1vh;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-console-text {
+  height: 80%;
+  width: 98%;
+  border-radius: 1vh;
+  border: solid 3px rgb(56, 56, 56);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-console-text p {
+  width: 98%;
+  height: 60%;
+  text-align: left;
+  color: red;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+/* 
   .dnd-context-wrapper {
     display: flex;
     flex-direction: row;
@@ -30,4 +91,14 @@ html, body {
     width: 50vw;
     height: 54vh;
     background-color: rgb(54, 54, 54);
+  } */
+
+@media (max-width: 768px) {
+  .resource-area {
+    width: 100vw;
   }
+
+  .preview-area {
+    display: none;
+  }
+}

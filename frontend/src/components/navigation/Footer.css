@@ -1,14 +1,16 @@
 .footer {
     background-color: black;
     color: white;
-    padding: 20px;
+    padding: 1.5vh;
     display: flex;
     justify-content: flex-start;
     align-items: center;
   }
-  
-  .footer-content {
-    text-align: left;
+
+  .footer-text {
+    display:flex;
+    flex-direction: column;
+    width: 100%;
   }
   
   .footer-text p {

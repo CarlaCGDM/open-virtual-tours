@@ -4,8 +4,13 @@
 }
 
 .bucket-title {
-    margin:0px 1vh;
-    width: 100%;
+    width: 50%;
+    padding: 0.25rem;
     font-weight: bold;
-    text-align: left;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+    border-radius: 10vh;
+    margin: auto;
+    margin-bottom: 1vh;
 }

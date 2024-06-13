@@ -1,55 +1,63 @@
-.buckets {
-    display: flex;
-    flex-direction: row;
-}
-
-.buckets-list-container {
+.bucket-list-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #b9b9b9;
+    gap:1vh;
+    background-color: #00000000;
+    border-radius: 1vh;
+    padding: 0 0 1vh 0;
+    margin: 1vh 1vh 0 1vh;
+}
+
+.buckets {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .buckets-title {
     width: 100%;
-    text-align:left;
-    margin-left: 1vw;
+    display: flex;
+    flex-direction: row;
+    gap: 1vh;
+    align-items: center;
+    margin-left: 3vw;
 }
 
 .pagination-controls {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 2rem 0;
   }
   
   .pagination-button {
-    padding: 0.25rem 0.5rem;
-    border: 1px solid #ddd; /* Light gray border */
+    display: flex;
+    align-items: center;
+    border: none;
     border-radius: 4px;
-    background-color: #fff; /* White background */
+    background-color: transparent;
     color: #333; /* Dark gray text */
-    font-size: 1rem;
+    font-size: 5rem;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
-    margin: 0 0.5rem;
+    margin: 0 0.5vh;
   }
   
   .pagination-button:disabled {
     border-color: #eee;
-    background-color: #f9f9f9; /* Lighter background for disabled */
-    color: #aaa; /* Light gray text for disabled */
+    background-color: transparent;    color: #aaa; /* Light gray text for disabled */
     cursor: not-allowed;
   }
   
   .pagination-button:hover:not(:disabled) {
-    background-color: #333; /* Dark gray background on hover */
-    color: #fff; /* White text on hover */
+    background-color: transparent;    color: #fff; /* White text on hover */
+    border: none;
   }
   
   .pagination-info {
     font-size: 1rem;
-    color: #333; /* Dark gray text */
+    color: #c4c4c4; 
   }
   

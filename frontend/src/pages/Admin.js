@@ -21,15 +21,16 @@ export default function Admin(props) {
   const [tourConfig, setTourConfig] = useState("")
   const [tourEnvironment, setTourEnvironment] = useState("")
 
-  useEffect(() => {
+  const fetchTourConfig = () => {
+    console.log("Fetching tour config.")
     ConfigAPI.getAll()
       .then((data) => {
         setTourConfig({ ...data })
       })
-
-  }, []);
+  }
 
   const fetchEnvironment = () => {
+    console.log("Fetching tour environment.")
     if (tourConfig) {
       EnvironmentAPI.getOne(tourConfig.tourEnvironment)
         .then((data) => {
@@ -39,12 +40,19 @@ export default function Admin(props) {
   }
 
   useEffect(() => {
+    fetchTourConfig()
+  }, []);
+
+  useEffect(() => {
     fetchEnvironment()
   }, [tourConfig]);
 
   // Update environment from TargetBucket Card child component
 
   const handleUpdate = () => {
+    console.log("Refreshing tour config.")
+    fetchTourConfig()
+    console.log("Refreshing tour environment.")
     fetchEnvironment()
   }
 
@@ -63,36 +71,37 @@ export default function Admin(props) {
 
   return <>
 
-    <div className="admin-container">
+    <div className="admin-page">
 
       <HeaderContainer />
 
-      <div className="dnd-context-wrapper">
+      <div className="admin-content">
 
-        {tourEnvironment &&
+        <DndContext>
 
-          <DndContext>
+          <div className="resource-area">
+            <SelectResource 
+              tourEnvironment={tourEnvironment}/>
+          </div>
 
-            <SelectResource />
-            
-            {/* <SourceList /> */}
-
-            <div className="tour-preview">
-
-              <div className="tour-preview-canvas">
-                <TourExperienceDev
-                  tourEnvironment={tourEnvironment} />
-              </div>
-
-              <ModelsBucketsList
-                targetBuckets={targetBuckets}
-                tourEnvironment={tourEnvironment}
-                handleUpdate={() => { handleUpdate() }}
-              />
+          <div className="preview-area">
+            <div className="virtual-tour-dev">
+              <TourExperienceDev
+                tourEnvironment={tourEnvironment} />
             </div>
+            <ModelsBucketsList
+              targetBuckets={targetBuckets}
+              tourEnvironment={tourEnvironment}
+              handleUpdate={() => { handleUpdate() }}
+            />
+            <div className="error-console">
+              <div className="error-console-text">
+                <p>error message: &#123;	&#125;</p>
+              </div>
+            </div>
+          </div>
 
-
-          </DndContext>}
+        </ DndContext>
 
       </div>
 
@@ -101,3 +110,29 @@ export default function Admin(props) {
     </div>
   </>
 }
+
+
+{/* {tourEnvironment && */ }
+
+// <DndContext>
+
+//   <SelectResource />
+
+{/* <SourceList /> */ }
+
+{/* <div className="tour-preview">
+
+      <div className="tour-preview-canvas">
+        <TourExperienceDev
+          tourEnvironment={tourEnvironment} />
+      </div>
+
+      <ModelsBucketsList
+        targetBuckets={targetBuckets}
+        tourEnvironment={tourEnvironment}
+        handleUpdate={() => { handleUpdate() }}
+      />
+    </div> */}
+
+
+// </DndContext>}

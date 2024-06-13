@@ -10,4 +10,8 @@ html, body {
   height: 100vh;
 }
 
+.virtual-tour {
+  position: relative;
+  height: 100%;
+}
   
