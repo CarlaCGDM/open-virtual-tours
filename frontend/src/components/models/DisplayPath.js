@@ -6,12 +6,6 @@ import { FirstPersonControls } from 'three/addons/controls/FirstPersonControls.j
 
 export default function DisplayPath(props) {
 
-    // console.log("Rendering tour path")
-
-    // Process the path object to convert it to a 
-    // Convert points to THREE.Vector3
-    // const curve = new THREE.CatmullRomCurve3( path.points.map((point) => {return new THREE.Vector3(point.x,point.y,point.z)}) );
-
     const path = {points:[{}],closed:false}
     const pathPoints = []
 
@@ -57,27 +51,6 @@ export default function DisplayPath(props) {
     
         return shape;
     }, [curve]);
-
-    // Control camera with scroll
-
-    // // Event listener for mouse movement
-    // const handleMouseMove = () => {
-    //     console.log("Moving mouse!")
-    //     if (scrollMode) {
-    //         setScrollMode(false); // Switch to mouse control mode
-    //     }
-    // };
-
-    // // Event listener for scrolling
-    // const handleScroll = () => {
-    //     console.log("Scrolling!")
-    //     if (!scrollMode) {
-    //         setScrollMode(true); // Switch to scrolling mode
-    //     }
-    // };
-
-    // window.addEventListener('mousemove', handleMouseMove);
-    // window.addEventListener('wheel', handleScroll);
 
     const cameraGroup = useRef();
     const scroll = useScroll();
@@ -126,8 +99,6 @@ export default function DisplayPath(props) {
     return <>
 
             {/* Camera */}
-
-            {/* <OrbitControls enableZoom={false} /> */}
 
             <group ref={cameraGroup}>
                 <PerspectiveCamera position={[0,1.2,0]} fov={70} makeDefault />

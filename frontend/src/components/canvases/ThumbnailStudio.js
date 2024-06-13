@@ -51,7 +51,7 @@ export default function ThumbnailStudio(props) {
             </div>
             <img 
                 className="preview-img" 
-                src={previewIMG ? `${process.env.REACT_APP_UPLOADS_ROOT + previewIMG}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/images/ImageNotFound.jpg`} 
+                src={previewIMG ? previewIMG : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/images/ImageNotFound.jpg`} 
                 alt="Snapshot result"/>
         </div>
         <div className="snapshot-container">
