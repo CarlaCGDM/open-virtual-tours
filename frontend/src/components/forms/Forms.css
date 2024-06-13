@@ -1,18 +1,14 @@
 .popup-form {
-    background-color: black;
-    color: white;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     padding: 3vh;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 1vh;
     border-radius: 0 1vh 1vh 0;
     height: 100%;
-}
-
-.popup-columns {
-    display: flex;
-    flex-direction: column;
-    gap: 1vw;
+    width: 50%;
 }
 
 .popup-form h2 {
@@ -24,6 +20,7 @@
     display: flex;
     flex-direction: column;
     font-size: 14px;
+    width: 100%;
 }
 
 .popup-form input[type="text"] {

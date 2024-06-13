@@ -81,7 +81,7 @@
   height: 7.5vh;
   width: 7.5vh;
   position: fixed;
-  top: 45%;
+  top: 50%;
   left: 0;
 
   display: flex;
@@ -106,8 +106,15 @@
 .popup-create-model {
   position: absolute;
   left: 0;
-
+  top:0;
+  height: 100%;
   z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 1vh;;
 }
 
 .action-buttons-wrapper {

@@ -12,22 +12,25 @@ const ModelsSourceList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortType, setSortType] = useState('name_asc'); // Default sorting type
+  const [sortType, setSortType] = useState('oldest'); // Default sorting type
   const limit = 14; // Number of items per page
 
   const [isModalOpen, setIsModalOpen] = useState(false); // State
 
-  useEffect(() => {
-    fetchCards();
-  }, [currentPage, searchTerm, sortType, isModalOpen]);
+  useEffect( () => {
+     fetchCards();
+  }, [currentPage, searchTerm, sortType]);
 
   // Fetch cards function
   const fetchCards = async () => {
+    console.log("Re-fetching the list of cards!")
     try {
-      const response = await ModelAPI.getAllPaginated(currentPage, limit, searchTerm, sortType);
-      setCards(response.models)
-      setTotalPages(response.totalPages)
-      setSelectedCard(response.models[0])
+      await ModelAPI.getAllPaginated(currentPage, limit, searchTerm, sortType)
+      .then((response) => 
+        {setCards(response.models)
+        setTotalPages(response.totalPages)
+        setSelectedCard(response.models[0])}
+      );
     } catch (error) {
       console.error('Failed to fetch cards:', error);
     }
@@ -69,7 +72,6 @@ const ModelsSourceList = () => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    fetchCards()
   };
 
   // Handler for card creation
@@ -137,15 +139,16 @@ const ModelsSourceList = () => {
         </div>
       </div>
 
-        {selectedCard && <DevInfoCard
-          isModel={true}
-          content={selectedCard}
-        />}
+      {selectedCard && <DevInfoCard
+        isModel={true}
+        content={selectedCard}
+      />}
 
-      {isModalOpen && <div className="popup-create-model"><CreateModelResourceForm
-        onClose={handleCloseModal}
-        onCardCreated={handleCardCreated}
-      /></div>}
+      {isModalOpen && <div className="popup-create-model">
+        <CreateModelResourceForm
+          onClose={handleCloseModal}
+          onCardCreated={handleCardCreated}
+        /></div>}
 
       <div className="action-buttons-wrapper">
         <button disabled className="delete-button">Edit selected</button>

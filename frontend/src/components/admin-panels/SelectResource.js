@@ -22,16 +22,16 @@ export default function SelectResource(props) {
                     3D Models
                 </button>
                 <button
-                    className={`tab-button ${currentTab === "Info Panels" ? "active" : ""}`}
-                    onClick={() => setCurrentTab("Info Panels")}
+                    className={`tab-button ${currentTab === "Panels" ? "active" : ""}`}
+                    onClick={() => setCurrentTab("Panels")}
                 >
-                    Info Panels
+                    Panels
                 </button>
                 <button
-                    className={`tab-button ${currentTab === "Lighting Presets" ? "active" : ""}`}
-                    onClick={() => setCurrentTab("Lighting Presets")}
+                    className={`tab-button ${currentTab === "Lighting" ? "active" : ""}`}
+                    onClick={() => setCurrentTab("Lighting")}
                 >
-                    Lighting Presets
+                    Lighting
                 </button>
                 <button
                     className={`tab-button ${currentTab === "Config" ? "active" : ""}`}
@@ -49,10 +49,10 @@ export default function SelectResource(props) {
 
             {currentTab === "3D Models" && <ModelsSourceList />}
             {currentTab === "Environments" && <div>Sorry, coming soon!</div>}
-            {currentTab === "Info Panels" && <div>Sorry, coming soon!</div>}
+            {currentTab === "Panels" && <div>Sorry, coming soon!</div>}
             {currentTab === "Config" && <div>Sorry, coming soon!</div>}
             {currentTab === "Users" && <div>Sorry, coming soon!</div>}
-            {currentTab === "Lighting Presets" && <div>Sorry, coming soon!</div>}
+            {currentTab === "Lighting" && <div>Sorry, coming soon!</div>}
         </div>
     );
 }
