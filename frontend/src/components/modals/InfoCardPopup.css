@@ -18,6 +18,8 @@
     margin: 3vh 10vw;
     padding: 3vh 10vh;
     border-radius: 1vh;
+
+    container-type: inline-size;
 }
 
 .info-popup {
@@ -30,11 +32,16 @@
 }
 
 .info-popup img {
-    width: 70%;
+    width: 90%;
 }
 
 .info-popup .model-preview {
     height: 20vw;
+    width: 40vw;
+}
+
+.content-description {
+    text-align: left;
 }
 
 @media (max-width: 1024px) {
@@ -45,5 +52,26 @@
 
     .info-popup .model-preview {
         height: 30vh;
+        width: 60vw;
+    }
+
+    .content-description {
+        width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+    .info-popup-container {
+        margin: 1vh;
+        padding: 5vh;
+    }
+
+    .info-popup .model-preview {
+        height: 30vh;
+        width: 60vw;
+    }
+
+    .content-description {
+        width: 100%;
     }
 }

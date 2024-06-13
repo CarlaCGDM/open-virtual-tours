@@ -1,13 +1,11 @@
-
-
-  .info-card {
+.info-card {
     color: white;
     background-color: black;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* High z-index to ensure it appears on top */
+     /* High z-index to ensure it appears on top */
     overflow: scroll;
     padding: 2vh;
     margin: 1vh 1vw;
@@ -17,10 +15,30 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    background-color:white;
-    color: black;
-    padding: 4vh;
+    justify-content: left;
+    color: rgb(0, 0, 0);
+    padding: 0 3vh 2vh 3vh;
+    gap: 1vh;
+    background-color: rgb(255, 255, 255);
+    width: 90%;
   }
 
+  .dev-info-card h1 {
+    font-size: 1.5rem;
+    width: 100%;
+  }
+
+  .dev-info-card .image-and-description {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    width: 100%;
+    gap: 2vh;
+  }
+
+  .dev-info-card .credits {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
   

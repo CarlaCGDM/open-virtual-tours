@@ -1,12 +1,12 @@
 .popup-form {
     background-color: black;
     color: white;
-    padding: 2vw;
+    padding: 3vh;
     display: flex;
     flex-direction: column;
-    gap: 0.5vw;
-    width: 30vw;
-    border-radius: 5px;
+    gap: 1vh;
+    border-radius: 0 1vh 1vh 0;
+    height: 100%;
 }
 
 .popup-columns {
@@ -16,7 +16,6 @@
 }
 
 .popup-form h2 {
-    margin-bottom: 20px;
     width: 100%;
     text-align: center;
 }

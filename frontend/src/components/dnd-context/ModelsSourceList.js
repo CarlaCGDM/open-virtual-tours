@@ -13,13 +13,13 @@ const ModelsSourceList = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortType, setSortType] = useState('name_asc'); // Default sorting type
-  const limit = 16; // Number of items per page
+  const limit = 14; // Number of items per page
 
   const [isModalOpen, setIsModalOpen] = useState(false); // State
 
   useEffect(() => {
     fetchCards();
-  }, [currentPage, searchTerm, sortType,isModalOpen]);
+  }, [currentPage, searchTerm, sortType, isModalOpen]);
 
   // Fetch cards function
   const fetchCards = async () => {
@@ -89,7 +89,7 @@ const ModelsSourceList = () => {
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search by name"
+              placeholder="🔍 Search by name"
               className="search-input"
             />
             <button type="submit" className="search-button">Search</button>
@@ -115,16 +115,17 @@ const ModelsSourceList = () => {
             />
           ))}
         </div>
-        <div className="pagination-controls">
+
+        <div className="pagination-controls-left">
           <button
-            className="pagination-button"
+            className="pagination-button-left"
             onClick={handlePreviousPage}
             disabled={currentPage === 1}>
             Previous
           </button>
           <span className="pagination-info">Page {currentPage} of {totalPages}</span>
           <button
-            className="pagination-button"
+            className="pagination-button-left"
             onClick={handleNextPage}
             disabled={currentPage === totalPages}>
             Next
@@ -136,25 +137,19 @@ const ModelsSourceList = () => {
         </div>
       </div>
 
-
-      <div className="info-card-section">
-
         {selectedCard && <DevInfoCard
           isModel={true}
           content={selectedCard}
         />}
 
-      </div>
-
-      { isModalOpen && <div className="popup-create-model"><CreateModelResourceForm
+      {isModalOpen && <div className="popup-create-model"><CreateModelResourceForm
         onClose={handleCloseModal}
         onCardCreated={handleCardCreated}
       /></div>}
 
-        <div className="delete-button-wrapper">
-
-      <button disabled className="delete-button">Edit this card</button>
-      <button disabled onClick={() => {destroyCard(selectedCard._id)}} className="delete-button">Delete this card</button>
+      <div className="action-buttons-wrapper">
+        <button disabled className="delete-button">Edit selected</button>
+        <button disabled onClick={() => { destroyCard(selectedCard._id) }} className="delete-button">Delete selected</button>
       </div>
 
     </div>

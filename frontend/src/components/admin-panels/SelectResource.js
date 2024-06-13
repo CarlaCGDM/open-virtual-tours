@@ -7,7 +7,7 @@ export default function SelectResource(props) {
     const [currentTab, setCurrentTab] = useState("3D Models");
 
     return (
-        <div className="settings-panel">
+        <div className="resource-panel">
             <div className="buttons-row">
                 <button
                     className={`tab-button ${currentTab === "Environments" ? "active" : ""}`}

@@ -26,14 +26,6 @@ export default function TourExperienceDev(props) {
   const [popupContent, setPopupContent] = useState("")
 
   useEffect(() => {
-    console.log("refreshed the display models!")
-    console.log(displayModels)
-  }, [displayModels])
-
-  useEffect(() => {
-
-    console.log("rendering tour experience!")
-    console.log(props.tourEnvironment.modelSlots)
 
     let panelIndex = 0
     let modelIndex = 0
@@ -57,6 +49,7 @@ export default function TourExperienceDev(props) {
         panelIndex++
       } else if (object.name.includes('FloorMarker')) {
         //console.log('Found FloorMarker object.')
+        console.log(props.tourEnvironment.modelSlots)
         object.visible = false
         newDisplayModels.push(
           <DisplayModel
@@ -109,9 +102,6 @@ export default function TourExperienceDev(props) {
 
       {displayPanels}
       {displayModels}
-
-      {console.log("hello")}
-      {console.log(props.tourEnvironment.modelSlots)}
 
     </Canvas>
 

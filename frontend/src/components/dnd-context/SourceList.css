@@ -1,44 +1,46 @@
+.source-list-wrapper {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: rgb(255, 255, 255);
+
+  border-radius: 0 1vh 1vh 0;
+  height: 80vh;
+  width: 100%;
+}
+
+.source-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+  padding: 5vh 5vh 2vh 5vh;
+}
+
 .query-results {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-}
-
-.search-area {
-  display: flex;
-  flex-direction: row;
-}
-
-.source-list {
-  background-color: rgb(255, 255, 255);
-  width: 100%;
-  height: 44vh;
-}
-
-.source-list-wrapper {
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: rgb(255, 255, 255);
-  height: 100%;
 }
 
 .search-area {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 2rem 0;
+  gap: 1vh;
+  background-color: rgb(255, 255, 255);
 }
 
 .search-form {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 1rem;
 }
 
 .search-input {
@@ -75,24 +77,25 @@
   width: 10vw;
 }
 
-.info-card-section {
-  height: 30vh;
-}
-
 .create-new-button {
-  position: fixed;
-  bottom: 42%;
-  left: 0vw;
-  background-color: rgb(19, 19, 19);
-  color: white;
   height: 7.5vh;
   width: 7.5vh;
-  border-radius: 0px 5px 5px 0px;
+  position: fixed;
+  top: 45%;
+  left: 0;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  background-color: rgb(19, 19, 19);
+  color: white;
+
+  border-radius: 0px 5px 5px 0px;
+
   text-align: center;
   font-size: 1.2rem;
+
   cursor: pointer;
 }
 
@@ -101,7 +104,20 @@
 }
 
 .popup-create-model {
-  position: fixed;
+  position: absolute;
+  left: 0;
+
+  z-index: 2000;
+}
+
+.action-buttons-wrapper {
+  position: absolute;
+  bottom: 1vh;
+
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .delete-button-wrapper {
@@ -136,4 +152,16 @@
 .delete-button:hover:not(:disabled) {
   background-color: #333;
   color: #fff;
+}
+
+.pagination-controls-left {
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1vh;
+}
+
+.pagination-button-left {
+  padding: 0.25rem 0.5rem;
 }

@@ -21,15 +21,16 @@ export default function Admin(props) {
   const [tourConfig, setTourConfig] = useState("")
   const [tourEnvironment, setTourEnvironment] = useState("")
 
-  useEffect(() => {
+  const fetchTourConfig = () => {
+    console.log("Fetching tour config.")
     ConfigAPI.getAll()
       .then((data) => {
         setTourConfig({ ...data })
       })
-
-  }, []);
+  }
 
   const fetchEnvironment = () => {
+    console.log("Fetching tour environment.")
     if (tourConfig) {
       EnvironmentAPI.getOne(tourConfig.tourEnvironment)
         .then((data) => {
@@ -39,12 +40,19 @@ export default function Admin(props) {
   }
 
   useEffect(() => {
+    fetchTourConfig()
+  }, []);
+
+  useEffect(() => {
     fetchEnvironment()
   }, [tourConfig]);
 
   // Update environment from TargetBucket Card child component
 
   const handleUpdate = () => {
+    console.log("Refreshing tour config.")
+    fetchTourConfig()
+    console.log("Refreshing tour environment.")
     fetchEnvironment()
   }
 
@@ -66,27 +74,28 @@ export default function Admin(props) {
     <div className="admin-page">
 
       <HeaderContainer />
-  
+
       <div className="admin-content">
 
-      <DndContext>
+        <DndContext>
 
-        <div className="resource-area">
-          Resource area.
-        </div>
-        <div className="preview-area">
-          <div className="virtual-tour">
-          <TourExperienceDev
-            tourEnvironment={tourEnvironment} />
+          <div className="resource-area">
+            <SelectResource />
           </div>
-          <ModelsBucketsList
-            targetBuckets={targetBuckets}
-            tourEnvironment={tourEnvironment}
-            handleUpdate={() => { handleUpdate() }}
-          />
-        </div>
 
-      </ DndContext>
+          <div className="preview-area">
+            <div className="virtual-tour">
+              <TourExperienceDev
+                tourEnvironment={tourEnvironment} />
+            </div>
+            <ModelsBucketsList
+              targetBuckets={targetBuckets}
+              tourEnvironment={tourEnvironment}
+              handleUpdate={() => { handleUpdate() }}
+            />
+          </div>
+
+        </ DndContext>
 
       </div>
 

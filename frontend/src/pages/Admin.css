@@ -1,41 +1,45 @@
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .admin-page {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    overflow: hidden;
-  }
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
-  .admin-content {
-    background-color: purple;
-    height: 100vh;
-    display: flex;
-    flex-direction: row;
-  }
+.admin-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
 
-  .resource-area {
-    background-color: blue;
-    width: 50vw;
-  }
+.admin-content {
+  background-color: purple;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
 
-  .preview-area {
-    background-color: rgb(41, 41, 41);
-    width: 50vw;
-    display: flex;
-    flex-direction: column;
-  }
+.resource-area {
+  background-color: rgb(58, 58, 58);
+  width: 50vw;
+  padding: 1vh 1vh 1vh 0;
+}
 
-  .virtual-tour {
-    position: relative;
-    height: 100%;
-  }
+.preview-area {
+  background-color: rgb(58, 58, 58);
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+}
 
-  /* 
+.virtual-tour {
+  position: relative;
+  height: 100%;
+  padding: 1vh;
+  border-radius: 1vh;
+}
+
+/* 
   .dnd-context-wrapper {
     display: flex;
     flex-direction: row;
@@ -58,12 +62,12 @@ html, body {
     background-color: rgb(54, 54, 54);
   } */
 
-  @media (max-width: 768px) {
-    .resource-area {
-      width: 100vw;
-    }
-  
-    .preview-area {
-      display: none;
-    }
+@media (max-width: 768px) {
+  .resource-area {
+    width: 100vw;
+  }
+
+  .preview-area {
+    display: none;
+  }
 }
