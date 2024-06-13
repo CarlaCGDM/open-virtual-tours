@@ -53,13 +53,9 @@ function extractPath(model) {
           z:vertices[i+2]
         }
       }
- 
     }
  
  } );
 
-  console.log(path)
-
   return path
-    
 }
