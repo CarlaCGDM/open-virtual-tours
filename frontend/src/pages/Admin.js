@@ -80,7 +80,8 @@ export default function Admin(props) {
         <DndContext>
 
           <div className="resource-area">
-            <SelectResource />
+            <SelectResource 
+              tourEnvironment={tourEnvironment}/>
           </div>
 
           <div className="preview-area">
@@ -93,6 +94,11 @@ export default function Admin(props) {
               tourEnvironment={tourEnvironment}
               handleUpdate={() => { handleUpdate() }}
             />
+            <div className="error-console">
+              <div className="error-console-text">
+                <p>error message: &#123;	&#125;</p>
+              </div>
+            </div>
           </div>
 
         </ DndContext>

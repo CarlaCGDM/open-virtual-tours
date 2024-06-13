@@ -47,7 +47,7 @@ export default function SelectResource(props) {
                 </button>
             </div>
 
-            {currentTab === "3D Models" && <ModelsSourceList />}
+            {currentTab === "3D Models" && <ModelsSourceList tourEnvironment={props.tourEnvironment}/>}
             {currentTab === "Environments" && <div>Sorry, coming soon!</div>}
             {currentTab === "Panels" && <div>Sorry, coming soon!</div>}
             {currentTab === "Config" && <div>Sorry, coming soon!</div>}

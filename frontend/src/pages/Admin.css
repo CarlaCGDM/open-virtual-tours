@@ -30,14 +30,44 @@ body {
   width: 50vw;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
+  gap: 2vh;
 }
 
 .virtual-tour {
   position: relative;
-  height: 45vh;
+  height: 40vh;
   padding: 1vh;
   border-radius: 1vh;
+}
+
+.error-console {
+  background-color: rgb(29, 29, 29);
+  height: 10vh;
+  margin: 1vh;
+  border-radius: 1vh;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-console-text {
+  height: 80%;
+  width: 98%;
+  border-radius: 1vh;
+  border: solid 3px rgb(56, 56, 56);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-console-text p {
+  width: 98%;
+  height: 60%;
+  text-align: left;
+  color: red;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 /* 

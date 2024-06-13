@@ -25,7 +25,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: rgb(255, 255, 255);
 }
 
@@ -80,9 +80,9 @@
 .create-new-button {
   height: 7.5vh;
   width: 7.5vh;
-  position: fixed;
-  top: 50%;
-  left: 0;
+  position: absolute;
+  top: 40%;
+  right: 0;
 
   display: flex;
   align-items: center;
@@ -91,7 +91,7 @@
   background-color: rgb(19, 19, 19);
   color: white;
 
-  border-radius: 0px 5px 5px 0px;
+  border-radius: 1vh 0 0 1vh;
 
   text-align: center;
   font-size: 1.2rem;
@@ -106,7 +106,7 @@
 .popup-create-model {
   position: absolute;
   left: 0;
-  top:0;
+  bottom: 0;
   height: 100%;
   z-index: 2000;
   display: flex;
@@ -114,7 +114,7 @@
   justify-content: center;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 1vh;;
+  border-radius: 0 1vh 1vh 0;
 }
 
 .action-buttons-wrapper {

@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
     gap:1vh;
-    background-color: #bdbdbd;
+    background-color: #00000000;
     border-radius: 1vh;
     padding: 0 0 1vh 0;
     margin: 1vh 1vh 0 1vh;
@@ -30,7 +30,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 0 1vh 0;
   }
   
   .pagination-button {
@@ -59,6 +58,6 @@
   
   .pagination-info {
     font-size: 1rem;
-    color: #333; /* Dark gray text */
+    color: #c4c4c4; 
   }
   

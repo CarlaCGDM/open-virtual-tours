@@ -30,13 +30,17 @@ export const getModels = async (req, res) => {
         // Construct the query object
         const query = {};
 
-        // Add conditions for name and description if search query is provided
+        // Add conditions for name if search query is provided
         if (searchQuery) {
-            query.$or = [
-                { name: { $regex: searchQuery, $options: 'i' } },
-                { description: { $regex: searchQuery, $options: 'i' } }
-            ];
+            query.name = { $regex: searchQuery, $options: 'i' };
         }
+
+        // if (searchQuery) {
+        //     query.$or = [
+        //         { name: { $regex: searchQuery, $options: 'i' } },
+        //         { description: { $regex: searchQuery, $options: 'i' } }
+        //     ];
+        // }
 
         // Construct the sorting object based on sort type
         let sort = {};

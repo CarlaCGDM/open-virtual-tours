@@ -28,10 +28,10 @@ const ModelsBucketsList = (props) => {
 
     return (
         <div className="bucket-list-container">
-            <div className="buckets-title">
+            {/* <div className="buckets-title">
                 <h2>3D Models in environment</h2>
                 <p>(Assign new 3D models through drag and drop.)</p>
-            </div>
+            </div> */}
             <div className="buckets">
             <button
                     className="pagination-button"
