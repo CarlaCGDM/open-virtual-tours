@@ -85,7 +85,7 @@ export default function Admin(props) {
           </div>
 
           <div className="preview-area">
-            <div className="virtual-tour">
+            <div className="virtual-tour-dev">
               <TourExperienceDev
                 tourEnvironment={tourEnvironment} />
             </div>
