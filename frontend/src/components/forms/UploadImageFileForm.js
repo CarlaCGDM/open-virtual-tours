@@ -47,7 +47,7 @@ export default function UploadImageFileForm(props) {
                 <button onClick={uploadImage}>Upload image</button>
             </div>
 
-            <img src={imageURL ? imageURL : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/images/ImageNotFound.jpg`} />
+            <img src={imageURL ? `${process.env.REACT_APP_UPLOADS_ROOT + imageURL}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/images/ImageNotFound.jpg`} />
         </div>
     </>
 }
