@@ -21,6 +21,13 @@ const storageConfigModel = multer.diskStorage({
   },
 });
 
+const storageConfigEnvironment = multer.diskStorage({
+  destination: "public/uploads/environments",
+  filename: (req, file, res) => {
+      res(null, Date.now() + "-" + file.originalname);
+  },
+});
+
 // file filter for filtering only images
 const fileFilterConfigImg = function(req, file, cb) {
     if (file.mimetype === "image/jpeg"
@@ -68,7 +75,7 @@ const uploadModel = multer({
 // creating multer object for storing
 // with configuration
 const uploadEnvironment = multer({
-    storage: storageConfigModel,
+    storage: storageConfigEnvironment,
     limits: {
         fileSize: 1024 * 1024 * 50
     },
@@ -83,7 +90,7 @@ router.post('/model', uploadModel.single('model'), (req, res) => {
     res.json({data: req.file.filename})
 })
 
-router.post('/environment', uploadModel.single('environment'), (req, res) => {
+router.post('/environment', uploadEnvironment.single('environment'), (req, res) => {
     res.json({data: req.file.filename})
 })
 

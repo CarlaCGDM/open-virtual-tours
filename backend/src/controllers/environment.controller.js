@@ -1,4 +1,3 @@
-import { model } from 'mongoose'
 import Environment from '../models/Environment.js'
 import Model from '../models/Model.js'
 import Panel from '../models/Panel.js'
@@ -10,7 +9,7 @@ export const createEnvironment = async (req, res) => {
 
     const path = JSON.parse(stringifiedPath)
 
-    // fill model and panel slots with placeholder data
+    // fill environment and panel slots with placeholder data
 
     const placeholderModel = await Model.findOne({ name: 'Rubber duck' })
     const modelSlots = []
@@ -35,9 +34,63 @@ export const createEnvironment = async (req, res) => {
 }
 
 export const getEnvironments = async (req, res) => {
-    const environments = await Environment.find()
-    res.status(200).json(environments)
-}
+    try {
+        // Get page, limit, search query, and sort type from query parameters
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const searchQuery = req.query.search || '';
+        const sortType = req.query.sort || 'newest'; // Default sorting type
+        const skip = (page - 1) * limit;
+
+        // Construct the query object
+        const query = {};
+
+        // Add conditions for name if search query is provided
+        if (searchQuery) {
+            query.name = { $regex: searchQuery, $options: 'i' };
+        }
+
+        // if (searchQuery) {
+        //     query.$or = [
+        //         { name: { $regex: searchQuery, $options: 'i' } },
+        //         { description: { $regex: searchQuery, $options: 'i' } }
+        //     ];
+        // }
+
+        // Construct the sorting object based on sort type
+        let sort = {};
+        switch (sortType) {
+            case 'oldest':
+                sort = { createdAt: 1 };
+                break;
+            case 'name_asc':
+                sort = { name: 1 };
+                break;
+            case 'name_desc':
+                sort = { name: -1 };
+                break;
+            default:
+                sort = { createdAt: -1 }; // Default to newest
+        }
+
+        // Fetch environments with pagination, search filters, and sorting
+        const environments = await Environment.find(query).sort(sort).skip(skip).limit(limit);
+
+        // Count total documents matching the query
+        const totalEnvironments = await Environment.countDocuments(query);
+
+        // Calculate total pages
+        const totalPages = Math.ceil(totalEnvironments / limit);
+
+        res.status(200).json({
+            environments,
+            totalPages,
+            currentPage: page,
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 
 export const getEnvironmentById = async (req, res) => {
     const environment = await Environment.findById(req.params.environmentId)
