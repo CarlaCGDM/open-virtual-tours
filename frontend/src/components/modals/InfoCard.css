@@ -28,6 +28,10 @@
     width: 100%;
   }
 
+  .dev-info-card img {
+    max-height: 20vh;
+  }
+
   .dev-info-card .image-and-description {
     display: flex;
     flex-direction: row;

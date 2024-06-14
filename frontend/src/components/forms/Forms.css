@@ -55,6 +55,10 @@
     transition: background-color 0.3s ease;
 }
 
+.popup-form img {
+    max-height: 20vh;
+}
+
 .popup-form button:hover {
     background-color: #0056b3;
 }

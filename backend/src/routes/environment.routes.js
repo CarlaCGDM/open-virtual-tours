@@ -12,4 +12,7 @@ router.get('/:environmentId', environmentController.getEnvironmentById)
 router.put('/:environmentId', environmentController.updateEnvironmentById)
 router.delete('/:environmentId', environmentController.deleteEnvironmentById)
 
+router.get('/isModelInUse/:modelId', environmentController.isModelInUse)
+router.get('/isPanelInUse/:panelId', environmentController.isPanelInUse)
+
 export default router
