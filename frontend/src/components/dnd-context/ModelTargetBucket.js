@@ -5,7 +5,7 @@ import { EnvironmentAPI } from '../../apis/EnvironmentAPI.js';
 import Card from './Card.js'
 import './TargetBucket.css'
 
-const TargetBucket = (props) => {
+const ModelTargetBucket = (props) => {
 
   const [cards, setCards] = useState([])
 
@@ -58,4 +58,4 @@ const TargetBucket = (props) => {
   )
 }
 
-export default TargetBucket
+export default ModelTargetBucket

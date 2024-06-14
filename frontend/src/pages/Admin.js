@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import ModelsSourceList from '../components/dnd-context/ModelsSourceList.js'
-import TargetBucket from '../components/dnd-context/TargetBucket.js'
+import TargetBucket from '../components/dnd-context/ModelTargetBucket.js'
 import DndContext from '../components/dnd-context/DndContext.js'
 import CreateModelResourceForm from "../components/forms/CreateModelResourceForm.js"
 import CreateEnvironmentResourceForm from "../components/forms/CreateEnvironmentResourceForm.js"
@@ -13,6 +13,7 @@ import SelectResource from "../components/admin-panels/SelectResource.js"
 import './Admin.css'
 import ModelsBucketsList from "../components/dnd-context/ModelsBucketList.js"
 import HeaderContainer from "../components/navigation/HeaderContainer.js"
+import PanelsBucketsList from "../components/dnd-context/PanelsBucketList.js"
 
 export default function Admin(props) {
 
@@ -56,17 +57,28 @@ export default function Admin(props) {
     fetchEnvironment()
   }
 
-  const [targetBuckets, setTargetBuckets] = useState([])
+  const [modelTargetBuckets, setModelTargetBuckets] = useState([])
+  const [panelTargetBuckets, setPanelTargetBuckets] = useState([])
 
   useEffect(() => {
 
     if (tourEnvironment) {
 
-      const keys = tourEnvironment.modelSlots.map((modelId, index) => (index))
-      setTargetBuckets(keys)
+      const modelKeys = tourEnvironment.modelSlots.map((modelId, index) => (index))
+      setModelTargetBuckets(modelKeys)
+
+      const panelKeys = tourEnvironment.panelSlots.map((panelId, index) => (index))
+      setPanelTargetBuckets(panelKeys)
+
+      console.log(panelKeys)
+      console.log(panelTargetBuckets)
 
     }
   }, [tourEnvironment]);
+
+  // Display models or panels under environment preview
+
+  const [showPanelBuckets,setShowPanelBuckets] = useState(false)
 
 
   return <>
@@ -81,7 +93,8 @@ export default function Admin(props) {
 
           <div className="resource-area">
             <SelectResource 
-              tourEnvironment={tourEnvironment}/>
+              tourEnvironment={tourEnvironment}
+              setShowPanelBuckets={(bool) => {setShowPanelBuckets(bool)}}/>
           </div>
 
           <div className="preview-area">
@@ -89,11 +102,19 @@ export default function Admin(props) {
               <TourExperienceDev
                 tourEnvironment={tourEnvironment} />
             </div>
-            <ModelsBucketsList
-              targetBuckets={targetBuckets}
+
+            {!showPanelBuckets && <ModelsBucketsList
+              targetBuckets={modelTargetBuckets}
               tourEnvironment={tourEnvironment}
               handleUpdate={() => { handleUpdate() }}
-            />
+            />}
+
+          {showPanelBuckets && <PanelsBucketsList
+              targetBuckets={panelTargetBuckets}
+              tourEnvironment={tourEnvironment}
+              handleUpdate={() => { handleUpdate() }}
+            />}
+
             <div className="error-console">
               <div className="error-console-text">
                 <p>error message: &#123;	&#125;</p>
@@ -128,7 +149,7 @@ export default function Admin(props) {
       </div>
 
       <ModelsBucketsList
-        targetBuckets={targetBuckets}
+        modelTargetBuckets={modelTargetBuckets}
         tourEnvironment={tourEnvironment}
         handleUpdate={() => { handleUpdate() }}
       />

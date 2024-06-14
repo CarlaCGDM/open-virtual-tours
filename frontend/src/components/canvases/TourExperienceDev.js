@@ -40,6 +40,8 @@ export default function TourExperienceDev(props) {
         newDisplayPanels.push(
           <DisplayPanel
             key={panelIndex}
+            devMode={true}
+            slot={panelIndex}
             setPopup={(bool) => setPopup(bool)}
             setPopupContent={(content) => setPopupContent(content)}
             rotation={[object.rotation.x, object.rotation.y, object.rotation.z]}

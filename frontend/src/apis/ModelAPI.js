@@ -64,6 +64,15 @@ export const ModelAPI = {
     })
     
     return response.data
+  },
+
+  isUsed: async function (id) {
+    const response = await api.request({
+      url: `/environments/isModelInUse/${id}`,
+      method: "GET"
+    })
+
+    return response.data
   }
 
  }

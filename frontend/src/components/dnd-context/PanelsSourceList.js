@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import Card from './Card.js'
-import { ModelAPI } from '../../apis/ModelAPI.js'
+import { PanelAPI } from '../../apis/PanelAPI.js'
 import './SourceList.css'
 import DevInfoCard from '../modals/DevInfoCard.js'
-import CreateModelResourceForm from '../forms/CreateModelResourceForm.js'
-import UpdateModelResourceForm from '../forms/UpdateModelResourceForm.js'
+import CreatePanelResourceForm from '../forms/CreatePanelResourceForm.js'
+import UpdatePanelResourceForm from '../forms/UpdatePanelResourceForm.js'
 
-const ModelsSourceList = (props) => {
+const PanelsSourceList = (props) => {
   // State variables
   const [cards, setCards] = useState([])
   const [selectedCard, setSelectedCard] = useState('')
@@ -27,7 +27,7 @@ const ModelsSourceList = (props) => {
   const fetchSelectedCard = async () => {
     console.log("Re-fetching the list of cards!")
     try {
-      await ModelAPI.getOne(selectedCard._id)
+      await PanelAPI.getOne(selectedCard._id)
         .then((response) => {
           setSelectedCard(response)
         }
@@ -42,12 +42,12 @@ const ModelsSourceList = (props) => {
   const fetchCards = async () => {
     console.log("Re-fetching the list of cards!")
     try {
-      await ModelAPI.getAllPaginated(currentPage, limit, searchTerm, sortType)
+      await PanelAPI.getAllPaginated(currentPage, limit, searchTerm, sortType)
         .then((response) => {
-          setCards(response.models)
+          setCards(response.panels)
           setTotalPages(response.totalPages)
           if (!selectedCard) {
-            setSelectedCard(response.models[0])
+            setSelectedCard(response.panels[0])
           } else {
             setSelectedCard(selectedCard)
           }
@@ -61,23 +61,23 @@ const ModelsSourceList = (props) => {
 
   // Check if card is in use
 
-  const modelIsUsed = async (id) => {
+  const panelIsUsed = async (id) => {
     if (selectedCard) {
-      await ModelAPI.isUsed(id).then((result) => {
+      await PanelAPI.isUsed(id).then((result) => {
         setSelectedInUse(result.inUse)
       })
     }
   }
 
   useEffect(() => {
-    modelIsUsed(selectedCard._id);
+    panelIsUsed(selectedCard._id);
   }, [selectedCard]);
 
   // Destroy card function
 
   const destroyCard = async (id) => {
     try {
-      await ModelAPI.deleteOne(id)
+      await PanelAPI.deleteOne(id)
         .then((response) => {
           setSelectedCard('')
           fetchCards()
@@ -193,18 +193,18 @@ const ModelsSourceList = (props) => {
       </div>
 
       {selectedCard && <DevInfoCard
-        isModel={true}
+        isPanel={true}
         content={selectedCard}
       />}
 
       {isCreateNewOpen && <div className="popup-create-model">
-        <CreateModelResourceForm
+        <CreatePanelResourceForm
           onClose={handleCloseCreateNewModal}
           onCardCreated={handleCardCreated}
         /></div>}
 
       {isEditOpen && <div className="popup-create-model">
-        <UpdateModelResourceForm
+        <UpdatePanelResourceForm
           onClose={handleCloseUpdateModal}
           onCardUpdated={handleCardUpdated}
           selectedCard={selectedCard}
@@ -219,7 +219,7 @@ const ModelsSourceList = (props) => {
 
         <button
           disabled={selectedInUse}
-          title={selectedInUse ? "Models currently in use cannot be deleted." : "Delete selected model."}
+          title={selectedInUse ? "Panels currently in use cannot be deleted." : "Delete selected panel."}
           onClick={() => { destroyCard(selectedCard._id) }}
           className="delete-button">
           Delete selected
@@ -230,4 +230,4 @@ const ModelsSourceList = (props) => {
   )
 }
 
-export default ModelsSourceList
+export default PanelsSourceList

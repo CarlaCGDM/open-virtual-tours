@@ -1,8 +1,9 @@
 import { useState } from "react";
 import ModelsSourceList from "../dnd-context/ModelsSourceList.js";
 import './SelectResource.css';
+import PanelsSourceList from "../dnd-context/PanelsSourceList.js";
 
-export default function SelectResource(props) {
+export default function SelectResource({setShowPanelBuckets}) {
     // Keeping track of which tab is currently selected
     const [currentTab, setCurrentTab] = useState("3D Models");
 
@@ -17,13 +18,13 @@ export default function SelectResource(props) {
                 </button>
                 <button
                     className={`tab-button ${currentTab === "3D Models" ? "active" : ""}`}
-                    onClick={() => setCurrentTab("3D Models")}
+                    onClick={() => {setCurrentTab("3D Models");setShowPanelBuckets(false)}}
                 >
                     3D Models
                 </button>
                 <button
                     className={`tab-button ${currentTab === "Panels" ? "active" : ""}`}
-                    onClick={() => setCurrentTab("Panels")}
+                    onClick={() => {setCurrentTab("Panels"); setShowPanelBuckets(true)}}
                 >
                     Panels
                 </button>
@@ -47,9 +48,9 @@ export default function SelectResource(props) {
                 </button>
             </div>
 
-            {currentTab === "3D Models" && <ModelsSourceList tourEnvironment={props.tourEnvironment}/>}
+            {currentTab === "3D Models" && <ModelsSourceList/>}
             {currentTab === "Environments" && <div>Sorry, coming soon!</div>}
-            {currentTab === "Panels" && <div>Sorry, coming soon!</div>}
+            {currentTab === "Panels" && <PanelsSourceList />}
             {currentTab === "Config" && <div>Sorry, coming soon!</div>}
             {currentTab === "Users" && <div>Sorry, coming soon!</div>}
             {currentTab === "Lighting" && <div>Sorry, coming soon!</div>}

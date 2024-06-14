@@ -21,3 +21,15 @@
     padding: 5vh;
     user-select: none
 }
+
+.index-annotation-panel {
+    background-color: #ff8a04;
+    border-radius: 100vh;
+    color: white;
+    font-size: 20rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5vh;
+    user-select: none
+}

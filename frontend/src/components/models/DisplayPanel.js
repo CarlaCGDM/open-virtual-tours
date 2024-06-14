@@ -75,6 +75,10 @@ const DisplayPanel = (props) => {
     onClick={() => handleClick()}
     >
         
+        {props.devMode && <Annotation position={[0, dimensions.height + 1, 0]}>
+                    <p className='index-annotation-panel'
+                    >{`<${props.slot}>` || "< 0 >"}</p>
+                </Annotation>}
         <Annotation position={[0,dimensions.height/2 + 0.5,0]}>
                 <p className='annotation'
                 >{panel.name}</p> 

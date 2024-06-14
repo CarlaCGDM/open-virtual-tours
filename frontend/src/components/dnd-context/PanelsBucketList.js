@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import ModelTargetBucket from './ModelTargetBucket.js';
 import './BucketsList.css';
+import PanelTargetBucket from './PanelTargetBucket.js';
 
-const ModelsBucketsList = (props) => {
+const PanelsBucketsList = (props) => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
 
@@ -13,6 +13,7 @@ const ModelsBucketsList = (props) => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const currentItems = props.targetBuckets.slice(startIndex, startIndex + itemsPerPage);
 
+    console.log(currentItems)
     // Handle page change
     const handlePreviousPage = () => {
         if (currentPage > 1) {
@@ -29,8 +30,8 @@ const ModelsBucketsList = (props) => {
     return (
         <div className="bucket-list-container">
             {/* <div className="buckets-title">
-                <h2>3D Models in environment</h2>
-                <p>(Assign new 3D models through drag and drop.)</p>
+                <h2>3D Panels in environment</h2>
+                <p>(Assign new 3D panels through drag and drop.)</p>
             </div> */}
             <div className="buckets">
             <button
@@ -40,11 +41,11 @@ const ModelsBucketsList = (props) => {
                     &lt;
                 </button>
                 {currentItems.map((id) => (
-                    <ModelTargetBucket
+                    <PanelTargetBucket
                         key={id}
                         id={id}
                         tourId={props.tourEnvironment._id}
-                        modelSlots={props.tourEnvironment.modelSlots}
+                        panelSlots={props.tourEnvironment.panelSlots}
                         onUpdate={() => { props.handleUpdate() }}
                     />
                 ))}
@@ -62,4 +63,4 @@ const ModelsBucketsList = (props) => {
     );
 };
 
-export default ModelsBucketsList;
+export default PanelsBucketsList;
