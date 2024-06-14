@@ -94,6 +94,7 @@ export default function Admin(props) {
           <div className="resource-area">
             <SelectResource 
               tourEnvironment={tourEnvironment}
+              tourConfig={tourConfig}
               setShowPanelBuckets={(bool) => {setShowPanelBuckets(bool)}}/>
           </div>
 

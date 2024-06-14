@@ -47,7 +47,7 @@ export default function UploadModelFileForm(props) {
             // Send data to server and get modelURL:
             FileUploadAPI.uploadEnvironment(formData).then((response) => {
                 console.log(response)
-                setModelURL(`/uploads/models/${response.data}`)
+                setModelURL(`/uploads/environments/${response.data}`)
             })
         } else {
 

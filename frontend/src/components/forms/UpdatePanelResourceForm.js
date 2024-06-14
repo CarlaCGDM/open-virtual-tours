@@ -38,7 +38,7 @@ export default function UpdatePanelResourceForm({ onClose, onCardUpdated, select
     }
 
     return <div className="popup-form">
-        <img src={selectedCard.imgURL} alt={selectedCard.name} />
+        <img src={`${process.env.REACT_APP_UPLOADS_ROOT + selectedCard.imgURL}`} alt={selectedCard.name} />
         <h2>Edit {selectedCard.name}</h2>
 
         <label>Name:<input

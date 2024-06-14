@@ -1,8 +1,5 @@
 import { useState, useEffect } from 'react'
 import { FileUploadAPI } from '../../apis/FileUploadAPI.js'
-import ThumbnailStudio from '../canvases/ThumbnailStudio.js'
-import { upload } from '@testing-library/user-event/dist/upload.js'
-
 
 /**
  * Upload 3D environment alongside a generated thumbnail image and send storage URI to parent component.

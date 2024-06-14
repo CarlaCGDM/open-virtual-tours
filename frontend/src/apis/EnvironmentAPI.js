@@ -20,6 +20,15 @@ export const EnvironmentAPI = {
     return response.data
   },
 
+  getAllPaginated: async function (page,limit,query,sort) {
+    const response = await api.request({
+      url: `/environments?page=${page}&limit=${limit}&search=${query}&sort=${sort}`,
+      method: "GET",
+    })
+
+    return response.data
+  },
+
   createOne: async function (environment) {
     const response = await api.request({
       url: `/environments/`,
@@ -44,6 +53,15 @@ export const EnvironmentAPI = {
     })
     
     return response.data
-  }
+  },
+
+  deleteOne: async function (id) {
+    const response = await api.request({
+      url: `/environments/${id}`,
+      method: "DELETE"
+    })
+
+    return response.data
+  },
 
 }

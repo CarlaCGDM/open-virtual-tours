@@ -1,9 +1,8 @@
 import { api } from "./configs/axiosConfigs.js"
-// import { defineCancelApiObject } from "./configs/axiosUtils"
 
 export const FileUploadAPI = {
 
-uploadImage: async function (formData, cancel = false) {
+uploadImage: async function (formData) {
     const response = await api.request({
         url: `/upload/image`,
         method: "POST",
@@ -16,7 +15,7 @@ uploadImage: async function (formData, cancel = false) {
     return response.data
 },
 
-uploadModel: async function (formData, cancel = false) {
+uploadModel: async function (formData) {
     const response = await api.request({
         url: `/upload/model`,
         method: "POST",
@@ -29,7 +28,7 @@ uploadModel: async function (formData, cancel = false) {
     return response.data
 },
 
-uploadEnvironment: async function (formData, cancel = false) {
+uploadEnvironment: async function (formData) {
     const response = await api.request({
         url: `/upload/environment`,
         method: "POST",

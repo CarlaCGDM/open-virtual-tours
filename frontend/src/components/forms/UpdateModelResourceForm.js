@@ -32,7 +32,7 @@ export default function UpdateModelResourceForm({ onClose, onCardUpdated, select
 
         // Send form data:
 
-        ModelAPI.editOne(formData,selectedCard._id).then((response) => {
+        ModelAPI.editOne(formData, selectedCard._id).then((response) => {
             console.log(response)
             onCardUpdated()
         })
