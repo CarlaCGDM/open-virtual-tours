@@ -56,8 +56,8 @@ const uploadImg = multer({
     // applying storage and file filter
   storage: storageConfigImg,
   limits: {
-        // limits file size to 5 MB
-      fileSize: 1024 * 1024 * 5
+        // limits file size to 10 MB
+      fileSize: 1024 * 1024 * 10
   },
   fileFilter: fileFilterConfigImg,
 });
@@ -67,7 +67,7 @@ const uploadImg = multer({
 const uploadModel = multer({
   storage: storageConfigModel,
   limits: {
-      fileSize: 1024 * 1024 * 10
+      fileSize: 1024 * 1024 * 50
   },
   fileFilter: fileFilterConfigModel,
 });
@@ -77,7 +77,7 @@ const uploadModel = multer({
 const uploadEnvironment = multer({
     storage: storageConfigEnvironment,
     limits: {
-        fileSize: 1024 * 1024 * 50
+        fileSize: 1024 * 1024 * 500
     },
     fileFilter: fileFilterConfigModel,
   });
