@@ -30,7 +30,7 @@ app.use(morgan('dev'))
 app.use(express.json())
 
 const corsOptions = {
-    origin: ['https://openvirtualtours.org', "http://localhost:3000"],
+    origin: ['https://openvirtualtours.org', 'https://www.openvirtualtours.org', "http://localhost:3000"],
     credentials: true,
     optionsSuccessStatus: 200,
 };
