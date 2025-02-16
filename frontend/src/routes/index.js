@@ -1,7 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import { useAuth } from "../provider/authProvider.js"
 import { ProtectedRoute } from "./ProtectedRoute.js"
-import React, {Suspense, Loader} from "react"
+import React, {Suspense} from "react"
 
 import Home from "../pages/Home.js"
 import Admin from "../pages/Admin.js"
@@ -24,7 +24,7 @@ const Routes = () => {
             children: [
                 {
                     path: "/admin",
-                    element: <Suspense fallback={<Loader />}><Admin /></Suspense>,
+                    element: <Suspense fallback={"loading!"}><Admin /></Suspense>,
                 }
             ],
             path: "/logout",
