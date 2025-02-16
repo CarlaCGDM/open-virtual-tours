@@ -24,7 +24,7 @@ const Routes = () => {
             children: [
                 {
                     path: "/admin",
-                    element: <Suspense fallback={"loading!"}><Admin /></Suspense>,
+                    element: <Suspense fallback={null}><Admin /></Suspense>,
                 }
             ],
             path: "/logout",
