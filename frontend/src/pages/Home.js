@@ -2,9 +2,10 @@ import { useEffect, useState } from "react"
 import { ConfigAPI } from '../apis/ConfigAPI.js'
 import { EnvironmentAPI } from '../apis/EnvironmentAPI.js'
 import TourExperience from '../components/canvases/TourExperience.js'
-import WelcomeModal from '../components/modals/WelcomeModal.js'
+import WelcomeScreen from '../components/modals/WelcomeScreen.js'
 import Footer from '../components/navigation/Footer.js';
 import './Home.css';
+import { defaultTheme } from "../themes/themes.js"
 
 export default function Home() {
 
@@ -12,10 +13,11 @@ export default function Home() {
 
   const [modalOpacity, setModalOpacity] = useState(1)
 
-  // Get config object and console.log()
+  // Get config object
 
   const [tourConfig, setTourConfig] = useState("")
   const [tourEnvironment, setTourEnvironment] = useState("")
+  const [tourTheme, setTourTheme] = useState("")
 
   useEffect(() => {
     ConfigAPI.getAll()
@@ -47,10 +49,10 @@ export default function Home() {
   return <>
     <div className="home-container">
 
-      <WelcomeModal
+      <WelcomeScreen
         modalOpacity={modalOpacity}
-        tourTitle={tourConfig.tourTitle}
-        tourDescription={tourConfig.tourDescription} />
+        config={tourConfig}
+        theme={tourTheme ? tourTheme : defaultTheme} />
 
 
       {tourEnvironment &&

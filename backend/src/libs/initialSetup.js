@@ -1,9 +1,48 @@
+import Theme from '../models/Theme.js'
 import Model from '../models/Model.js'
 import Panel from '../models/Panel.js'
 import Environment from '../models/Environment.js'
 import Config from '../models/Config.js'
 import Role from '../models/Role.js'
 import User from '../models/User.js'
+
+// Create themes
+
+export const createThemes = async () => {
+
+    try {
+
+        const count = await Theme.estimatedDocumentCount()
+
+        if (count > 0) return
+
+        const values = await Promise.all([
+            new Theme({
+                name: 'default',
+                darkColor: '#000000',
+                lightColor: '#FFFFFFF',
+                mediumColor: '#D3D3D3',
+                borderThickness: '0.25',
+                borderRadius: '10'
+            }).save(),
+            new Theme({
+                name: 'sweet',
+                darkColor: '#4C483F',
+                lightColor: '#F4A1A1',
+                mediumColor: '#FFF8EE',
+                borderThickness: '0.15',
+                borderRadius: '2.5'
+            }).save(),
+        ])
+
+        console.log(values)
+
+    } catch (error) {
+
+        console.log(error)
+    }
+
+}
 
 // Create demo 3D models
 
