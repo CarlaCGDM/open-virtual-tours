@@ -6,7 +6,7 @@ import EnvironmentsSourceList from "../dnd-context/EnvironmentsSourceList.js";
 
 export default function SelectResource({setShowPanelBuckets,tourConfig}) {
     // Keeping track of which tab is currently selected
-    const [currentTab, setCurrentTab] = useState("3D Models");
+    const [currentTab, setCurrentTab] = useState("Environments");
 
     return (
         <div className="resource-panel">
