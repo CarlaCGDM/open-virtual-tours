@@ -25,6 +25,11 @@ export default function CreateEnvironmentResourceForm({ onClose, onCardCreated }
     const [imageURL, setImageURL] = useState("")
     const currentModel = useGLTF(modelURL ? `${process.env.REACT_APP_UPLOADS_ROOT + modelURL}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/environments/DemoMuseum01.glb`)
 
+
+    if (currentModel) {
+
+        console.log(currentModel)
+    }
     // Upload data to backend:
 
     const uploadForm = () => {
@@ -33,9 +38,9 @@ export default function CreateEnvironmentResourceForm({ onClose, onCardCreated }
 
         let markerData = ""
 
-        if (currentModel) {
+        /* if (currentModel) {
             markerData = extractMarkerData(currentModel)
-        }
+        } */
 
         // Create form data:
 
