@@ -10,11 +10,16 @@ const ModelParser = (props) => {
     // Get the 3D model
     const model = useGLTF(props.modelURL ? `${process.env.REACT_APP_UPLOADS_ROOT + props.modelURL}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/environments/DemoMuseum01.glb`)
 
-    // Get the markers data
-    const markerData = extractMarkerData(model)
+    if (model) {
 
-    // Send data to parent component
-    useEffect(() => { props.updateMarkerData(markerData) }, [model]);
+          // Get the markers data
+        const markerData = extractMarkerData(model)
+
+        // Send data to parent component
+        useEffect(() => { props.updateMarkerData(markerData) }, [model]);
+
+    }
+  
 
     return (
         <Canvas>
