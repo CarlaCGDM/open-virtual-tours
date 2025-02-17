@@ -23,7 +23,12 @@ export default function CreateEnvironmentResourceForm({ onClose, onCardCreated }
 
     const [modelURL, setModelURL] = useState("")
     const [imageURL, setImageURL] = useState("")
-    //const currentModel = useGLTF(modelURL ? `${process.env.REACT_APP_UPLOADS_ROOT + modelURL}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/environments/DemoMuseum01.glb`)
+
+    let currentModel = ""
+
+    if (modelURL != "") {
+        currentModel = useGLTF(modelURL ? `${process.env.REACT_APP_UPLOADS_ROOT + modelURL}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/environments/DemoMuseum01.glb`)
+    }
 
     // Upload data to backend:
 
@@ -31,11 +36,7 @@ export default function CreateEnvironmentResourceForm({ onClose, onCardCreated }
 
         // Extract marker data:
 
-        let markerData = ""
-
-        /* if (currentModel) {
-            markerData = extractMarkerData(currentModel)
-        } */
+        const markerData = extractMarkerData(currentModel)
 
         // Create form data:
 
@@ -75,7 +76,7 @@ export default function CreateEnvironmentResourceForm({ onClose, onCardCreated }
             />
 
             <div className="confirm-cancel-buttons">
-                <button onClick={() => { uploadForm() }} disabled={!modelURL && !imageURL}>Confirm</button>
+                <button onClick={() => { uploadForm() }} disabled={!modelURL || !imageURL}>Confirm</button>
                 <button className="cancel-button" onClick={() => { onClose() }}>Cancel</button>
             </div>
         </div>
