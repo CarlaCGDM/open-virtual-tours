@@ -5,7 +5,7 @@ import { Canvas } from "@react-three/fiber"
 import { Clone, useGLTF } from '@react-three/drei'
 import extractMarkerData from '../../utils/modelUtils.js'
 
-const ModelParser = (props) => {
+const Content = (props) => {
 
     // Get the 3D model
     const model = useGLTF(props.modelURL ? `${process.env.REACT_APP_UPLOADS_ROOT + props.modelURL}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/environments/DemoMuseum01.glb`)
@@ -21,11 +21,20 @@ const ModelParser = (props) => {
     }, [model]);
 
     return (
-        <Canvas>
-            <Clone object={model.scene} />
-        </Canvas>
+        <Clone object={model.scene} />
     )
 }
+
+const ModelParser = (props) => {
+
+    return (
+        <>
+            <Canvas>
+                <Content {...props}/>
+            </Canvas>
+        </>
+    )
+  }
 
 
 export default ModelParser
