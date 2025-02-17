@@ -1,6 +1,5 @@
 import React from 'react'
 import * as THREE from 'three'
-import { ModifierStack, Taper } from "three.modifiers";
 import { useState, useEffect } from 'react'
 import { Clone, useGLTF } from '@react-three/drei'
 import './DisplayModel.css'
