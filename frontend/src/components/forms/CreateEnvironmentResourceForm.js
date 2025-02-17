@@ -21,7 +21,7 @@ export default function CreateEnvironmentResourceForm({ onClose, onCardCreated }
 
     // Data from the child component:
 
-    const [modelURL, setModelURL] = useState("")
+    const [modelURL, setModelURL] = useState("/uploads/environments/DemoMuseum01.glb")
     const [imageURL, setImageURL] = useState("")
 
     const currentModel = useGLTF(modelURL ? `${process.env.REACT_APP_UPLOADS_ROOT + modelURL}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/environments/DemoMuseum01.glb`)
