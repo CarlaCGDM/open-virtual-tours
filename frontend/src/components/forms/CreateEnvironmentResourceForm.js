@@ -4,6 +4,7 @@ import { useGLTF, Clone } from '@react-three/drei'
 import { EnvironmentAPI } from '../../apis/EnvironmentAPI.js'
 import extractMarkerData from '../../utils/modelUtils.js'
 import UploadModelFileForm from './UploadModelFileForm.js'
+import ModelParser from '../canvases/ModelParser.js'
 import './Forms.css'
 import { GLTFLoader } from 'three-stdlib'
 
@@ -25,12 +26,9 @@ export default function CreateEnvironmentResourceForm({ onClose, onCardCreated }
 
     const [modelURL, setModelURL] = useState("")
     const [imageURL, setImageURL] = useState("")
+    const [currentModel, setCurrentModel] = useState("")
 
-
-
-    const currentModel = useGLTF(modelURL ? `${process.env.REACT_APP_UPLOADS_ROOT + modelURL}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/environments/DemoMuseum01.glb`)
     console.log(currentModel)
-
     // Upload data to backend:
 
     const uploadForm = () => {
@@ -63,30 +61,31 @@ export default function CreateEnvironmentResourceForm({ onClose, onCardCreated }
     }
 
     return (
-        <>
-            <div style={{ width: "0vw", height: "0vh" }}>
-                <Canvas>
-                    {modelURL && <Clone object={currentModel.scene} />}
-                </Canvas>
-            </div>
-            <div className="popup-form">
-                <h2>Upload new 3D environment</h2>
-                <label>Name:<input type="text" onChange={(e) => { setName(e.target.value) }} /></label>< br />
-                <label>Description:<input type="text" onChange={(e) => { setDescription(e.target.value) }} /></label>< br />
-                <label>Author:<input type="text" onChange={(e) => { setAuthor(e.target.value) }} /></label>< br />
-                <label>License:<input type="text" onChange={(e) => { setLicense(e.target.value) }} /></label>< br />
 
-                <UploadModelFileForm
-                    updateModelURL={(modelURL) => setModelURL(modelURL)}
-                    updateImageURL={(imageURL) => setImageURL(imageURL)}
-                    environment={true}
-                />
+        <div className="popup-form">
+            <h2>Upload new 3D environment</h2>
+            <label>Name:<input type="text" onChange={(e) => { setName(e.target.value) }} /></label>< br />
+            <label>Description:<input type="text" onChange={(e) => { setDescription(e.target.value) }} /></label>< br />
+            <label>Author:<input type="text" onChange={(e) => { setAuthor(e.target.value) }} /></label>< br />
+            <label>License:<input type="text" onChange={(e) => { setLicense(e.target.value) }} /></label>< br />
 
-                <div className="confirm-cancel-buttons">
-                    <button onClick={() => { uploadForm() }} disabled={!modelURL || !imageURL}>Confirm</button>
-                    <button className="cancel-button" onClick={() => { onClose() }}>Cancel</button>
-                </div>
+            <UploadModelFileForm
+                updateModelURL={(modelURL) => setModelURL(modelURL)}
+                updateImageURL={(imageURL) => setImageURL(imageURL)}
+                environment={true}
+            // return marker data here !!!! 
+            />
+
+            <ModelParser
+                modelURL={modelURL} 
+                updateModelData={(modelData) => setCurrentModel(modelData)}
+            />
+
+            <div className="confirm-cancel-buttons">
+                <button onClick={() => { uploadForm() }} disabled={!modelURL || !imageURL}>Confirm</button>
+                <button className="cancel-button" onClick={() => { onClose() }}>Cancel</button>
             </div>
-        </>
+        </div>
+
     )
 }
