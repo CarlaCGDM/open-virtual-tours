@@ -1,8 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Canvas } from '@react-three/fiber'
-import { useGLTF, Clone } from '@react-three/drei'
 import { EnvironmentAPI } from '../../apis/EnvironmentAPI.js'
-import extractMarkerData from '../../utils/modelUtils.js'
 import UploadModelFileForm from './UploadModelFileForm.js'
 import ModelParser from '../canvases/ModelParser.js'
 import './Forms.css'
@@ -26,16 +23,10 @@ export default function CreateEnvironmentResourceForm({ onClose, onCardCreated }
 
     const [modelURL, setModelURL] = useState("")
     const [imageURL, setImageURL] = useState("")
-    const [currentModel, setCurrentModel] = useState("")
-
-    console.log(currentModel)
+    const [markerData, setMarkerData] = useState("")
     // Upload data to backend:
 
     const uploadForm = () => {
-
-        // Extract marker data:
-
-        const markerData = extractMarkerData(currentModel)
 
         // Create form data:
 
@@ -78,7 +69,7 @@ export default function CreateEnvironmentResourceForm({ onClose, onCardCreated }
 
             <ModelParser
                 modelURL={modelURL} 
-                updateModelData={(modelData) => setCurrentModel(modelData)}
+                updateMarkerData={(markerData) => setMarkerData(markerData)}
             />
 
             <div className="confirm-cancel-buttons">

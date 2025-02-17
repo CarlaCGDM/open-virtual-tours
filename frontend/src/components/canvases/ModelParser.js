@@ -1,29 +1,20 @@
 // Component that reads the data of a GLTF/GLB file and returns the JSON file with the data to the parent component
 
-import * as THREE from 'three'
-import {
-    React,
-    useState,
-    useEffect,
-} from 'react'
-import {
-    Canvas,
-    useThree
-} from "@react-three/fiber"
-import {
-    Clone,
-    useGLTF,
-    OrbitControls,
-    OrthographicCamera
-} from '@react-three/drei'
+import { React,useEffect } from 'react'
+import { Canvas } from "@react-three/fiber"
+import { Clone, useGLTF } from '@react-three/drei'
+import extractMarkerData from '../../utils/modelUtils.js'
 
 const ModelParser = (props) => {
 
     // Get the 3D model
     const model = useGLTF(props.modelURL ? `${process.env.REACT_APP_UPLOADS_ROOT + props.modelURL}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/environments/DemoMuseum01.glb`)
 
+    // Get the markers data
+    const markerData = extractMarkerData(model)
+
     // Send data to parent component
-    useEffect(() => { props.updateModelData(model) }, [model]);
+    useEffect(() => { props.updateMarkerData(markerData) }, [model]);
 
     return (
         <Canvas>
