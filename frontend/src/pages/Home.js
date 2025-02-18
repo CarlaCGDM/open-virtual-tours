@@ -47,10 +47,10 @@ export default function Home() {
   return <>
     <div className="home-container">
 
-      <WelcomeModal
+      {/* <WelcomeModal
         modalOpacity={modalOpacity}
         tourTitle={tourConfig.tourTitle}
-        tourDescription={tourConfig.tourDescription} />
+        tourDescription={tourConfig.tourDescription} /> */}
 
 
       {tourEnvironment &&
