@@ -85,11 +85,13 @@ export default function TourExperience(props) {
 
         {/* Navigation */}
 
-        <ScrollControls pages={scrollPages} damping={0.3}>
+        <OrbitControls />
+
+        {/* <ScrollControls pages={scrollPages} damping={0.3}>
 
           <DisplayPath tourModel={tourModel} setScrollPages={(n) => {setScrollPages(n)}} setModalOpacity={(p) => {props.setModalOpacity(p)}}/>
     
-        </ScrollControls>
+        </ScrollControls> */}
 
         {/* Environment */}
 
