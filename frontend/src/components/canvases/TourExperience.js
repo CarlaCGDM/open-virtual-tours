@@ -1,7 +1,12 @@
 import * as THREE from 'three'
+import { gsap } from "gsap";
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
 import { Canvas } from '@react-three/fiber'
-import { useState, useEffect } from 'react'
-import { Clone, useGLTF, ScrollControls, OrbitControls } from '@react-three/drei'
+import { useState, useEffect, Suspense } from 'react'
+import { Clone, useGLTF, ScrollControls, OrbitControls, useProgress } from '@react-three/drei'
+import './TourExperience.css'
+import { useGSAP } from '@gsap/react'
 import DisplayPath from '../models/DisplayPath.js'
 import DisplayPanel from '../models/DisplayPanel.js'
 import DisplayModel from '../models/DisplayModel.js'
@@ -14,94 +19,166 @@ import DisplayModel from '../models/DisplayModel.js'
 
 export default function TourExperience(props) {
 
-    // console.log("Rendering tour experience")
-    const tourModel = useGLTF(props.tourEnvironment ? `${process.env.REACT_APP_UPLOADS_ROOT + props.tourEnvironment.modelURL}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/models/CubePreset01.glb`)
+  console.log(gsap)
 
-    // Info popup
-    const [popup, setPopup] = useState(false);
-    const [popupContent, setPopupContent] = useState("")
-    
-    // Info from DisplayPath child component:
-    const [scrollPages, setScrollPages] = useState(10)
+  // Loading bar
 
-    // Place 
-    const [displayPanels, setDisplayPanels] = useState([])
-    const [displayModels, setDisplayModels] = useState([])
+  function LoadingScreen() {
+    const {progress} = useProgress();
+    return <div className="loading-screen"><p>Loading tour experience... {Math.round(progress)}%</p></div>
+  }
 
-    useEffect(() => {
-      let panelIndex = 0
-      let modelIndex = 0
-      const newDisplayPanels = []
-      const newDisplayModels = []
-  
-      tourModel.scene.traverse((object) => {
-        // console.log('Looking for WallMarker objects.')
-        if (object.name.includes('WallMarker')) {
-          // console.log('Found WallMarker object.')
-          object.visible=false
-          newDisplayPanels.push(
-            <DisplayPanel
-            key={panelIndex} 
-            setPopup={(bool) => setPopup(bool)} 
-            setPopupContent={(content) => setPopupContent(content)}
-            rotation={[object.rotation.x,object.rotation.y,object.rotation.z]}
-            position={[object.position.x,object.position.y,object.position.z]} 
-            id={props.tourEnvironment.panelSlots[panelIndex]} />
-          )
-          panelIndex++
-        } else if (object.name.includes('FloorMarker')) {
-          //console.log('Found FloorMarker object.')
-          object.visible=false
-          newDisplayModels.push(
-            <DisplayModel
-            key={modelIndex} 
-            setPopup={(bool) => setPopup(bool)} 
-            setPopupContent={(content) => setPopupContent(content)}
-            rotation={[object.rotation.x,object.rotation.y,object.rotation.z]}
-            position={[object.position.x,object.position.y,object.position.z]} 
-            id={props.tourEnvironment.modelSlots[modelIndex]}/>
-          )
-          modelIndex++
-        } else if (object.name.includes('Path')) {
-            object.visible=false
+  const overlayGeometry = new THREE.PlaneGeometry(2, 2, 1, 1)
+  const overlayMaterial = new THREE.ShaderMaterial({
+    //wireframe: true,
+    transparent: true,
+    uniforms:
+    {
+      uAlpha: { value: 1 }
+    },
+    vertexShader: `
+        void main()
+        {
+          gl_Position = vec4(position, 1.0);
         }
-      })
+      `,
+    fragmentShader: `
+        uniform float uAlpha;
+        void main()
+        {
+          gl_FragColor = vec4(0.3,0.3,0.3, uAlpha);
+        }
+      `
+  })
+
+
+  const overlay = new THREE.Mesh(overlayGeometry, overlayMaterial)
+
+  // Tour model
+
+  let modelURL = props.tourEnvironment
+    ? `${process.env.REACT_APP_UPLOADS_ROOT + props.tourEnvironment.modelURL}`
+    : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/models/CubePreset01.glb`
+
+
+  const [loaded, setLoaded] = useState(false);
   
-      setDisplayPanels(newDisplayPanels)
-      setDisplayModels(newDisplayModels)
-    }, [tourModel])
+  function LazyLoadModel({ url, onLoaded }) {
+    const { scene } = useGLTF(url);
+  
+    useEffect(() => {
+      onLoaded(); // Tell parent that model is loaded
+    }, []);
+  
+    return <primitive object={scene} />;
+  }
 
-    return <>
+  //const tourModel = useGLTF('/uploads/environments/SAG_02_join1texture.glb')
 
-      { popup && popupContent }
-            
-      <Canvas className='tour-experience'>
+  if (loaded) {
+    console.log("model seems to have loaded")
+    gsap.to(overlayMaterial.uniforms.uAlpha, { duration: 5, value: 0 })
+  }
 
-        {/* Staging */}
+  console.log("got the 3D model!")
 
-        <directionalLight position={[1,2,3]} intensity={2.5}/>
-        <directionalLight position={[-2,2,-2]} intensity={2.5}/>
-        <ambientLight intensity={4.5} />
+  // Info popup
+  const [popup, setPopup] = useState(false);
+  const [popupContent, setPopupContent] = useState("")
 
-        {/* Navigation */}
+  // Info from DisplayPath child component:
+  const [scrollPages, setScrollPages] = useState(10)
 
-        <OrbitControls />
+  // Place markers in scene
+  const [displayPanels, setDisplayPanels] = useState([])
+  const [displayModels, setDisplayModels] = useState([])
 
-        {/* <ScrollControls pages={scrollPages} damping={0.3}>
+  /* useEffect(() => {
+    let panelIndex = 0
+    let modelIndex = 0
+    const newDisplayPanels = []
+    const newDisplayModels = []
+ 
+    tourModel.scene.traverse((object) => {
+      // console.log('Looking for WallMarker objects.')
+      if (object.name.includes('WallMarker')) {
+        // console.log('Found WallMarker object.')
+        object.visible=false
+        newDisplayPanels.push(
+          <DisplayPanel
+          key={panelIndex} 
+          setPopup={(bool) => setPopup(bool)} 
+          setPopupContent={(content) => setPopupContent(content)}
+          rotation={[object.rotation.x,object.rotation.y,object.rotation.z]}
+          position={[object.position.x,object.position.y,object.position.z]} 
+          id={props.tourEnvironment.panelSlots[panelIndex]} />
+        )
+        panelIndex++
+      } else if (object.name.includes('FloorMarker')) {
+        //console.log('Found FloorMarker object.')
+        object.visible=false
+        newDisplayModels.push(
+          <DisplayModel
+          key={modelIndex} 
+          setPopup={(bool) => setPopup(bool)} 
+          setPopupContent={(content) => setPopupContent(content)}
+          rotation={[object.rotation.x,object.rotation.y,object.rotation.z]}
+          position={[object.position.x,object.position.y,object.position.z]} 
+          id={props.tourEnvironment.modelSlots[modelIndex]}/>
+        )
+        modelIndex++
+      } else if (object.name.includes('Path')) {
+          object.visible=false
+      }
+    })
+ 
+    setDisplayPanels(newDisplayPanels)
+    setDisplayModels(newDisplayModels)
+  }, [tourModel]) */
+
+
+
+
+  return <>
+
+    {/* { popup && popupContent } */}
+
+    {!loaded && <LoadingScreen />}
+
+    <Canvas className='tour-experience'>
+
+      {/* Loading bar */}
+
+      <Clone object={overlay} />
+      {/* <Clone object={scene} /> */}
+
+      {/* Staging */}
+
+      <directionalLight position={[1, 2, 3]} intensity={2.5} />
+      <directionalLight position={[-2, 2, -2]} intensity={2.5} />
+      <ambientLight intensity={4.5} />
+
+      {/* Navigation */}
+
+      <OrbitControls />
+
+      {/* <ScrollControls pages={scrollPages} damping={0.3}>
 
           <DisplayPath tourModel={tourModel} setScrollPages={(n) => {setScrollPages(n)}} setModalOpacity={(p) => {props.setModalOpacity(p)}}/>
     
         </ScrollControls> */}
 
-        {/* Environment */}
+      {/* Environment */}
 
-        {props.tourEnvironment && <Clone object={ tourModel.scene } />}
+      <Suspense fallback={null}>
+        <LazyLoadModel url={modelURL} onLoaded={() => setLoaded(true)} />
+      </Suspense>
 
-        {/* Content */}
-        
-        {displayPanels}
-        {displayModels}
+      {/* Content */}
 
-      </Canvas>
-    </>
+      {/* {displayPanels}
+      {displayModels} */}
+
+    </Canvas>
+  </>
 }

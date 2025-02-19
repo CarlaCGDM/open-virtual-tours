@@ -7,7 +7,10 @@ export const createEnvironment = async (req, res) => {
 
     // decode path
 
-    const path = JSON.parse(stringifiedPath)
+    let path = ""
+    if (stringifiedPath) {
+        path = JSON.parse(stringifiedPath)
+    }
 
     // fill environment and panel slots with placeholder data
 
