@@ -17,8 +17,6 @@ import {
     OrthographicCamera
 } from '@react-three/drei'
 
-import { ModelAPI } from '../../apis/ModelAPI.js'
-
 const Content = (props) => {
 
     const computeBoundingBox = (model) => {
@@ -32,12 +30,11 @@ const Content = (props) => {
 
         const { size } = useThree();
 
-        console.log("rendering lazyloadmodel " + props.modelURL)
+        console.log("rendering lazyloadmodel " + url)
 
-        const deferred = useMemo(() => props.modelURL, [props.modelURL]); // Ensure URL only updates when it changes
+        const deferred = useMemo(() => url, [url]); // Ensure URL only updates when it changes
         const { scene } = useGLTF(deferred)
         const { width, height, depth } = computeBoundingBox(scene)
-
 
         return (
             <>
@@ -64,7 +61,7 @@ const Content = (props) => {
             {props.bgColor && <color attach="background" args={[props.bgColor ? props.bgColor : "black"]} />}
 
             <Suspense fallback={null}>
-                <LazyLoadModel url={props.modelURL} />
+                <LazyLoadModel url={`${process.env.REACT_APP_UPLOADS_ROOT + props.modelURL}`} />
             </Suspense>
         </>
     )
