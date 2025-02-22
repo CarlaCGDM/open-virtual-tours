@@ -3,7 +3,7 @@ import './Card.css'
 
 const Card = ({ id, text, imgURL,isSelected,onSelect,delay,isVisible }) => {
 
-  console.log(isVisible)
+  //console.log(isVisible)
 
   const [{ isDragging }, drag] = useDrag({
     type: 'CARD',
@@ -19,7 +19,7 @@ const Card = ({ id, text, imgURL,isSelected,onSelect,delay,isVisible }) => {
       `card ${isSelected ? 'selected' : ''}` +
       ` pop-in ${isVisible ? '' : 'hidden'}`
     }
-    onClick={() => {onSelect();console.log("selected " + id)}}
+    onClick={() => {onSelect();console.log("selected card id: " + id)}}
     ref={drag} 
     title={text}
     style={{ 

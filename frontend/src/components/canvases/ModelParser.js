@@ -12,6 +12,7 @@ const Content = (props) => {
 
     useEffect(() => {
         if (model) {
+          console.log(model)
             // Get the markers data
             const markerData = extractMarkerData(model)
 

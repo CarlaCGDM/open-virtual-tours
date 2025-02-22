@@ -13,7 +13,6 @@ import { GLTFLoader } from 'three-stdlib'
 export default function CreateEnvironmentResourceForm({ onClose, onCardCreated }) {
 
     // Data from the main input form:
-    console.log("im in!")
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [author, setAuthor] = useState("")
@@ -27,29 +26,42 @@ export default function CreateEnvironmentResourceForm({ onClose, onCardCreated }
     // Upload data to backend:
 
     const uploadForm = () => {
-
-        // Create form data:
-
-        const formData = new FormData()
-        formData.append("name", name)
-        formData.append("description", description)
-        formData.append("author", author)
-        formData.append("license", license)
-        formData.append("modelURL", modelURL)
-        formData.append("imgURL", imageURL)
-        formData.append("modelCount", markerData.floorMarkers)
-        formData.append("panelCount", markerData.wallMarkers)
-        formData.append("stringifiedPath", JSON.stringify(markerData.path))
-
-        console.log(formData)
-
-        // Send form data:
-
+        console.log("Attempting to upload...");
+        console.log("markerData:", markerData);  // 🔥 Debug markerData
+        console.log("markerData.floorMarkers:", markerData?.floorMarkers);  
+        console.log("markerData.wallMarkers:", markerData?.wallMarkers);
+        console.log("markerData.path:", markerData?.path);
+    
+        if (!markerData || !markerData.floorMarkers || !Array.isArray(markerData.floorMarkers)) {
+            console.error("markerData is missing or incorrect!");
+            return;
+        }
+    
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("description", description);
+        formData.append("author", author);
+        formData.append("license", license);
+        formData.append("modelURL", modelURL);
+        formData.append("imgURL", imageURL);
+    
+        markerData.floorMarkers.forEach((id, index) => {
+            formData.append(`modelSlots[${index}]`, id);
+        });
+    
+        formData.append("panelCount", markerData.wallMarkers);
+        formData.append("stringifiedPath", JSON.stringify(markerData.path));
+    
+        console.log("Final FormData:", [...formData]); // 🔥 Debug entire formData
+    
         EnvironmentAPI.createOne(formData).then((response) => {
-            console.log(response)
-            onCardCreated()
-        })
-    }
+            console.log("Upload success:", response);
+            onCardCreated();
+        }).catch(error => {
+            console.error("Upload failed:", error);
+        });
+    };
+    
 
     return (
 
@@ -67,10 +79,12 @@ export default function CreateEnvironmentResourceForm({ onClose, onCardCreated }
             // return marker data here !!!! 
             />
 
-            <ModelParser
-                modelURL={modelURL} 
-                updateMarkerData={(markerData) => setMarkerData(markerData)}
-            />
+            {modelURL && (
+                <ModelParser
+                    modelURL={modelURL}
+                    updateMarkerData={(markerData) => setMarkerData(markerData)}
+                />
+            )}
 
             <div className="confirm-cancel-buttons">
                 <button onClick={() => { uploadForm() }} disabled={!modelURL || !imageURL}>Confirm</button>

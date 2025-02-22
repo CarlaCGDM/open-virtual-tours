@@ -10,6 +10,7 @@
   .footer-text {
     display:flex;
     flex-direction: column;
+    text-align: end;
     width: 100%;
   }
   
@@ -21,3 +22,23 @@
     content: '📧'; /* Unicode character for envelope icon */
     margin-right: 8px;
   }
+
+  /* unvisited link */
+.footer a:link {
+  color: rgb(255, 255, 255);
+}
+
+/* visited link */
+.footer a:visited {
+  color: rgb(173, 173, 173);
+}
+
+/* mouse over link */
+.footer a:hover {
+  color: rgb(0, 140, 255);
+}
+
+/* selected link */
+.footer a:active {
+  color: rgb(6, 59, 109);
+}

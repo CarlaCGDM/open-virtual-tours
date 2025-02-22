@@ -1,165 +1,65 @@
-import React, { useState, useEffect, Suspense, Loader } from 'react'
-import Card from './Card.js'
-import { EnvironmentAPI } from '../../apis/EnvironmentAPI.js'
-import './SourceList.css'
-import DevInfoCard from '../modals/DevInfoCard.js'
-import CreateEnvironmentResourceForm from '../forms/CreateEnvironmentResourceForm.js'
-import { ConfigAPI } from '../../apis/ConfigAPI.js'
-//import UpdateEnvironmentResourceForm from '../forms/UpdateEnvironmentResourceForm.js'
+import React from 'react';
+import Card from './Card.js';
+import DevInfoCard from '../modals/DevInfoCard.js';
+import CreateEnvironmentResourceForm from '../forms/CreateEnvironmentResourceForm.js';
+import { ConfigAPI } from '../../apis/ConfigAPI.js';
+import useEnvironmentsData from '../../hooks/useEnvironmentsData.js';
 
-const EnvironmentsSourceList = ({tourConfig}) => {
-  // State variables
-  const [cards, setCards] = useState([])
-  const [selectedCard, setSelectedCard] = useState('')
-  const [selectedInUse, setSelectedInUse] = useState('')
-  const [currentPage, setCurrentPage] = useState(1)
-  const [totalPages, setTotalPages] = useState(1)
-  const [searchTerm, setSearchTerm] = useState('')
-  const [sortType, setSortType] = useState('oldest') // Default sorting type
-  const limit = 14; // Number of items per page
+const EnvironmentsSourceList = ({ tourConfig, onSelectEnvironment }) => {
+  const [isCreateNewOpen, setIsCreateNewOpen] = React.useState(false); // State for "Create New" modal
 
-  const [isCreateNewOpen, setIsCreateNewOpen] = useState(false); // State
-  const [isEditOpen, setIsEditOpen] = useState(false); // State
+  const {
+    cards,
+    selectedCard,
+    selectedInUse,
+    currentPage,
+    totalPages,
+    searchTerm,
+    sortType,
+    setSelectedCard,
+    setSearchTerm,
+    setSortType,
+    destroyCard,
+    handleNextPage,
+    handlePreviousPage,
+    fetchCards, // Fetch cards function from custom hook
+  } = useEnvironmentsData(tourConfig);
 
-  useEffect(() => {
-    fetchCards();
-  }, [currentPage, searchTerm, sortType]);
-
-  const fetchSelectedCard = async () => {
-    console.log("Re-fetching the list of cards!")
-    try {
-      await EnvironmentAPI.getOne(selectedCard._id)
-        .then((response) => {
-          setSelectedCard(response)
-        }
-        );
-    } catch (error) {
-      console.error('Failed to fetch cards:', error);
-    }
-  };
-
-
-  // Fetch cards function
-  const fetchCards = async () => {
-    console.log("Re-fetching the list of cards!")
-    try {
-      await EnvironmentAPI.getAllPaginated(currentPage, limit, searchTerm, sortType)
-        .then((response) => {
-          setCards(response.environments)
-          setTotalPages(response.totalPages)
-          if (!selectedCard) {
-            setSelectedCard(response.environments[0])
-          } else {
-            setSelectedCard(selectedCard)
-          }
-        }
-        );
-    } catch (error) {
-      console.error('Failed to fetch cards:', error);
-    }
-  };
-
-
-  // Check if card is in use
-
-  const environmentIsUsed = async (id) => {
-    if (selectedCard) {
-      await ConfigAPI.getAll().then((result) => {
-        setSelectedInUse(result.tourEnvironment === selectedCard._id)
-      })
-    }
-  }
-
-  useEffect(() => {
-    environmentIsUsed(selectedCard._id);
-  }, [selectedCard]);
-
-  // Destroy card function
-
-  const destroyCard = async (id) => {
-    try {
-      await EnvironmentAPI.deleteOne(id)
-        .then((response) => {
-          setSelectedCard('')
-          fetchCards()
-        })
-
-    } catch (error) {
-      console.error('Failed to fetch cards:', error);
-    }
-  };
-
-  // Handlers
-  const handlePreviousPage = () => {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
-  };
-
-  const handleNextPage = () => {
-    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
-  };
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    setCurrentPage(1); // Reset to first page on new search
-  };
-
-  const handleSortChange = (e) => {
-    setSortType(e.target.value);
-    setCurrentPage(1)
-  };
-
-  const handleOpenModal = () => {
-    setIsCreateNewOpen(true);
-  };
-
-  const handleCloseCreateNewModal = () => {
-    setIsCreateNewOpen(false);
-  };
-
-  const handleCloseUpdateModal = () => {
-    setIsEditOpen(false);
-  };
-
-  // Handler for card creation
+  // Handle when a new environment is created (callback for CreateEnvironmentResourceForm)
   const handleCardCreated = () => {
-    handleCloseCreateNewModal(); // Close the modal after card creation
-    fetchCards(); // Re-fetch the list of cards
+    fetchCards(); // Re-fetch the list of cards after a new environment is created
+    setIsCreateNewOpen(false); // Close the modal
   };
 
-  // Handler for card update
-  const handleCardUpdated = () => {
-    handleCloseUpdateModal(); // Close the modal after card creation
-    fetchCards(); // Re-fetch the list of cards
-    fetchSelectedCard();
+  // Handler for deleting the selected environment
+  const handleDeleteEnvironment = async () => {
+    if (selectedCard) {
+      await destroyCard(selectedCard._id); // Delete the selected card
+      fetchCards(); // Re-fetch the list after deletion
+    }
   };
 
   const handleUseEnvironment = async () => {
-    // Create formData to send
+    const formData = new FormData();
+    formData.append("tourEnvironment", selectedCard._id);
 
-    const formData = new FormData()
-    formData.append("tourEnvironment", selectedCard._id)
-
-    // Api call to get config
-    console.log("Re-fetching the list of cards!")
     try {
-      await ConfigAPI.editOne(formData,tourConfig._id)
-        .then((response) => {
-          console.log(response)
-        }
-        );
+      const newEnvironmentData = await ConfigAPI.editOne(formData, tourConfig._id);
+      if (newEnvironmentData) {
+        onSelectEnvironment(selectedCard); // Pass the whole of the selected environment back up to Admin
+      }
+      console.log("Selected environment URL is: " + selectedCard.modelURL)
     } catch (error) {
-      console.error('Failed to fetch cards:', error);
+      console.error('Failed to use environment:', error);
     }
-
-  }
+  };
 
 
   return (
     <div className="source-list-wrapper">
-
       <div className="source-list">
         <div className="search-area">
-          <form onSubmit={handleSearch} className="search-form">
+          <form className="search-form">
             <input
               type="text"
               value={searchTerm}
@@ -167,10 +67,16 @@ const EnvironmentsSourceList = ({tourConfig}) => {
               placeholder="🔍 Search by name"
               className="search-input"
             />
-            <button type="submit" className="search-button">Search</button>
+            <button type="submit" className="search-button" onClick={(e) => e.preventDefault()}>
+              Search
+            </button>
           </form>
 
-          <select value={sortType} onChange={handleSortChange} className="search-select">
+          <select
+            value={sortType}
+            onChange={(e) => setSortType(e.target.value)}
+            className="search-select"
+          >
             <option value="newest">Newest</option>
             <option value="oldest">Oldest</option>
             <option value="name_asc">Name (A-Z)</option>
@@ -185,7 +91,7 @@ const EnvironmentsSourceList = ({tourConfig}) => {
               id={card._id}
               text={card.name}
               imgURL={card.imgURL}
-              isSelected={selectedCard._id === card._id}
+              isSelected={selectedCard?._id === card._id}
               onSelect={() => setSelectedCard(card)}
               delay={index * 0.05}
             />
@@ -196,66 +102,66 @@ const EnvironmentsSourceList = ({tourConfig}) => {
           <button
             className="pagination-button-left"
             onClick={handlePreviousPage}
-            disabled={currentPage === 1}>
+            disabled={currentPage === 1}
+          >
             Previous
           </button>
-          <span className="pagination-info">Page {currentPage} of {totalPages}</span>
+          <span className="pagination-info">
+            Page {currentPage} of {totalPages}
+          </span>
           <button
             className="pagination-button-left"
             onClick={handleNextPage}
-            disabled={currentPage === totalPages}>
+            disabled={currentPage === totalPages}
+          >
             Next
           </button>
         </div>
 
-        <div className="create-new-button" onClick={handleOpenModal}>
+        <div className="create-new-button" onClick={() => setIsCreateNewOpen(true)}>
           Upload new +
         </div>
       </div>
 
-      {selectedCard && <DevInfoCard
-        isModel={true}
-        content={selectedCard}
-      />}
+      {selectedCard && (
+        <DevInfoCard isModel={true} content={selectedCard} />
+      )}
 
-      {isCreateNewOpen && <div className="popup-create-model">
-
-        <CreateEnvironmentResourceForm
-          onClose={handleCloseCreateNewModal}
-          onCardCreated={handleCardCreated}
-        /></div>}
-
-      {/* {isEditOpen && <div className="popup-create-environment">
-        <UpdateEnvironmentResourceForm
-          onClose={handleCloseUpdateModal}
-          onCardUpdated={handleCardUpdated}
-          selectedCard={selectedCard}
-        /></div>} */}
+      {isCreateNewOpen && (
+        <div className="popup-create-model">
+          <CreateEnvironmentResourceForm
+            onClose={() => setIsCreateNewOpen(false)} // Close the modal
+            onCardCreated={handleCardCreated} // Pass the correct callback function
+          />
+        </div>
+      )}
 
       <div className="action-buttons-wrapper">
-        <button
-          className="delete-button"
-          onClick={() => { handleUseEnvironment(selectedCard._id) }}>
+        <button className="delete-button" onClick={handleUseEnvironment}>
           Use selected
         </button>
 
+        {/* Delete Button */}
         <button
           className="delete-button"
-          onClick={() => { setIsEditOpen(true) }}>
-          Edit selected
-        </button>
-
-        <button
-          disabled={selectedInUse}
-          title={selectedInUse ? "Environments currently in use cannot be deleted." : "Delete selected environment."}
-          onClick={() => { destroyCard(selectedCard._id) }}
-          className="delete-button">
+          onClick={handleDeleteEnvironment} // Assuming handleDeleteEnvironment is defined
+          disabled={selectedInUse} // Disable the delete button if environment is in use
+          title={
+            selectedInUse
+              ? "Environment is currently in use and cannot be deleted."
+              : "Delete selected environment."
+          }
+        >
           Delete selected
         </button>
       </div>
 
-    </div>
-  )
-}
 
-export default EnvironmentsSourceList
+
+
+    </div>
+
+  );
+};
+
+export default EnvironmentsSourceList;

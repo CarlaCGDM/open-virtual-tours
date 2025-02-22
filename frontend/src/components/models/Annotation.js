@@ -17,8 +17,7 @@ const Annotation = ({ children, ...props }) => {
         distanceFactor={1} // If set (default: undefined), children will be scaled by this factor, and also by distance to a PerspectiveCamera / zoom by a OrthographicCamera.
         zIndexRange={[100, 0]} // Z-order range (default=[16777271, 0])
         sprite // Renders as sprite, but only in transform mode (default=false)
-        occlude={true} // Can be true or a Ref<Object3D>[], true occludes the entire scene (default: undefined)
-        onOcclude={(hidden) => null} // Callback when the visibility changes (default: undefined)
+        occlude={false}// Can be true or a Ref<Object3D>[], true occludes the entire scene (default: undefined)
         >
         {children}
         </Html>

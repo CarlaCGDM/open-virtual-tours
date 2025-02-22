@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose'
+// TODO: Rename to "BaseModel"
 
 const modelSchema = new Schema({
     name: String,

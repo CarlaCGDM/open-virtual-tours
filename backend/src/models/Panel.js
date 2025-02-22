@@ -1,4 +1,5 @@
 import mongoose, { Document, Schema, model } from 'mongoose'
+// TODO: Rename to "InfoPanel"
 
 const panelSchema = new Schema({
     name: String,

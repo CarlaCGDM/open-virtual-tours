@@ -4,7 +4,7 @@ import './SelectResource.css';
 import PanelsSourceList from "../dnd-context/PanelsSourceList.js";
 import EnvironmentsSourceList from "../dnd-context/EnvironmentsSourceList.js";
 
-export default function SelectResource({setShowPanelBuckets,tourConfig}) {
+export default function SelectResource({setShowPanelBuckets,setSelectedEnvironment,tourConfig}) {
     // Keeping track of which tab is currently selected
     const [currentTab, setCurrentTab] = useState("3D Models");
 
@@ -50,7 +50,10 @@ export default function SelectResource({setShowPanelBuckets,tourConfig}) {
             </div>
 
             {currentTab === "3D Models" && <ModelsSourceList/>}
-            {currentTab === "Environments" && <EnvironmentsSourceList tourConfig={tourConfig}/>}
+            {currentTab === "Environments" && <EnvironmentsSourceList 
+            tourConfig={tourConfig}
+            onSelectEnvironment={setSelectedEnvironment}
+            />}
             {currentTab === "Panels" && <PanelsSourceList />}
             {currentTab === "Config" && <div>Sorry, coming soon!</div>}
             {currentTab === "Users" && <div>Sorry, coming soon!</div>}

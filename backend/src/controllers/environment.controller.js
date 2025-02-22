@@ -3,7 +3,7 @@ import Model from '../models/Model.js'
 import Panel from '../models/Panel.js'
 
 export const createEnvironment = async (req, res) => {
-    const { name, modelURL, imgURL, description, author, license, modelCount, panelCount, stringifiedPath } = req.body
+    const { name, modelURL, imgURL, description, author, license, modelSlots, panelCount, stringifiedPath } = req.body
 
     // decode path
 
@@ -12,13 +12,14 @@ export const createEnvironment = async (req, res) => {
         path = JSON.parse(stringifiedPath)
     }
 
-    // fill environment and panel slots with placeholder data
+    // make sure modelSlots is an array of objects???
 
-    const placeholderModel = await Model.findOne({ name: 'Rubber duck' })
-    const modelSlots = []
-    for (let index = 0; index < modelCount; index++) {
-        modelSlots.push(placeholderModel._id)
+     // 🔥 Ensure modelSlots is an array of ObjectIds
+     if (typeof modelSlots === "string") {
+        modelSlots = modelSlots.split(',').map(id => new mongoose.Types.ObjectId(id.trim()));
     }
+
+    // fill panel slots with placeholder data (TO BE REPLACED!!!!!!!!!!!!!!!!!)
 
     const placeholderPanel = await Panel.findOne({ name: 'Example panel' })
     const panelSlots = []

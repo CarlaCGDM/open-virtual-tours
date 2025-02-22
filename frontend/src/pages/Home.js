@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { ConfigAPI } from '../apis/ConfigAPI.js'
 import { EnvironmentAPI } from '../apis/EnvironmentAPI.js'
+import { PlacedModelAPI } from '../apis/PlacedModelAPI.js'
 import TourExperience from '../components/canvases/TourExperience.js'
 import WelcomeModal from '../components/modals/WelcomeModal.js'
 import Footer from '../components/navigation/Footer.js';
@@ -16,14 +17,16 @@ export default function Home() {
 
   const [tourConfig, setTourConfig] = useState("")
   const [tourEnvironment, setTourEnvironment] = useState("")
+  const [placedModels, setPlacedModels] = useState("")
+  // TODO: [placedPanels, setPlacedPanels] = useState("")
 
   useEffect(() => {
     ConfigAPI.getAll()
       .then((data) => {
 
         // Newest model uploaded
-        console.log("New updated tour config: ")
-        console.log(data)
+        // console.log("New updated tour config: ")
+        // console.log(data)
         setTourConfig(data)
       })
 
@@ -36,13 +39,28 @@ export default function Home() {
         .then((data) => {
 
           // Update environment on display
-          console.log("New updated tour environment: ")
-          console.log(data)
+          // console.log("New updated tour environment: ")
+          // console.log(data)
           setTourEnvironment(data)
         })
     }
 
   }, [tourConfig]);
+
+  useEffect(() => {
+
+    if (tourEnvironment) {
+      PlacedModelAPI.getMultipleByIds(tourEnvironment.modelSlots)
+        .then((data) => {
+
+          // Update list of placed models
+          // console.log("New updated placed models: ")
+          // console.log(data)
+          setPlacedModels(data)
+        })
+    }
+
+  }, [tourEnvironment]);
 
   return <>
     <div className="home-container">
@@ -58,6 +76,8 @@ export default function Home() {
         <div className="virtual-tour">
           <TourExperience
             tourEnvironment={tourEnvironment}
+            placedModels={placedModels}
+            //placedPanels={placedPanels}
             setModalOpacity={(p) => setModalOpacity(p)}
           />
         </div>

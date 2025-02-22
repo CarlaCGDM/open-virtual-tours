@@ -1,18 +1,30 @@
-import React from 'react'
+import React, { useState, useEffect, useDeferredValue, useMemo, Suspense } from 'react';
 import * as THREE from 'three'
-import { useState, useEffect } from 'react'
 import { Clone, useGLTF } from '@react-three/drei'
 import './DisplayModel.css'
 import Annotation from './Annotation.js'
 import InfoCardPopup from '../modals/InfoCardPopup.js'
 import { ModelAPI } from '../../apis/ModelAPI.js'
+import { Select } from '@react-three/postprocessing'
 
 const DisplayModel = (props) => {
+
+    const [hovered, setHovered] = useState(false);
+
+    const computeBoundingBox = (model) => {
+        const box = new THREE.Box3().setFromObject(model)
+        const size = box.getSize(new THREE.Vector3())
+        return { width: size.x, height: size.y, depth: size.z }
+    }
 
     // Model content
 
     const [model, setModel] = useState("")
-    // Dynamically generate a base adequate to the size of the model (60-75% width and height)
+    const [dimensions, setDimensions] = useState("")
+
+    let modelURL = model.modelURL
+        ? `${process.env.REACT_APP_UPLOADS_ROOT + model.modelURL}`
+        : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/models/CubePreset02.glb`
 
     useEffect(() => {
         ModelAPI.getOne(props.id)
@@ -23,23 +35,38 @@ const DisplayModel = (props) => {
 
     // Load model
 
-    const modelModel = useGLTF(model.modelURL ? `${process.env.REACT_APP_UPLOADS_ROOT + model.modelURL}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/models/CubePreset01.glb`)
+    function LazyLoadModel({ url }) {
 
-    // Get dimensions
+        console.log("rendering lazyloadmodel " + url)
 
-    const [dimensions, setDimensions] = useState({ width: 0, height: 0, depth: 0 })
-    useEffect(() => {
-        if (modelModel) {
-            // Compute the bounding box of the model
-            const box = new THREE.Box3().setFromObject(modelModel.scene)
-            const size = box.getSize(new THREE.Vector3())
-            setDimensions({ width: size.x, height: size.y, depth: size.z })
-        }
-    }, [modelModel])
+        const deferred = useMemo(() => url, [url]); // Ensure URL only updates when it changes
+        const { scene } = useGLTF(deferred)
+        const { width, height, depth } = computeBoundingBox(scene)
 
-    // Hover effect
 
-    const [shiny, setShiny] = useState(false)
+        return (
+            <>
+                {props.devMode && <Annotation position={[0, height + 2, 0]}>
+                    <p className='index-annotation'
+                    >{`<${props.slot}>` || "< 0 >"}</p>
+                </Annotation>}
+                {/* hovered && */ <Annotation position={[0, height + 0.75, 0]}>
+                    <p className='annotation'
+                    >{model.name}</p>
+                </Annotation>}
+                <Select enabled={hovered}>
+                    <Clone object={scene} position={[0, 0.3, 0]} />
+                </Select>
+                <mesh position={[0, 0.05, 0]}>
+                    <cylinderGeometry
+                        args={[width * 0.3, width * 0.3, 0.1, 20]} />
+                    <meshBasicMaterial
+                        color={"black"} />
+                </mesh>
+            </>
+
+        );
+    }
 
     // Handle click
 
@@ -56,38 +83,14 @@ const DisplayModel = (props) => {
             <group
                 position={props.position}
                 rotation={props.rotation}
-                onPointerEnter={() => setShiny(true)}
-                onPointerLeave={() => setShiny(false)}
+                onPointerOver={() => { setHovered(true); console.log("pointer over " + props.slot) }}
+                onPointerOut={() => setHovered(false)}
                 onClick={() => handleClick()}
             >
-                {props.devMode && <Annotation position={[0, dimensions.height + 2, 0]}>
-                    <p className='index-annotation'
-                    >{`<${props.slot}>` || "< 0 >"}</p>
-                </Annotation>}
 
-                {<Annotation position={[0, dimensions.height + 0.7, 0]}>
-                    <p className='annotation'
-                    >{model.name}</p>
-                </Annotation>}
-
-                <Clone
-                    position={[0, 0.3, 0]}
-                    object={modelModel.scene} />
-
-                {shiny && <Clone
-                    position={[0, 0.3, 0]}
-                    object={modelModel.scene}
-                    inject={<meshStandardMaterial
-                        color="magenta"
-                        opacity={0.8}
-                        transparent />} />}
-
-                <mesh position={[0, 0.05, 0]}>
-                    <cylinderGeometry
-                        args={[dimensions.width * 0.3, dimensions.width * 0.3, 0.1, 20]} />
-                    <meshBasicMaterial
-                        color={shiny ? 0xff00ff : "black"} />
-                </mesh>
+                <Suspense fallback={null}> {/* provide wireframe box as fallback */}
+                    <LazyLoadModel url={modelURL} />
+                </Suspense>
 
             </group>
         </>

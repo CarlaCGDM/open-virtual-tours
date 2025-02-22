@@ -10,17 +10,31 @@ import * as initDB from './libs/initialSetup.js'
 import modelRoutes from './routes/model.routes.js'
 import panelRoutes from './routes/panel.routes.js'
 import environmentRoutes from './routes/environment.routes.js'
+import placedModelRoutes from './routes/placedModel.routes.js'
 import authRoutes from './routes/auth.routes.js'
 import configRoutes from './routes/config.routes.js'
 import userRoutes from './routes/user.routes.js'
 import uploadRoutes from './routes/upload.routes.js'
 
-initDB.createModels()
-initDB.createPanels()
-initDB.createEnvironments()
-initDB.createConfig()
-initDB.createRoles()
-initDB.createUsers()
+// Create a function to initialize the database in sequence
+const initializeDatabase = async () => {
+    try {
+        // Initialize in order
+        await initDB.createModels()
+        await initDB.createPlacedModels()
+        await initDB.createPanels()
+        await initDB.createEnvironments()
+        await initDB.createConfig()
+        await initDB.createRoles()
+        await initDB.createUsers()
+        console.log('Database initialized successfully')
+    } catch (error) {
+        console.error('Error initializing the database:', error)
+    }
+}
+
+// Run the initialization function
+initializeDatabase()
 
 const app = express()
 
@@ -49,9 +63,12 @@ app.get('/', (req,res) => {
 app.use('/api/models',modelRoutes)
 app.use('/api/panels',panelRoutes)
 app.use('/api/environments',environmentRoutes)
+app.use('/api/placedModels',placedModelRoutes)
 app.use('/api/auth',authRoutes)
 app.use('/api/config',configRoutes)
 app.use('/api/users',userRoutes)
 app.use('/api/upload',uploadRoutes)
 
 export default app
+
+

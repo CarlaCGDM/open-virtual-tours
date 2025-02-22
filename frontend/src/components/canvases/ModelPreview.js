@@ -1,71 +1,74 @@
 import * as THREE from 'three'
 import {
     React,
-    useState, 
+    useState,
     useEffect,
+    useMemo,
+    Suspense
 } from 'react'
-import { 
-    Canvas, 
+import {
+    Canvas,
     useThree
 } from "@react-three/fiber"
-import { 
-    Clone, 
-    useGLTF, 
+import {
+    Clone,
+    useGLTF,
     OrbitControls,
     OrthographicCamera
 } from '@react-three/drei'
 
+import { ModelAPI } from '../../apis/ModelAPI.js'
+
 const Content = (props) => {
 
-    // Get the 3D model
-    const model = useGLTF(props.modelURL ? `${process.env.REACT_APP_UPLOADS_ROOT + props.modelURL}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/models/CubePreset01.glb`)
+    const computeBoundingBox = (model) => {
+        const box = new THREE.Box3().setFromObject(model)
+        const size = box.getSize(new THREE.Vector3())
+        return { width: size.x, height: size.y, depth: size.z }
+    }
 
-    // Canvas dimensions
-    const { size } = useThree();
+    function LazyLoadModel({ url }) {
 
-    // Model dimensions
-    const [dimensions, setDimensions] = useState({ width: 0, height: 0, depth: 0 })
-    const [zoomFactor, setZoomFactor] = useState("")
 
-    useEffect(() => {
-        if (model) {
-          // Compute the bounding box of the model
-          const box = new THREE.Box3().setFromObject(model.scene)
-          const modelSize = box.getSize(new THREE.Vector3())
-          setDimensions({ width: modelSize.x, height: modelSize.y, depth: modelSize.z })
+        const { size } = useThree();
 
-        //If the object is wider than its taller
-        // if (size.width > size.height) {
-        //     //Then divide it by the width
-        //     setZoomFactor(size.height/dimensions.height)
-        // } else {
-        //     setZoomFactor(size.width/dimensions.width)
-        // }
+        console.log("rendering lazyloadmodel " + props.modelURL)
 
-        }
-      }, [model])
+        const deferred = useMemo(() => props.modelURL, [props.modelURL]); // Ensure URL only updates when it changes
+        const { scene } = useGLTF(deferred)
+        const { width, height, depth } = computeBoundingBox(scene)
+
+
+        return (
+            <>
+                <OrthographicCamera
+                    makeDefault
+                    position={[0, 0, Math.max(width, depth)]}
+                    zoom={size.height / height * 0.6} />
+
+                <Clone 
+                object={scene} 
+                position={[0, - height * 0.5, 0]}/>
+            </>
+
+        );
+    }
 
     return (
         <>
-                <directionalLight position={[1,2,3]} intensity={4.5}/>
-                <ambientLight intensity={1.5} />
+            <directionalLight position={[1, 2, 3]} intensity={2.5} />
+            <ambientLight intensity={3.5} />
 
-                <OrthographicCamera 
-                    makeDefault 
-                    position={[0,0,Math.max(dimensions.width,dimensions.depth)]} 
-                    zoom={size.height/dimensions.height * 0.75}/>
+            <OrbitControls />
 
-                <OrbitControls />
+            {props.bgColor && <color attach="background" args={[props.bgColor ? props.bgColor : "black"]} />}
 
-                <color attach="background" args={[props.bgColor ? props.bgColor : "black"]} />
-               
-                <Clone 
-                object={ model.scene } 
-                position={[0,-(dimensions.height/2),0] }
-                />
+            <Suspense fallback={null}>
+                <LazyLoadModel url={props.modelURL} />
+            </Suspense>
         </>
     )
-  }
+}
 
 
 const ModelPreview = (props) => {
@@ -73,15 +76,16 @@ const ModelPreview = (props) => {
     return (
         <>
             <Canvas
-            ref={props.canvasRef}
-            gl={{ preserveDrawingBuffer: true }}
+                ref={props.canvasRef}
+                gl={{ preserveDrawingBuffer: true }}
             >
-                
-                <Content {...props}/>
+
+                <Content {...props} />
 
             </Canvas>
         </>
     )
-  }
+}
 
 export default ModelPreview
+

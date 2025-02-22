@@ -1,4 +1,5 @@
 import Model from '../models/Model.js'
+import PlacedModel from '../models/PlacedModel.js'
 import Panel from '../models/Panel.js'
 import Environment from '../models/Environment.js'
 import Config from '../models/Config.js'
@@ -6,6 +7,7 @@ import Role from '../models/Role.js'
 import User from '../models/User.js'
 
 // Create demo 3D models
+
 
 export const createModels = async () => {
     try {
@@ -68,6 +70,43 @@ export const createModels = async () => {
                 author: 'TadenStar',
                 license: 'CC0 Attribution'
             }).save()
+        ])
+
+        console.log(values)
+
+    } catch (error) {
+
+        console.log(error)
+    }
+}
+
+// Create demo placed model
+
+export const createPlacedModels = async () => {
+    try {
+
+        const count = await PlacedModel.estimatedDocumentCount()
+
+        if (count > 0) return
+
+        const defaultModel = await Model.findOne({ name: 'Cube 01' })
+
+        const values = await Promise.all([
+            new PlacedModel({
+                baseModel: defaultModel._id,
+                position: [5,0,5],
+                rotation: [0,0,0],
+            }).save(),
+            new PlacedModel({
+                baseModel: defaultModel._id,
+                position: [0,0,0],
+                rotation: [0,0,0],
+            }).save(),
+            new PlacedModel({
+                baseModel: defaultModel._id,
+                position: [-5,0,-5],
+                rotation: [0,0,0],
+            }).save(),
         ])
 
         console.log(values)
@@ -147,7 +186,7 @@ export const createEnvironments = async () => {
 
         if (count > 0) return
 
-        const defaultModel = await Model.findOne({ name: 'Cube 01' })
+        const defaultPlacedModels = await PlacedModel.find()
         const defaultPanel = await Panel.findOne({ name: 'Example panel' })
 
         const values = await Promise.all([
@@ -158,7 +197,7 @@ export const createEnvironments = async () => {
                 imgURL: '/uploads/images/DemoMuseum01.jpg',
                 author: 'Open Virtual Tours',
                 license: 'CC Attribution',
-                modelSlots: [defaultModel._id, defaultModel._id, defaultModel._id, defaultModel._id, defaultModel._id],
+                modelSlots: [defaultPlacedModels[0]._id, defaultPlacedModels[1]._id, defaultPlacedModels[2]._id],
                 panelSlots: [defaultPanel._id, defaultPanel._id, defaultPanel._id, defaultPanel._id, defaultPanel._id],
                 path: {
                     "0": {
@@ -411,7 +450,7 @@ export const createEnvironments = async () => {
                 imgURL: '/uploads/images/DemoMuseum02.jpg',
                 author: 'Open Virtual Tours',
                 license: 'CC Attribution',
-                modelSlots: [defaultModel._id],
+                modelSlots: [defaultPlacedModels[0]._id,defaultPlacedModels[1]._id,defaultPlacedModels[2]._id],
                 panelSlots: [defaultPanel._id, defaultPanel._id, defaultPanel._id, defaultPanel._id, defaultPanel._id],
                 "path": {
                     "0": {

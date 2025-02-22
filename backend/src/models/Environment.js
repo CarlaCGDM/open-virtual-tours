@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose'
+// TODO: "Rename to TourEnvironment"
 
 const environmentSchema = new Schema({
     name: String,
@@ -8,7 +9,7 @@ const environmentSchema = new Schema({
     author: String,
     license: String,
     modelSlots: [{
-        ref: "Model",
+        ref: "PlacedModel",
         type: Schema.Types.ObjectId,
         null: true
     }],
