@@ -51,6 +51,7 @@ const ModelsBucketsList = ({tourEnvironment, handleUpdate}) => {
                 {currentItems.map((index) => (
                     <ModelTargetBucket
                         key={index}
+                        id={index}
                         placedModelId={tourEnvironment.modelSlots[index]}
                         onUpdate={() => { handleUpdate() }}
                     />
