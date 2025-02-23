@@ -33,7 +33,7 @@ const PanelTargetBucket = (props) => {
       const panelSlotsCopy = props.panelSlots
       panelSlotsCopy[props.id] = item.id
 
-      EnvironmentAPI.editOne(props.tourId, { "panelSlots": panelSlotsCopy })
+      EnvironmentAPI.editOne({ "panelSlots": panelSlotsCopy }, props.tourId)
         .then((data) => {
           props.onUpdate()
           updateCard()

@@ -42,7 +42,7 @@ export const EnvironmentAPI = {
     return response.data
   },
 
-  editOne: async function (id, environment) {
+  editOne: async function (environment, id) {
     const response = await api.request({
       url: `/environments/${id}`,
       method: "PUT",

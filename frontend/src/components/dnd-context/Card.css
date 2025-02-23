@@ -1,5 +1,5 @@
 .card {
-    border: 1px solid gray;
+    border: 0px solid gray;
     margin: 4px;
     background-color: white;
     display: flex;
@@ -17,7 +17,7 @@
     width: 100%;
     box-sizing: border-box;
     margin: 0;
-    padding: 0 4px;
+    padding: 2px 4px;
 }
 
 .card img {
@@ -28,8 +28,8 @@
 }
 
 .selected {
-    border-width: 2px;
-    background-color: rgb(255, 191, 95);
+  border: 3px solid #559eff;
+    background-color: #559eff;
 }
 
 @keyframes pop-in {

@@ -31,13 +31,14 @@ const DisplayModel = (props) => {
             .then((data) => {
                 setModel(data)
             })
-    }, []);
+    }, [props.id]);
 
     // Load model
 
     function LazyLoadModel({ url }) {
 
         console.log("rendering lazyloadmodel " + url)
+        console.log("basemodel id is " + props.id)
 
         const deferred = useMemo(() => url, [url]); // Ensure URL only updates when it changes
         const { scene } = useGLTF(deferred)
@@ -89,7 +90,7 @@ const DisplayModel = (props) => {
             >
 
                 <Suspense fallback={null}> {/* provide wireframe box as fallback */}
-                    <LazyLoadModel url={modelURL} />
+                    <LazyLoadModel key={props.id} url={modelURL} />
                 </Suspense>
 
             </group>

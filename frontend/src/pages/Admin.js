@@ -50,7 +50,8 @@ export default function Admin() {
 
             {!showPanelBuckets ? (
               <ModelsBucketsList
-                targetBuckets={tourEnvironment?.modelSlots?.map((_, i) => i) || []}
+                key={tourEnvironmentKey}
+                targetBuckets={tourEnvironment?.modelSlots?.map((_, i) => i) || []} // Send the list of PlacedModels
                 tourEnvironment={tourEnvironment}
                 handleUpdate={refreshTourData}
               />

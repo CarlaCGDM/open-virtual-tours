@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ModelTargetBucket from './ModelTargetBucket.js';
 import './BucketsList.css';
 
-const ModelsBucketsList = (props) => {
+// This component gets a list of placedModels (targetBuckets, the tour environment, and a method to refresh the tour data we see onscreen after changes are applied)
+
+const ModelsBucketsList = ({targetBuckets, tourEnvironment, handleUpdate}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
 
+    useEffect(() => {
+        console.log("tourEnvironment updated:", tourEnvironment);
+      }, [tourEnvironment]);
+
     // Calculate total pages
-    const totalPages = Math.ceil(props.targetBuckets.length / itemsPerPage);
+    const totalPages = Math.ceil(targetBuckets.length / itemsPerPage);
 
     // Get the items for the current page
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentItems = props.targetBuckets.slice(startIndex, startIndex + itemsPerPage);
+    const currentItems = targetBuckets.slice(startIndex, startIndex + itemsPerPage);
 
     // Handle page change
     const handlePreviousPage = () => {
@@ -43,9 +49,9 @@ const ModelsBucketsList = (props) => {
                     <ModelTargetBucket
                         key={id}
                         id={id}
-                        tourId={props.tourEnvironment._id}
-                        modelSlots={props.tourEnvironment.modelSlots}
-                        onUpdate={() => { props.handleUpdate() }}
+                        tourId={tourEnvironment._id}
+                        modelSlots={tourEnvironment.modelSlots}
+                        onUpdate={() => { handleUpdate() }}
                     />
                 ))}
             <button
