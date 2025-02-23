@@ -37,9 +37,6 @@ const DisplayModel = (props) => {
 
     function LazyLoadModel({ url }) {
 
-        console.log("rendering lazyloadmodel " + url)
-        console.log("basemodel id is " + props.id)
-
         const deferred = useMemo(() => url, [url]); // Ensure URL only updates when it changes
         const { scene } = useGLTF(deferred)
         const { width, height, depth } = computeBoundingBox(scene)
@@ -84,7 +81,7 @@ const DisplayModel = (props) => {
             <group
                 position={props.position}
                 rotation={props.rotation}
-                onPointerOver={() => { setHovered(true); console.log("pointer over " + props.slot) }}
+                onPointerOver={() => setHovered(true)}
                 onPointerOut={() => setHovered(false)}
                 onClick={() => handleClick()}
             >

@@ -30,8 +30,6 @@ const Content = (props) => {
 
         const { size } = useThree();
 
-        console.log("rendering lazyloadmodel " + url)
-
         const deferred = useMemo(() => url, [url]); // Ensure URL only updates when it changes
         const { scene } = useGLTF(deferred)
         const { width, height, depth } = computeBoundingBox(scene)

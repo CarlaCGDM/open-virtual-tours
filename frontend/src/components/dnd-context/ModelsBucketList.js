@@ -4,13 +4,16 @@ import './BucketsList.css';
 
 // This component gets a list of placedModels (targetBuckets, the tour environment, and a method to refresh the tour data we see onscreen after changes are applied)
 
-const ModelsBucketsList = ({targetBuckets, tourEnvironment, handleUpdate}) => {
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 5;
+const ModelsBucketsList = ({tourEnvironment, handleUpdate}) => {
 
     useEffect(() => {
         console.log("tourEnvironment updated:", tourEnvironment);
       }, [tourEnvironment]);
+
+    const targetBuckets=tourEnvironment?.modelSlots?.map((_, i) => i) || []// Send the list of PlacedModels
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 5;
 
     // Calculate total pages
     const totalPages = Math.ceil(targetBuckets.length / itemsPerPage);
@@ -45,12 +48,10 @@ const ModelsBucketsList = ({targetBuckets, tourEnvironment, handleUpdate}) => {
                     disabled={currentPage === 1}>
                     &lt;
                 </button>
-                {currentItems.map((id) => (
+                {currentItems.map((index) => (
                     <ModelTargetBucket
-                        key={id}
-                        id={id}
-                        tourId={tourEnvironment._id}
-                        modelSlots={tourEnvironment.modelSlots}
+                        key={index}
+                        placedModelId={tourEnvironment.modelSlots[index]}
                         onUpdate={() => { handleUpdate() }}
                     />
                 ))}

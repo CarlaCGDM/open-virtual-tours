@@ -6,17 +6,16 @@ import { EnvironmentAPI } from '../../apis/EnvironmentAPI.js';
 import Card from './Card.js'
 import './TargetBucket.css'
 
-const ModelTargetBucket = ({ id, tourId, modelSlots, onUpdate }) => {
+const ModelTargetBucket = ({ id, placedModelId, onUpdate }) => {
 
-  const [cards, setCards] = useState([])
+  const [cards, setCards] = useState(null)
+  console.log(cards)
 
   // Get the current card to display
 
   const updateCard = () => {
-    const modelId = modelSlots[id];
-
     // First, get the PlacedModel
-    PlacedModelAPI.getOne(modelId)
+    PlacedModelAPI.getOne(placedModelId)
       .then((placedModelData) => {
         // Use the baseModel field from the PlacedModel response to fetch the actual Model
         return ModelAPI.getOne(placedModelData.baseModel);
@@ -38,9 +37,9 @@ const ModelTargetBucket = ({ id, tourId, modelSlots, onUpdate }) => {
   const [, drop] = useDrop({
     accept: 'CARD',
     drop: (item) => {
-      
+
       // Update the baseModel of the corresponding PlacedModel
-      PlacedModelAPI.editOne({ "baseModel": item.id }, modelSlots[id])
+      PlacedModelAPI.editOne({ "baseModel": item.id }, placedModelId)
         .then(() => {
           // Once both API calls complete, refresh state
           onUpdate();
@@ -56,7 +55,7 @@ const ModelTargetBucket = ({ id, tourId, modelSlots, onUpdate }) => {
   return (
     <div ref={drop} className="target-buckets">
       <p className="bucket-title"> &lt;{id}&gt;</p>
-      {cards.map((card) => (
+      {cards && cards.map((card) => (
         <Card
           key={card._id}
           id={card._id}

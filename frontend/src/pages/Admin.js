@@ -18,8 +18,9 @@ export default function Admin() {
   const [tourEnvironmentKey, setTourEnvironmentKey] = useState(0) // So the tour component will fully reload and show the loading screen again after changes
 
   const handleUseEnvironment = (environment, placedModels) => {
-    refreshTourData();
+
     setTourEnvironmentKey(tourEnvironmentKey + 1)
+    refreshTourData();
   };
 
 
@@ -50,8 +51,7 @@ export default function Admin() {
 
             {!showPanelBuckets ? (
               <ModelsBucketsList
-                key={tourEnvironmentKey}
-                targetBuckets={tourEnvironment?.modelSlots?.map((_, i) => i) || []} // Send the list of PlacedModels
+                key={tourEnvironment?._id}
                 tourEnvironment={tourEnvironment}
                 handleUpdate={refreshTourData}
               />

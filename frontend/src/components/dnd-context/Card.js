@@ -4,6 +4,7 @@ import './Card.css'
 const Card = ({ id, text, imgURL,isSelected,onSelect,delay,isVisible }) => {
 
   //console.log(isVisible)
+  console.log(imgURL)
 
   const [{ isDragging }, drag] = useDrag({
     type: 'CARD',
