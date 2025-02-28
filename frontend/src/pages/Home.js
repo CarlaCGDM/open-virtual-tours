@@ -65,6 +65,7 @@ export default function Home() {
   return <>
     <div className="home-container">
 
+
       {/* <WelcomeModal
         modalOpacity={modalOpacity}
         tourTitle={tourConfig.tourTitle}

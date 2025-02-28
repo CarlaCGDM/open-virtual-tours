@@ -22,6 +22,7 @@ const DevInfoCard = (props) => {
 
       </dev>
 
+
       <div className="credits">
         <small>Author: {props.content.author}</small>
         <small>License: {props.content.license}</small>

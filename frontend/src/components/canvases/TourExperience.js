@@ -50,7 +50,7 @@ export default function TourExperience(props) {
 
   let modelURL = props.tourEnvironment
     ? `${process.env.REACT_APP_UPLOADS_ROOT + props.tourEnvironment.modelURL}`
-    : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/models/CubePreset01.glb`
+    : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/extracted/CubePreset01`
 
   const [loaded, setLoaded] = useState(false);
 
@@ -104,6 +104,7 @@ export default function TourExperience(props) {
       setLoaded={setLoaded}
       displayModels={displayModels}
       overlay={overlay}
+      devMode={props.devMode}
     />}
   </>
 }

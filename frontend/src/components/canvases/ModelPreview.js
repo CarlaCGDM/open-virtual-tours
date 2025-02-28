@@ -2,20 +2,21 @@ import * as THREE from 'three'
 import {
     React,
     useState,
-    useEffect,
     useMemo,
     Suspense
 } from 'react'
 import {
     Canvas,
-    useThree
 } from "@react-three/fiber"
 import {
     Clone,
     useGLTF,
+    Html,
     OrbitControls,
-    OrthographicCamera
+    PerspectiveCamera,
+    Detailed
 } from '@react-three/drei'
+
 
 const Content = (props) => {
 
@@ -25,25 +26,53 @@ const Content = (props) => {
         return { width: size.x, height: size.y, depth: size.z }
     }
 
-    function LazyLoadModel({ url }) {
-
-
-        const { size } = useThree();
-
+    function LazyLoadHighresModel({ url }) {
         const deferred = useMemo(() => url, [url]); // Ensure URL only updates when it changes
-        const { scene } = useGLTF(deferred)
-        const { width, height, depth } = computeBoundingBox(scene)
+        const { scene } = useGLTF(deferred + "/LOD_00.glb")
+        const { width, height, depth } = computeBoundingBox(scene || new THREE.Object3D())
+
+        // Ensure models are loaded
+        if (!scene) {
+            console.warn("Highest resolution model failed to load:", { scene });
+            return null;  // Prevent rendering until models are available
+        }
 
         return (
             <>
-                <OrthographicCamera
-                    makeDefault
-                    position={[0, 0, Math.max(width, depth)]}
-                    zoom={size.height / height * 0.6} />
+                {scene && <Clone object={scene} position={[0, - height * 0.5, 0]} />}
+            </>
 
-                <Clone 
-                object={scene} 
-                position={[0, - height * 0.5, 0]}/>
+        );
+    }
+
+    function LazyLoadModel({ url }) {
+
+        const deferred = useMemo(() => url, [url]); // Ensure URL only updates when it changes
+
+        const [low, mid, high] = useGLTF([
+            deferred + "/LOD_03.glb",
+            deferred + "/LOD_02.glb",
+            deferred + "/LOD_01.glb"
+        ]);
+
+        // Ensure models are loaded
+        if (!low || !mid || !high) {
+            console.warn("One or more LOD models failed to load:", { low, mid, high });
+            return null;  // Prevent rendering until models are available
+        }
+
+        const { scene: scene_low } = low;
+        const { scene: scene_mid } = mid;
+        const { scene: scene_high } = high;
+        const { width, height, depth } = computeBoundingBox(scene_low || new THREE.Object3D())
+
+        return (
+            <>
+                <Detailed distances={[0, 10, 20]}>
+                    {scene_low && <Clone object={scene_high} position={[0, - height * 0.5, 0]} />}
+                    {scene_mid && <Clone object={scene_mid} position={[0, - height * 0.5, 0]} />}
+                    {scene_high && <Clone object={scene_low} position={[0, - height * 0.5, 0]} />}
+                </Detailed>
             </>
 
         );
@@ -56,17 +85,31 @@ const Content = (props) => {
 
             <OrbitControls />
 
+            <PerspectiveCamera makeDefault position={[0, 0, 5]} />
+
             {props.bgColor && <color attach="background" args={[props.bgColor ? props.bgColor : "black"]} />}
 
-            <Suspense fallback={null}>
+            {!props.toggleHighDetail && <Suspense fallback={null}>
                 <LazyLoadModel url={`${process.env.REACT_APP_UPLOADS_ROOT + props.modelURL}`} />
-            </Suspense>
+            </Suspense>}
+
+            {props.toggleHighDetail && <Suspense fallback={<Html style={{ backgroundColor: "black", width: '100px', color: 'white' }}>Loading...</Html>}>
+                <LazyLoadHighresModel url={`${process.env.REACT_APP_UPLOADS_ROOT + props.modelURL}`} />
+            </Suspense>}
         </>
     )
 }
 
 
 const ModelPreview = (props) => {
+    const [toggleHighDetail, setToggleHighDetail] = useState(false);
+
+    let toggleKey = 0
+
+    const handleToggle = () => {
+        setToggleHighDetail(prevState => !prevState); // Toggle the visibility of the highest LOD
+        toggleKey++
+    };
 
     return (
         <>
@@ -74,13 +117,15 @@ const ModelPreview = (props) => {
                 ref={props.canvasRef}
                 gl={{ preserveDrawingBuffer: true }}
             >
-
-                <Content {...props} />
-
+                <Html>
+                    <button className="toggle-lod-button" onClick={handleToggle}>
+                        {toggleHighDetail ? "Hide Highest LOD" : "Show Highest LOD"}
+                    </button>
+                </Html>
+                <Content {...props} toggleHighDetail={toggleHighDetail} key={toggleKey} />
             </Canvas>
         </>
-    )
-}
-
+    );
+};
 export default ModelPreview
 

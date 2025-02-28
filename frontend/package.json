@@ -5,6 +5,7 @@
   "homepage": ".",
   "type": "module",
   "dependencies": {
+    "@craco/craco": "^7.1.0",
     "@csstools/normalize.css": "^12.0.0",
     "@gsap/react": "^2.1.2",
     "@react-three/drei": "9.66.3",

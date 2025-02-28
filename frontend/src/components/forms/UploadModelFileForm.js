@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { FileUploadAPI } from '../../apis/FileUploadAPI.js'
 import ThumbnailStudio from '../canvases/ThumbnailStudio.js'
-import { upload } from '@testing-library/user-event/dist/upload.js'
 
 
 /**
@@ -9,15 +8,15 @@ import { upload } from '@testing-library/user-event/dist/upload.js'
  * @returns 
  */
 
-export default function UploadModelFileForm(props) {
+export default function UploadModelFileForm({ updateModelURL, updateImageURL }) {
 
     // Data sent to the parent component:
 
     const [modelURL, setModelURL] = useState("")
     const [imageURL, setImageURL] = useState("")
 
-    useEffect(() => { props.updateModelURL(modelURL) }, [modelURL]);
-    useEffect(() => { props.updateImageURL(imageURL) }, [imageURL]);
+    useEffect(() => { updateModelURL(modelURL) }, [modelURL]);
+    useEffect(() => { updateImageURL(imageURL) }, [imageURL]);
 
     // Data sent to and obtained from the child component:
 
@@ -32,38 +31,34 @@ export default function UploadModelFileForm(props) {
 
     const [modelFile, setModelFile] = useState("")
 
-    const uploadModel = () => {
+    const [uploadProgress, setUploadProgress] = useState(0);
 
-        // When we hit upload:
-        console.log("File to upload: ")
-        console.log(modelFile)
-
-        if (props.environment === true) {
-
-            // Create form data:
-            const formData = new FormData()
-            formData.append("environment", modelFile)
-
-            // Send data to server and get modelURL:
-            FileUploadAPI.uploadEnvironment(formData).then((response) => {
-                console.log(response)
-                setModelURL(`/uploads/environments/${response.data}`)
-            })
-        } else {
-
-            // Create form data:
-            const formData = new FormData()
-            formData.append("model", modelFile)
-
-            // Send data to server and get modelURL:
-            FileUploadAPI.uploadModel(formData).then((response) => {
-                console.log(response)
-                setModelURL(`/uploads/models/${response.data}`)
-            })
+    const uploadModel = async (e) => {
+        try {
+            e.preventDefault(); // Ensure no default action
+    
+            console.log("File to upload:", modelFile);
+    
+            if (!modelFile) {
+                alert("Please select a file.");
+                return;
+            }
+    
+            if (modelFile.name.endsWith(".zip")) {
+                console.log("Uploading .zip file in chunks...");
+    
+                const response = await FileUploadAPI.uploadFileInChunks(modelFile, setUploadProgress);
+                console.log("Upload Success Response:", response);
+                setModelURL(`${response}`);
+            } else {
+                console.log("You need to provide a .zip file");
+            }
+        } catch (error) {
+            console.error("Error in uploadModel:", error);
         }
+    };
+    
 
-
-    }
 
     // Upload 3D model thumbnail to backend:
 
@@ -83,16 +78,20 @@ export default function UploadModelFileForm(props) {
     return <>
         <div className="model-upload-form">
             <div>
-                <input type="file" name="model" onChange={(e) => { setModelFile(e.target.files[0]) }} />
-                <button onClick={uploadModel}>Upload 3D model</button>
+                <input type="file" name="model" onChange={(e) => setModelFile(e.target.files[0])} />
+                <button type="button" onClick={(e) => uploadModel(e)}>Upload 3D model</button>
+
+                {uploadProgress > 0 && <progress value={uploadProgress} max="100">{uploadProgress}%</progress>}
             </div>
 
-            <ThumbnailStudio
+            <div>{modelURL}</div>
+
+            {/* <ThumbnailStudio
                 modelURL={modelURL}
                 imageURL={imageURL}
                 fileName={modelFile.name}
                 handleSnapshot={(snapshot) => handleSnapshot(snapshot)}
-            />
+            /> */}
         </div>
     </>
 }

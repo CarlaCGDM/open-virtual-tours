@@ -1,0 +1,76 @@
+import { useState } from 'react';
+import { FileUploadAPI } from '../../apis/FileUploadAPI.js';
+
+export default function UploadModelFileForm(props) {
+    // State to store the uploaded file URL
+    const [modelURL, setModelURL] = useState("");
+    const [modelFile, setModelFile] = useState("");  // To store the selected file
+    const [extractedFiles, setExtractedFiles] = useState([]);  // For displaying extracted files
+    const [uploadProgress, setUploadProgress] = useState(0);  // For progress bar
+
+    // Handle file selection
+    const handleFileChange = (e) => {
+        setModelFile(e.target.files[0]);
+    };
+
+    // Upload function
+    const uploadModel = async () => {
+        if (!modelFile) {
+            alert("Please select a .zip or .glb file.");
+            return;
+        }
+
+        // Create formData and append the model file
+        const formData = new FormData();
+        formData.append("model", modelFile);
+
+        try {
+            // Call the backend API to upload the file
+            const response = await FileUploadAPI.uploadModel(formData);
+            if (response.files) {
+                // If .glb files are found, display their links
+                setExtractedFiles(response.files);
+            } else {
+                // If it's a normal .glb file, display its URL
+                setModelURL(`/uploads/models/${response.data}`);
+            }
+            alert("File uploaded successfully!");
+        } catch (error) {
+            console.error("Error uploading model:", error);
+            alert("Error uploading model");
+        }
+    };
+
+    return (
+        <div className="model-upload-form">
+            <div>
+                <input
+                    type="file"
+                    name="model"
+                    onChange={handleFileChange}
+                    accept=".zip, .glb"
+                />
+                <button onClick={uploadModel}>Upload 3D Model</button>
+                {uploadProgress > 0 && <progress value={uploadProgress} max="100">{uploadProgress}%</progress>}
+            </div>
+
+            {extractedFiles.length > 0 && (
+                <div>
+                    <h3>Extracted .glb Files:</h3>
+                    <ul>
+                        {extractedFiles.map((file, index) => (
+                            <li key={index}><a href={file} target="_blank" rel="noopener noreferrer">{file}</a></li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+
+            {modelURL && (
+                <div>
+                    <p>Model uploaded successfully!</p>
+                    <p>Access the model: <a href={modelURL} target="_blank" rel="noopener noreferrer">{modelURL}</a></p>
+                </div>
+            )}
+        </div>
+    );
+}

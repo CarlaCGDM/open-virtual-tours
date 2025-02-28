@@ -5,6 +5,7 @@ import { PopoverPicker } from '../buttons/PopoverPicker.js'
 import ModelPreview from './ModelPreview.js'
 
 
+
 /**
  * Display 3D model with user-picked background and allow user to take snapshot.
  * @returns 
@@ -22,7 +23,7 @@ export default function ThumbnailStudio(props) {
 
     // Data for the 3D model preview:
 
-    const displayModel = useGLTF(props.modelURL ? `${process.env.REACT_APP_UPLOADS_ROOT + props.modelURL}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/models/CubePreset01.glb`)
+    const displayModel = useGLTF(props.modelURL ? `${process.env.REACT_APP_UPLOADS_ROOT + props.modelURL}` : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/extracted/CubePreset01/LOD_03.glb`)
     const canvasRef = useRef("")
 
     // Generate thumbnail image and upload it to backend:
@@ -44,7 +45,7 @@ export default function ThumbnailStudio(props) {
         <div className="snapshot-container">
             <div className="square-canvas-container">
                 <ModelPreview
-                    modelURL={props.modelURL ? props.modelURL : "/uploads/models/CubePreset01.glb"}
+                    modelURL={props.modelURL ? props.modelURL : "/uploads/extracted/CubePreset01/LOD_03.glb"}
                     bgColor={customBackgroundColor}
                     canvasRef={canvasRef}
                 />
