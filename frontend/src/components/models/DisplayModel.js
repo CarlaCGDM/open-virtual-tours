@@ -52,7 +52,7 @@ const DisplayModel = ({ id, slot, position, rotation, devMode, setPopup, setPopu
                 </Annotation>}
                 {<Annotation position={[0, height + 0.75, 0]}>
                     <p className='annotation'
-                    >{model.name}</p>
+                    >{model ? model.name : "..."}</p>
                 </Annotation>}
                 <Select enabled={hovered}>
                     <Clone object={scene} position={[0, 0.3, 0]} />
@@ -96,7 +96,7 @@ const DisplayModel = ({ id, slot, position, rotation, devMode, setPopup, setPopu
                     </Annotation>}
                     {<Annotation position={[0, height + 0.75, 0]}>
                         <p className='annotation'
-                        >{model.name}</p>
+                        >{model ? model.name : "..."}</p>
                     </Annotation>}
                     <Select enabled={hovered}>
                         <Detailed distances={[0, 10, 20]}>
