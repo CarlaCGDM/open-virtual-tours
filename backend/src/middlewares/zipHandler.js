@@ -67,7 +67,7 @@ function storeLODs(glbFiles, unzipDir) {
     try {
         glbFiles.forEach((file, index) => {
             const currentFilePath = path.join(unzipDir, file);
-            const newFilePath = path.join(unzipDir, `LOD_${index}.glb`);
+            const newFilePath = path.join(unzipDir, `LOD_0${index}.glb`);
 
             fs.rename(currentFilePath, newFilePath)
                 .then(() => console.log(`📦 Stored LOD file: ${newFilePath}`))
