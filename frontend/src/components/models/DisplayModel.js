@@ -23,7 +23,7 @@ const DisplayModel = ({ id, slot, position, rotation, devMode, setPopup, setPopu
 
     let modelURL = model.modelURL
         ? `${process.env.REACT_APP_UPLOADS_ROOT + model.modelURL}`
-        : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/extracted/CubePreset01`
+        : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/models/CubePreset01`
 
     useEffect(() => {
         ModelAPI.getOne(id)
