@@ -21,7 +21,7 @@ const DisplayModel = ({ id, slot, position, rotation, devMode, setPopup, setPopu
 
     const [model, setModel] = useState("")
 
-    let modelURL = model.modelURL
+    let modelURL = model
         ? `${process.env.REACT_APP_UPLOADS_ROOT + model.modelURL}`
         : `${process.env.REACT_APP_UPLOADS_ROOT}/uploads/models/CubePreset01`
 
