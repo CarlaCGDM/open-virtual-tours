@@ -86,12 +86,12 @@ export default function UploadModelFileForm({ updateModelURL, updateImageURL }) 
 
             <div>{modelURL}</div>
 
-            {/* <ThumbnailStudio
+            <ThumbnailStudio
                 modelURL={modelURL}
                 imageURL={imageURL}
                 fileName={modelFile.name}
                 handleSnapshot={(snapshot) => handleSnapshot(snapshot)}
-            /> */}
+            />
         </div>
     </>
 }

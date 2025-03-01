@@ -26,6 +26,25 @@ const Content = (props) => {
         return { width: size.x, height: size.y, depth: size.z }
     }
 
+    function LazyLoadLowresModel({ url }) {
+        const deferred = useMemo(() => url, [url]); // Ensure URL only updates when it changes
+        const { scene } = useGLTF(deferred + "/LOD_03.glb")
+        const { width, height, depth } = computeBoundingBox(scene || new THREE.Object3D())
+
+        // Ensure models are loaded
+        if (!scene) {
+            console.warn("Lowest resolution model failed to load:", { scene });
+            return null;  // Prevent rendering until models are available
+        }
+
+        return (
+            <>
+                {scene && <Clone object={scene} position={[0, - height * 0.5, 0]} />}
+            </>
+
+        );
+    }
+
     function LazyLoadHighresModel({ url }) {
         const deferred = useMemo(() => url, [url]); // Ensure URL only updates when it changes
         const { scene } = useGLTF(deferred + "/LOD_00.glb")
@@ -54,6 +73,8 @@ const Content = (props) => {
             deferred + "/LOD_02.glb",
             deferred + "/LOD_01.glb"
         ]);
+
+        console.log("Loaded LODs 1, 2 and 3!")
 
         // Ensure models are loaded
         if (!low || !mid || !high) {
@@ -89,13 +110,17 @@ const Content = (props) => {
 
             {props.bgColor && <color attach="background" args={[props.bgColor ? props.bgColor : "black"]} />}
 
-            {!props.toggleHighDetail && <Suspense fallback={null}>
-                <LazyLoadModel url={`${process.env.REACT_APP_UPLOADS_ROOT + props.modelURL}`} />
-            </Suspense>}
+            {!props.toggleHighDetail &&
+                <Suspense
+                    fallback={<LazyLoadLowresModel url={`${process.env.REACT_APP_UPLOADS_ROOT + props.modelURL}`} />}>
+                    <LazyLoadModel url={`${process.env.REACT_APP_UPLOADS_ROOT + props.modelURL}`} />
+                </Suspense>}
 
-            {props.toggleHighDetail && <Suspense fallback={<Html style={{ backgroundColor: "black", width: '100px', color: 'white' }}>Loading...</Html>}>
-                <LazyLoadHighresModel url={`${process.env.REACT_APP_UPLOADS_ROOT + props.modelURL}`} />
-            </Suspense>}
+            {props.toggleHighDetail &&
+                <Suspense
+                    fallback={<Html style={{ backgroundColor: "black", width: '100px', color: 'white' }}>Loading...</Html>}>
+                    <LazyLoadHighresModel url={`${process.env.REACT_APP_UPLOADS_ROOT + props.modelURL}`} />
+                </Suspense>}
         </>
     )
 }

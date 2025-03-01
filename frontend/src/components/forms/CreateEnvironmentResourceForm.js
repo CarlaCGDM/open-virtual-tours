@@ -25,7 +25,7 @@ export default function CreateEnvironmentResourceForm({ onClose, onCardCreated }
     const [markerData, setMarkerData] = useState("")
     // Upload data to backend:
 
-    const uploadForm = () => {
+    /* const uploadForm = () => {
         console.log("Attempting to upload...");
         console.log("markerData:", markerData);  // 🔥 Debug markerData
         console.log("markerData.floorMarkers:", markerData?.floorMarkers);  
@@ -60,8 +60,32 @@ export default function CreateEnvironmentResourceForm({ onClose, onCardCreated }
         }).catch(error => {
             console.error("Upload failed:", error);
         });
+    }; */
+
+    const uploadForm = () => {
+        console.log("Attempting to upload...");
+
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("description", description);
+        formData.append("author", author);
+        formData.append("license", license);
+        formData.append("modelURL", modelURL);
+        formData.append("imgURL", imageURL);
+
+        formData.append("modelSlots", JSON.stringify([])); // Ensuring empty array
+        formData.append("panelSlots", JSON.stringify([])); // Ensuring empty array
+        formData.append("stringifiedPath", JSON.stringify({}));
+
+        console.log("Final FormData:", [...formData]); // 🔥 Debug entire formData
+
+        EnvironmentAPI.createOne(formData).then((response) => {
+            console.log("Upload success:", response);
+            onCardCreated();
+        }).catch(error => {
+            console.error("Upload failed:", error);
+        });
     };
-    
 
     return (
 
@@ -76,15 +100,14 @@ export default function CreateEnvironmentResourceForm({ onClose, onCardCreated }
                 updateModelURL={(modelURL) => setModelURL(modelURL)}
                 updateImageURL={(imageURL) => setImageURL(imageURL)}
                 environment={true}
-            // return marker data here !!!! 
             />
 
-            {modelURL && (
+            {/* {modelURL && (
                 <ModelParser
                     modelURL={modelURL}
                     updateMarkerData={(markerData) => setMarkerData(markerData)}
                 />
-            )}
+            )} */}
 
             <div className="confirm-cancel-buttons">
                 <button onClick={() => { uploadForm() }} disabled={!modelURL || !imageURL}>Confirm</button>
