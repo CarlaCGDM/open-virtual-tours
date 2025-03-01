@@ -39,6 +39,8 @@ export default function useTourData() {
         setPlacedModels(data);
       };
       fetchPlacedModels();
+    } else {
+      setPlacedModels([])
     }
   }, [tourEnvironment]);
 

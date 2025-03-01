@@ -23,44 +23,8 @@ export default function CreateEnvironmentResourceForm({ onClose, onCardCreated }
     const [modelURL, setModelURL] = useState("")
     const [imageURL, setImageURL] = useState("")
     const [markerData, setMarkerData] = useState("")
+    
     // Upload data to backend:
-
-    /* const uploadForm = () => {
-        console.log("Attempting to upload...");
-        console.log("markerData:", markerData);  // 🔥 Debug markerData
-        console.log("markerData.floorMarkers:", markerData?.floorMarkers);  
-        console.log("markerData.wallMarkers:", markerData?.wallMarkers);
-        console.log("markerData.path:", markerData?.path);
-    
-        if (!markerData || !markerData.floorMarkers || !Array.isArray(markerData.floorMarkers)) {
-            console.error("markerData is missing or incorrect!");
-            return;
-        }
-    
-        const formData = new FormData();
-        formData.append("name", name);
-        formData.append("description", description);
-        formData.append("author", author);
-        formData.append("license", license);
-        formData.append("modelURL", modelURL);
-        formData.append("imgURL", imageURL);
-    
-        markerData.floorMarkers.forEach((id, index) => {
-            formData.append(`modelSlots[${index}]`, id);
-        });
-    
-        formData.append("panelCount", markerData.wallMarkers);
-        formData.append("stringifiedPath", JSON.stringify(markerData.path));
-    
-        console.log("Final FormData:", [...formData]); // 🔥 Debug entire formData
-    
-        EnvironmentAPI.createOne(formData).then((response) => {
-            console.log("Upload success:", response);
-            onCardCreated();
-        }).catch(error => {
-            console.error("Upload failed:", error);
-        });
-    }; */
 
     const uploadForm = () => {
         console.log("Attempting to upload...");
@@ -73,9 +37,14 @@ export default function CreateEnvironmentResourceForm({ onClose, onCardCreated }
         formData.append("modelURL", modelURL);
         formData.append("imgURL", imageURL);
 
-        formData.append("modelSlots", JSON.stringify([])); // Ensuring empty array
-        formData.append("panelSlots", JSON.stringify([])); // Ensuring empty array
-        formData.append("stringifiedPath", JSON.stringify({}));
+        /* markerData.floorMarkers.forEach((id, index) => {
+            formData.append(`modelSlots[${index}]`, id);
+        });
+    
+        markerData.floorMarkers.forEach((id, index) => {
+            formData.append(`modelSlots[${index}]`, id);
+        });
+        formData.append("stringifiedPath", JSON.stringify(markerData.path)); */
 
         console.log("Final FormData:", [...formData]); // 🔥 Debug entire formData
 

@@ -1,13 +1,12 @@
 import * as THREE from 'three'
 import { gsap } from "gsap";
-import { useState, useEffect, Suspense } from 'react'
-import { Clone, useGLTF, ScrollControls, OrbitControls, useProgress } from '@react-three/drei'
+import { useState, useEffect} from 'react'
+import { useProgress } from '@react-three/drei'
 import './TourExperience.css'
 import MemoizedCanvas from './MemoizedCanvas.js'
 import DisplayPath from '../models/DisplayPath.js'
 import DisplayPanel from '../models/DisplayPanel.js'
 import DisplayModel from '../models/DisplayModel.js'
-import { EnvironmentAPI } from '../../apis/EnvironmentAPI.js'; 
 
 /**
  * Main component of the 3D tour application.
